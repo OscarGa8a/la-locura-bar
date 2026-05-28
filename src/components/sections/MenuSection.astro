@@ -1,0 +1,105 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import Icon from "../ui/Icons.astro";
+import { MENU, type MenuTab } from "../../data/content";
+
+const tabs: { id: MenuTab; label: string }[] = [
+  { id: "cervezas", label: "Cervezas" },
+  { id: "tragos", label: "Tragos" },
+  { id: "picar", label: "Para picar" },
+];
+---
+
+<section id="menu" class="pt-14 px-5 border-t border-line">
+  <SectionHeader
+    eyebrow="Carta destacada"
+    title="QUÉ TOMAR"
+    sub="Una selección. La carta completa está en el bar."
+  />
+
+  <!-- Tab bar -->
+  <div class="flex gap-1.5 mt-7 mb-5 p-1 bg-bg-2 border border-line rounded-full" data-menu-tabs>
+    {tabs.map((t) => (
+      <button
+        data-tab={t.id}
+        class={`flex-1 py-2.5 px-2 rounded-full font-body text-xs font-semibold tracking-[0.04em] transition-all duration-150 ${
+          t.id === "cervezas"
+            ? "bg-accent text-bg"
+            : "text-fg"
+        }`}
+      >
+        {t.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- Menu panels -->
+  {(tabs).map((t) => (
+    <div data-panel={t.id} class={t.id !== "cervezas" ? "hidden" : ""}>
+      <div class="flex flex-col">
+        {MENU[t.id].map((item) => (
+          <div class="py-4 border-b border-line flex gap-3 items-start">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-baseline gap-2 flex-wrap">
+                <h3 class="font-display font-medium text-[17px] tracking-[-0.01em] m-0 text-fg">
+                  {item.name}
+                </h3>
+                {item.tag && (
+                  <span class="font-mono text-[9px] tracking-wide uppercase text-accent border border-accent py-px px-1.5 rounded-sm">
+                    {item.tag}
+                  </span>
+                )}
+              </div>
+              <div class="font-body text-xs text-muted mt-0.5">
+                {item.desc}
+              </div>
+            </div>
+            <div class="font-display text-lg text-fg whitespace-nowrap">
+              {item.price}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+
+  <!-- View full menu link -->
+  <a
+    href="#"
+    class="mt-6 flex justify-center items-center gap-2 py-3.5 border border-line-strong rounded-full font-body text-[13px] font-medium"
+  >
+    Ver carta completa <Icon name="arrow" />
+  </a>
+</section>
+
+<script>
+  // Tab switching — vanilla JS island
+  const tabContainer = document.querySelector("[data-menu-tabs]");
+  if (tabContainer) {
+    const buttons = tabContainer.querySelectorAll("[data-tab]");
+    const panels = document.querySelectorAll("[data-panel]");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tabId = btn.getAttribute("data-tab");
+
+        // Update button styles
+        buttons.forEach((b) => {
+          b.classList.remove("bg-accent", "text-bg");
+          b.classList.add("text-fg");
+        });
+        btn.classList.remove("text-fg");
+        btn.classList.add("bg-accent", "text-bg");
+
+        // Show/hide panels
+        panels.forEach((panel) => {
+          if (panel.getAttribute("data-panel") === tabId) {
+            panel.classList.remove("hidden");
+          } else {
+            panel.classList.add("hidden");
+          }
+        });
+      });
+    });
+  }
+</script>
