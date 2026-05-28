@@ -22,3 +22,24 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Local Pi runtime state
+.atl/
+
+# Agent configs
+.agents/*
+.claude/*
+.kiro/*
+.pi/*
+
+# Playwright MCP artifacts
+.playwright-mcp/
+
+# Screenshots (local testing)
+*.png
+
+# Reference project
+docs/
+
+# SDD artifacts
+openspec/
