@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0820;
+  --color-bg-2: #120e2e;
+  --color-bg-3: #1e1744;
+  --color-fg: #f5f0ff;
+  --color-fg-dim: #c9c3e0;
+  --color-muted: #7d7599;
+  --color-accent: #ff2d87;
+  --color-accent-2: #00e5ff;
+  --color-line: rgba(245, 240, 255, 0.12);
+  --color-line-strong: rgba(245, 240, 255, 0.3);
+
+  --font-display: "Bebas Neue", "Archivo", sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --shadow-neon: 0 0 40px rgba(255, 45, 135, 0.3),
+    0 0 80px rgba(0, 229, 255, 0.15);
+
+  --tracking-neon: 0.08em;
+  --tracking-wide: 0.12em;
+  --tracking-ultra: 0.25em;
+}
+
+/* Custom utilities — neon effects */
+@utility text-glow {
+  text-shadow:
+    0 0 20px var(--color-accent),
+    0 0 40px rgba(255, 45, 135, 0.4);
+}
+
+@utility text-glow-cyan {
+  text-shadow:
+    0 0 20px var(--color-accent-2),
+    0 0 40px rgba(0, 229, 255, 0.4);
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Keyframes */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Grain overlay */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.08;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 10;
+}
+
+/* Base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 4px;
+}
