@@ -1,0 +1,49 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import PlaceholderImg from "../ui/PlaceholderImg.astro";
+import Icon from "../ui/Icons.astro";
+
+const shots = [
+  { label: "ambiente · viernes salsa", w: 400, h: 500, tall: true },
+  { label: "cerveza jarra", w: 400, h: 300, tall: false },
+  { label: "barra", w: 400, h: 300, tall: false },
+  { label: "picada tabla", w: 400, h: 300, tall: false },
+  { label: "karaoke jueves", w: 400, h: 500, tall: true },
+  { label: "parche afuera", w: 400, h: 300, tall: false },
+];
+---
+
+<section id="gallery" class="py-14 px-5">
+  <SectionHeader
+    eyebrow="La vibra"
+    title="COMO SE VE"
+  />
+
+  <div class="grid grid-cols-2 auto-rows-[120px] gap-2 mt-7">
+    {shots.map((shot) => (
+      <div class={shot.tall ? "row-span-2" : ""}>
+        <PlaceholderImg
+          label={shot.label}
+          w={shot.w}
+          h={shot.h}
+          class="h-full"
+        />
+      </div>
+    ))}
+  </div>
+
+  <!-- Social proof strip -->
+  <div class="mt-6 flex items-center gap-3 py-3.5 px-4 border border-line rounded-xl">
+    <div class="flex gap-0.5 text-accent">
+      {[0, 1, 2, 3, 4].map(() => (
+        <Icon name="star" />
+      ))}
+    </div>
+    <div>
+      <div class="font-body text-[13px] font-semibold">4.7 / 5</div>
+      <div class="font-mono text-[10px] text-muted tracking-neon">
+        +340 reseñas en Google
+      </div>
+    </div>
+  </div>
+</section>

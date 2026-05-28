@@ -1,0 +1,61 @@
+---
+import Icon from "../ui/Icons.astro";
+import { COPY_NEON, WEEK_EVENTS } from "../../data/content";
+
+// Pick tonight's event (skip closed days — first open event)
+const tonightEvent = WEEK_EVENTS.find((e) => !e.closed) ?? WEEK_EVENTS[1];
+---
+
+<section
+  class="relative py-8 px-5 pb-15 overflow-hidden"
+  style="background: radial-gradient(ellipse at 20% 0%, rgba(255,45,135,0.3) 0%, transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(0,229,255,0.25) 0%, transparent 60%)"
+>
+  <!-- Grid overlay -->
+  <div class="absolute inset-0 opacity-15 bg-grid" />
+
+  <div class="relative">
+    <!-- LIVE ticker -->
+    <div class="inline-flex gap-1.5 items-center py-1 px-2.5 border border-accent text-accent font-mono text-[10px] tracking-ultra uppercase mb-10">
+      <span class="w-1.5 h-1.5 rounded-full bg-accent animate-[pulse-dot_1.5s_infinite]" />
+      LIVE · ABIERTO HOY
+    </div>
+
+    <!-- Title -->
+    <h1 class="font-display text-[84px] leading-[0.85] tracking-[0.01em] font-normal uppercase m-0 text-fg text-glow">
+      <span class="block">LA</span>
+      <span class="block text-accent-2 text-glow-cyan">LOCURA</span>
+      <span class="block text-[21px] text-fg-dim tracking-ultra mt-2" style="text-shadow:none">
+        // BAR
+      </span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="font-body text-base leading-relaxed text-fg-dim mt-10 mb-6 max-w-[340px] text-wrap-pretty">
+      {COPY_NEON.heroSub}
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex gap-2.5 flex-wrap">
+      <a
+        href="#reserve"
+        class="py-3.5 px-5 bg-accent text-bg font-display text-base tracking-wide uppercase inline-flex items-center gap-2 shadow-[0_0_30px_rgba(255,45,135,0.5)]"
+      >
+        {COPY_NEON.ctaPrimary} <Icon name="arrow" />
+      </a>
+      <a
+        href="#menu"
+        class="py-3.5 px-5 border border-accent-2 text-accent-2 font-display text-base tracking-wide uppercase"
+      >
+        {COPY_NEON.ctaSecondary}
+      </a>
+    </div>
+
+    <!-- Tonight chip -->
+    <div class="mt-15 py-3 px-3.5 border border-dashed border-line-strong flex items-center gap-3 font-mono text-[11px] tracking-neon">
+      <span class="text-accent">◉</span>
+      <span>
+        ESTA NOCHE: {tonightEvent.name.toUpperCase()} · DESDE 9PM
+      </span>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,19 @@
+---
+const items = [
+  "★ JUEVES KARAOKE",
+  "PREMIO $200K",
+  "2x1 CERVEZAS LOS MARTES",
+  "VIERNES SALSA EN VIVO",
+  "RESERVA GRATIS",
+];
+
+const separator = "★";
+const track = items.join(` ${separator} `) + ` ${separator} `;
+---
+
+<div class="overflow-hidden whitespace-nowrap bg-accent text-bg py-2.5 font-display text-sm tracking-neon uppercase font-normal">
+  <div class="inline-block animate-[marquee_28s_linear_infinite]">
+    <span class="mr-10">{track}</span>
+    <span class="mr-10">{track}</span>
+  </div>
+</div>
