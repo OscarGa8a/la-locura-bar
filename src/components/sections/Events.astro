@@ -1,6 +1,9 @@
 ---
 import SectionHeader from "../ui/SectionHeader.astro";
 import { WEEK_EVENTS, COPY_NEON } from "../../data/content";
+
+const today = new Date().getDay(); // 0 (Sun) to 6 (Sat)
+const adjustedDay = today === 0 ? 6 : today - 1; // Adjust so Monday=0, Sunday=6
 ---
 
 <section
@@ -15,11 +18,11 @@ import { WEEK_EVENTS, COPY_NEON } from "../../data/content";
 
   <div class="flex flex-col gap-2 mt-8">
     {WEEK_EVENTS.map((event, i) => (
-      <div data-day-index={i} data-event-row>
+      <div>
         {event.closed ? (
           /* Closed day row */
           <div class="py-4.5 px-3.5 bg-bg-2 flex items-center gap-4 opacity-50">
-            <div class="font-mono text-[11px] tracking-wide w-10 text-muted">
+            <div class="font-mono text-xs tracking-wide w-10 text-muted">
               {event.day}
             </div>
             <div class="font-display text-lg text-muted line-through">
@@ -28,25 +31,25 @@ import { WEEK_EVENTS, COPY_NEON } from "../../data/content";
           </div>
         ) : (
           /* Normal day row */
-          <div class="py-4 px-3.5 bg-bg-2 flex items-start gap-4 relative" data-event-inner>
-            <div class="font-display text-[22px] font-normal tracking-[0.05em] w-14 shrink-0" data-day-label>
+          <div class={`py-4 px-3.5 bg-bg-2 flex items-start gap-4 relative ${i === adjustedDay ? 'bg-[linear-gradient(90deg,rgba(255,45,135,0.15),rgba(0,229,255,0.1))] border border-accent' : ''}`}>
+            <div class={`font-display text-2xl font-normal tracking-wider w-14 shrink-0 ${i === adjustedDay ? 'text-accent' : 'text-fg'}`}>
               {event.day}
             </div>
             <div class="flex-1 min-w-0">
-              <div class="font-display text-[22px] leading-[1.1] tracking-[0.02em] uppercase text-fg mb-1">
+              <div class="font-display text-2xl leading-6 tracking-wider uppercase text-fg mb-1">
                 {event.name}
               </div>
-              <div class="font-body text-[13px] text-fg-dim leading-snug">
+              <div class="font-body text-xs text-fg-dim leading-snug">
                 {event.sub}
               </div>
               {event.tag && (
-                <div class="inline-block mt-2 py-1 px-2.5 bg-accent text-bg font-mono text-[10px] tracking-wide uppercase font-semibold rounded-sm">
+                <div class="inline-block mt-2 py-1 px-2.5 bg-accent text-bg font-mono text-xxs tracking-wide uppercase font-semibold rounded-sm">
                   {event.tag}
                 </div>
               )}
             </div>
             {/* HOY badge — hidden by default, shown by script */}
-            <div class="hidden font-mono text-[9px] tracking-wide text-accent py-0.5 px-1.5 border border-accent rounded-full self-start" data-hoy-badge>
+            <div class={`font-mono text-xxs tracking-wide text-accent py-0.5 px-1.5 border border-accent rounded-full self-start ${i === adjustedDay ? 'block' : 'hidden'}`}>
               HOY
             </div>
           </div>
@@ -55,38 +58,3 @@ import { WEEK_EVENTS, COPY_NEON } from "../../data/content";
     ))}
   </div>
 </section>
-
-<script>
-  // Client-side today detection — avoids SSR date mismatch
-  const dayMap = [6, 0, 1, 2, 3, 4, 5]; // getDay() → LUN-DOM index
-  const today = new Date().getDay();
-  const todayIndex = dayMap[today];
-
-  const rows = document.querySelectorAll("[data-event-row]");
-  rows.forEach((row) => {
-    const idx = Number(row.getAttribute("data-day-index"));
-    if (idx === todayIndex) {
-      row.setAttribute("data-today", "");
-
-      // Apply today styling to inner div
-      const inner = row.querySelector("[data-event-inner]");
-      if (inner) {
-        inner.style.background =
-          "linear-gradient(90deg, rgba(255,45,135,0.15), rgba(0,229,255,0.1))";
-        inner.style.border = "1px solid var(--color-accent)";
-      }
-
-      // Accent the day label
-      const dayLabel = row.querySelector("[data-day-label]");
-      if (dayLabel) {
-        dayLabel.style.color = "var(--color-accent)";
-      }
-
-      // Show HOY badge
-      const hoy = row.querySelector("[data-hoy-badge]");
-      if (hoy) {
-        hoy.classList.remove("hidden");
-      }
-    }
-  });
-</script>
