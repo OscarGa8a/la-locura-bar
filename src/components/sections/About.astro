@@ -4,41 +4,38 @@ import PlaceholderImg from "../ui/PlaceholderImg.astro";
 import { COPY_NEON } from "../../data/content";
 
 const stats = [
-  { n: "+80", l: "Referencias de cerveza" },
+  { n: "+8", l: "Referencias de cerveza" },
   { n: "6", l: "Noches temáticas" },
-  { n: "2019", l: "Año de apertura" },
+  { n: "2024", l: "Año de apertura" },
 ];
 ---
 
-<section id="about" class="py-14 px-5">
-  <SectionHeader eyebrow="Sobre nosotros" title={COPY_NEON.aboutTitle} />
-
-  <p class="font-body text-[15px] leading-relaxed text-fg-dim mt-6 mb-8 text-wrap-pretty">
-    {COPY_NEON.aboutBody}
-  </p>
+<section id="about" class="py-14 px-5 space-y-8">
+  <SectionHeader
+    eyebrow="Sobre nosotros"
+    title={COPY_NEON.aboutTitle}
+    sub={COPY_NEON.aboutBody}
+  />
 
   <!-- Photo grid: 1 tall left + 2 stacked right -->
   <div class="grid grid-cols-2 gap-3">
-    <PlaceholderImg label="foto interior" w={200} h={280} />
+    <PlaceholderImg label="foto interior" h={280} />
     <div class="flex flex-col gap-3">
-      <PlaceholderImg label="barra" w={200} h={135} />
-      <PlaceholderImg label="parche" w={200} h={135} />
+      <PlaceholderImg label="barra" h={135} />
+      <PlaceholderImg label="parche" h={135} />
     </div>
   </div>
 
   <!-- Stats row -->
-  <div class="mt-9 grid grid-cols-3 border-t border-b border-line">
+  <div class="grid grid-cols-3 border-t border-b border-line">
     {stats.map((s, i) => (
       <div
-        class:list={[
-          "py-4.5 px-2.5 text-center",
-          { "border-r border-line": i < stats.length - 1 },
-        ]}
+        class={`py-4.5 px-2.5 text-center ${i < stats.length - 1 ? "border-r border-line" : ""}`}
       >
-        <div class="font-display text-[30px] font-medium text-accent leading-none">
+        <div class="font-display text-3xl font-medium text-accent leading-none">
           {s.n}
         </div>
-        <div class="font-mono text-[9px] tracking-wide uppercase text-muted mt-1.5">
+        <div class="font-mono text-xxs tracking-wide uppercase text-muted mt-1.5">
           {s.l}
         </div>
       </div>

@@ -1,16 +1,13 @@
 ---
 import Icon from "../ui/Icons.astro";
+import { socialNetworks } from "../../data/social-networks";
 
-const socials = [
-  { icon: "instagram" as const, label: "@lalocura.bar" },
-  { icon: "tiktok" as const, label: "@lalocurabar" },
-  { icon: "facebook" as const, label: "La Locura Bar" },
-];
+const currentYear = new Date().getFullYear();
 ---
 
 <footer class="pt-12 px-5 pb-8 border-t border-line-strong">
   <!-- Brand name -->
-  <div class="font-display text-[48px] leading-[0.9] font-normal tracking-[0.02em] uppercase text-accent">
+  <div class="font-display text-5xl font-normal tracking-wider uppercase text-accent">
     LA LOCURA.
   </div>
 
@@ -20,21 +17,23 @@ const socials = [
   </div>
 
   <!-- Social link cards -->
-  <div class="flex gap-2.5 mt-5">
-    {socials.map((s) => (
+  <div class="flex gap-2 mt-5">
+    {socialNetworks.map((s) => (
       <a
-        href="#"
-        class="flex-1 py-3 px-2.5 border border-line-strong rounded-[10px] flex flex-col items-center gap-1.5 font-mono text-[10px] tracking-[0.06em]"
+        href={s.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex-1 py-3 px-1 border border-line-strong rounded-lg flex flex-col items-center gap-1.5 font-mono text-xxs"
       >
         <Icon name={s.icon} />
-        <span>{s.label}</span>
+        <span class="text-center">{s.label}</span>
       </a>
     ))}
   </div>
 
   <!-- Copyright strip -->
-  <div class="mt-9 pt-5 border-t border-line font-mono text-[10px] tracking-neon opacity-60 flex justify-between flex-wrap gap-2">
-    <span>© 2026 LA LOCURA BAR</span>
-    <span>MEDELLÍN · CO</span>
+  <div class="mt-9 pt-5 border-t border-line font-mono text-xxs tracking-neon opacity-60 flex justify-between flex-wrap gap-2">
+    <span>© {currentYear} LA LOCURA BAR</span>
+    <span>VILLAVICENCIO · CO</span>
   </div>
 </footer>

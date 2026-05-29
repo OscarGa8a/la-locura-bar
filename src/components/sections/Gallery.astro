@@ -13,7 +13,7 @@ const shots = [
 ];
 ---
 
-<section id="gallery" class="py-14 px-5">
+<section id="gallery" class="py-14 px-5 border-t border-line">
   <SectionHeader
     eyebrow="La vibra"
     title="COMO SE VE"
@@ -25,7 +25,6 @@ const shots = [
         <PlaceholderImg
           label={shot.label}
           w={shot.w}
-          h={shot.h}
           class="h-full"
         />
       </div>
@@ -36,12 +35,12 @@ const shots = [
   <div class="mt-6 flex items-center gap-3 py-3.5 px-4 border border-line rounded-xl">
     <div class="flex gap-0.5 text-accent">
       {[0, 1, 2, 3, 4].map(() => (
-        <Icon name="star" />
+        <Icon name="star" size="sm" />
       ))}
     </div>
     <div>
-      <div class="font-body text-[13px] font-semibold">4.7 / 5</div>
-      <div class="font-mono text-[10px] text-muted tracking-neon">
+      <div class="font-body text-sm font-semibold">4.7 / 5</div>
+      <div class="font-mono text-xxs text-muted tracking-neon">
         +340 reseñas en Google
       </div>
     </div>

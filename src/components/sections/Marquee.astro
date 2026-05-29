@@ -1,19 +1,37 @@
 ---
+// MARQUEE ORIGINAL (comentado para mundial)
+// const items = [
+//   "★ JUEVES KARAOKE",
+//   "PREMIO $200K",
+//   "2x1 CERVEZAS LOS MARTES",
+//   "VIERNES SALSA EN VIVO",
+//   "RESERVA GRATIS",
+// ];
+
+// MARQUEE MUNDIAL COLOMBIA 🇇🇴
 const items = [
-  "★ JUEVES KARAOKE",
-  "PREMIO $200K",
-  "2x1 CERVEZAS LOS MARTES",
-  "VIERNES SALSA EN VIVO",
-  "RESERVA GRATIS",
+  "🇨🇴 COLOMBIA EN PANTALLA GIGANTE",
+  "AQUÍ LA PANTALLA ES TU ESTADIO",
+  "LA MEJOR GRADA DE VILLAVICENCIO",
+  "RESERVA TU MESA",
 ];
 
-const separator = "★";
-const track = items.join(` ${separator} `) + ` ${separator} `;
+// SVG inline de la bandera de Colombia a color
+const flagColombia = `<svg xmlns="http://www.w3.org/2000/svg" class="inline-block mx-2 shadow-lg" viewBox="0 0 16 11" width="16" height="11" style="vertical-align: middle; display: inline-block;">
+  <rect width="16" height="11" fill="#FCD116"/>
+  <rect y="3.67" width="16" height="3.66" fill="#003893"/>
+  <rect y="7.33" width="16" height="3.67" fill="#CE1126"/>
+</svg>`;
+
+const track = items.join(` ${flagColombia} `) + ` ${flagColombia} `;
 ---
 
-<div class="overflow-hidden whitespace-nowrap bg-accent text-bg py-2.5 font-display text-sm tracking-neon uppercase font-normal">
+<div
+  class="overflow-hidden whitespace-nowrap py-2.5 font-display text-sm tracking-ultra uppercase font-normal"
+  style="background-color: #003893; color: #FCD116;"
+>
   <div class="inline-block animate-[marquee_28s_linear_infinite]">
-    <span class="mr-10">{track}</span>
-    <span class="mr-10">{track}</span>
+<span class="mr-10" set:html={track}></span>
+    <span class="mr-10" set:html={track}></span>
   </div>
 </div>

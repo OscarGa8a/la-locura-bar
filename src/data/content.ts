@@ -16,9 +16,9 @@ export interface MenuItem {
 }
 
 export interface Menu {
-  cervezas: MenuItem[];
-  tragos: MenuItem[];
-  picar: MenuItem[];
+  beers: MenuItem[];
+  shots: MenuItem[];
+  // picar: MenuItem[];
 }
 
 export type MenuTab = keyof Menu;
@@ -41,35 +41,138 @@ export interface NavLink {
 
 export const WEEK_EVENTS: WeekEvent[] = [
   { day: "LUN", name: "Cerrado", sub: "Descansamos los lúpulos", closed: true },
-  { day: "MAR", name: "Martes de Rock", sub: "Clásicos en vinilo · 6pm–1am", tag: "2x1 cervezas" },
-  { day: "MIÉ", name: "Miércoles Mezcla", sub: "DJ sets locales · tragos de autor", tag: "Cóctel del día $18k" },
-  { day: "JUE", name: "Jueves Karaoke", sub: "La noche más loca · premios al ganador", tag: "Shots gratis al top 3" },
-  { day: "VIE", name: "Viernes de Salsa", sub: "Banda en vivo desde las 9pm", tag: "Entrada libre" },
-  { day: "SÁB", name: "La Locura Total", sub: "Fiesta hasta el amanecer · 6pm–3am", tag: "Reserva obligatoria" },
-  { day: "DOM", name: "Domingo Resaca", sub: "Micheladas, parrilla y fútbol · 12pm–8pm", tag: "Michelada + sancocho" },
+  {
+    day: "MAR",
+    name: "Martes de Rock",
+    sub: "Clásicos en vinilo · 6pm–1am",
+    tag: "2x1 cervezas",
+  },
+  {
+    day: "MIÉ",
+    name: "Miércoles Mezcla",
+    sub: "DJ sets locales · tragos de autor",
+    tag: "Cóctel del día $18k",
+  },
+  {
+    day: "JUE",
+    name: "Jueves Karaoke",
+    sub: "La noche más loca · premios al ganador",
+    tag: "Shots gratis al top 3",
+  },
+  {
+    day: "VIE",
+    name: "Viernes de Salsa",
+    sub: "Banda en vivo desde las 9pm",
+    tag: "Entrada libre",
+  },
+  {
+    day: "SÁB",
+    name: "La Locura Total",
+    sub: "Fiesta hasta el amanecer · 6pm–3am",
+    tag: "Reserva obligatoria",
+  },
+  {
+    day: "DOM",
+    name: "Domingo Resaca",
+    sub: "Micheladas, parrilla y fútbol · 12pm–8pm",
+    tag: "Michelada + sancocho",
+  },
 ];
 
 export const MENU: Menu = {
-  cervezas: [
-    { name: "Cerveza de la casa", desc: "Pilsen artesanal · jarra 500ml", price: "$8.000", tag: "Nuestra" },
-    { name: "Rubia importada", desc: "Pick del día · pregunta al barman", price: "$14.000" },
-    { name: "IPA local", desc: "Lúpulo fresco de Medellín", price: "$16.000" },
-    { name: "Jarra 1 litro", desc: "Para el parche · Pilsen casa", price: "$20.000", tag: "Más pedida" },
-    { name: "Balde x 6", desc: "Nacionales surtidas", price: "$45.000" },
+  beers: [
+    {
+      name: "Cerveza Aguila 330ml",
+      desc: "La de siempre · bien fría",
+      price: "$3.500",
+    },
+    {
+      name: "Cerveza Poker 330ml",
+      desc: "Otra clásica · para el parche",
+      price: "$3.500",
+    },
+    {
+      name: "Cerveza Club Colombia 330ml",
+      desc: "La clásica · bien fría",
+      price: "$4.000",
+    },
+    {
+      name: "Cerveza Corona 355ml",
+      desc: "Para el parche · con limón es mejor",
+      price: "$5.000",
+    },
+    {
+      name: "Cerveza Costeñita 330ml",
+      desc: "La costeñita · para el parche",
+      price: "$3.500",
+      tag: "Más pedida",
+    },
+    {
+      name: "Cerveza Aguila Light 330ml",
+      desc: "La ligera · para el parche",
+      price: "$3.500",
+    },
+    {
+      name: "Cerveza Costeña 330ml",
+      desc: "La costeña · para el parche",
+      price: "$3.000",
+    },
+    {
+      name: "Cerveza Reeds 330ml",
+      desc: "La reeds · para el parche",
+      price: "$3.000",
+    },
+    {
+      name: "Cerveza Aguila 1000ml",
+      desc: "La de siempre · para compartir",
+      price: "$7.000",
+      tag: "Más pedida",
+    },
+    {
+      name: "Cerveza Poker 1000ml",
+      desc: "La poker · para el parche",
+      price: "$7.000",
+    },
+    {
+      name: "Cerveza Club Colombia 850ml",
+      desc: "La clásica · para compartir",
+      price: "$7.000",
+    },
+    {
+      name: "Cerveza Costeña 850ml",
+      desc: "La costeña · para compartir",
+      price: "$4.500",
+    },
   ],
-  tragos: [
-    { name: "Cuba Libre", desc: "Ron + cola + lima · receta clásica", price: "$18.000" },
-    { name: "Aguardiente solo", desc: "El de siempre · shot o botella", price: "$6.000 / $60.000" },
-    { name: "Margarita", desc: "Tequila, limón, sal · como debe ser", price: "$22.000" },
-    { name: "Old Fashioned", desc: "Whisky, azúcar, amargo · 3 hielos", price: "$28.000", tag: "Del barman" },
-    { name: "Michelada La Locura", desc: "Nuestra receta secreta · picante", price: "$16.000", tag: "Firma" },
+  shots: [
+    {
+      name: "Aguardiente Llanero 1/2 botella",
+      desc: "El de siempre · para compartir",
+      price: "$28.000",
+    },
+    {
+      name: "Aguardiente Llanero 1 botella",
+      desc: "El de siempre · para compartir",
+      price: "$50.000",
+    },
+    {
+      name: "Aguardiente Amarillo 1/2 botella",
+      desc: "El de siempre · para compartir",
+      price: "$30.000",
+    },
+    {
+      name: "Aguardiente Antioqueño 1/2 botella",
+      desc: "El de siempre · para compartir",
+      price: "$26.000",
+    },
   ],
-  picar: [
-    { name: "Papas locas", desc: "Queso, tocineta, guacamole, hogao", price: "$22.000" },
-    { name: "Alitas BBQ", desc: "12 unidades · salsa de la casa", price: "$32.000" },
-    { name: "Chorizo santarrosano", desc: "Con arepa y ají", price: "$18.000" },
-    { name: "Tabla para compartir", desc: "Quesos, embutidos, encurtidos", price: "$48.000", tag: "Para 4" },
-  ],
+  // picar: [
+  //   {
+  //     name: "Dorilocos",
+  //     desc: "Preparalo a tu manera · con todo el parche",
+  //     price: "DEPENDE",
+  //   },
+  // ],
 };
 
 export const COPY_NEON: Copy = {

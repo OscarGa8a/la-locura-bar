@@ -2,14 +2,18 @@
 import SectionHeader from "../ui/SectionHeader.astro";
 import Icon from "../ui/Icons.astro";
 import { COPY_NEON } from "../../data/content";
+import Button from "../ui/Button.astro";
+import { config } from "../../data/config";
 
 const peopleOptions = [1, 2, 3, 4, 5, 6, 7, 8, 10];
-const timeOptions = ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
+const timeOptions = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 AM"];
+const today = new Date().toISOString().split("T")[0];
+const whatsappLink = `https://wa.me/${config.whatsapp}?text=Hola,%20quiero%20hacer%20una%20reserva`;
 ---
 
 <section
   id="reserve"
-  class="pt-14 px-5 border-t border-line"
+  class="py-14 px-5 border-t border-line"
   style="background: linear-gradient(180deg, transparent 0%, rgba(255,45,135,0.08) 100%)"
 >
   <SectionHeader
@@ -19,26 +23,26 @@ const timeOptions = ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
   />
 
   <!-- Form view -->
-  <form id="reserve-form" class="flex flex-col gap-3.5 mt-7" data-reserve-form>
+  <form id="reserve-form" class="flex flex-col gap-3.5 mt-7 mb-4" data-reserve-form data-whatsapp={config.whatsapp}>
     <!-- Nombre -->
     <label class="flex flex-col gap-1.5">
-      <span class="font-mono text-[10px] tracking-wide uppercase text-muted">Nombre</span>
+      <span class="font-mono text-xxs tracking-wide uppercase text-muted">Nombre</span>
       <input
         type="text"
         name="name"
         required
         placeholder="Tu nombre"
-        class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-[10px] text-fg font-body text-[15px] w-full outline-none"
+        class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base w-full outline-none"
       />
     </label>
 
     <!-- Personas + Hora (grid) -->
     <div class="grid grid-cols-2 gap-2.5">
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[10px] tracking-wide uppercase text-muted">Personas</span>
+        <span class="font-mono text-xxs tracking-wide uppercase text-muted">Personas</span>
         <select
           name="people"
-          class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-[10px] text-fg font-body text-[15px] w-full outline-none"
+          class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base w-full outline-none"
         >
           {peopleOptions.map((n) => (
             <option value={n}>{n}</option>
@@ -47,10 +51,10 @@ const timeOptions = ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
         </select>
       </label>
       <label class="flex flex-col gap-1.5">
-        <span class="font-mono text-[10px] tracking-wide uppercase text-muted">Hora</span>
+        <span class="font-mono text-xxs tracking-wide uppercase text-muted">Hora</span>
         <select
           name="time"
-          class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-[10px] text-fg font-body text-[15px] w-full outline-none"
+          class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base w-full outline-none"
         >
           {timeOptions.map((t) => (
             <option value={t}>{t}</option>
@@ -61,46 +65,44 @@ const timeOptions = ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
 
     <!-- Fecha -->
     <label class="flex flex-col gap-1.5">
-      <span class="font-mono text-[10px] tracking-wide uppercase text-muted">Fecha</span>
+      <span class="font-mono text-xxs tracking-wide uppercase text-muted">Fecha</span>
       <input
         type="date"
         name="date"
         required
-        class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-[10px] text-fg font-body text-[15px] w-full outline-none"
+        min={today}
+        class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base w-full outline-none"
       />
     </label>
 
     <!-- WhatsApp -->
-    <label class="flex flex-col gap-1.5">
-      <span class="font-mono text-[10px] tracking-wide uppercase text-muted">WhatsApp</span>
+    <!-- <label class="flex flex-col gap-1.5">
+      <span class="font-mono text-xxs tracking-wide uppercase text-muted">WhatsApp</span>
       <input
         type="tel"
         name="phone"
         required
-        placeholder="+57 300 000 0000"
-        class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-[10px] text-fg font-body text-[15px] w-full outline-none"
+        placeholder="300 000 0000"
+        class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base w-full outline-none"
       />
-    </label>
+    </label> -->
 
     <!-- Submit -->
-    <button
-      type="submit"
-      class="py-4 px-5 bg-accent text-bg font-display text-base tracking-wide uppercase rounded-full mt-2 flex justify-center items-center gap-2"
-    >
+    <Button type="submit" class="rounded-full mt-4 flex justify-center items-center gap-2">
       Confirmar reserva <Icon name="arrow" />
-    </button>
+    </Button>
   </form>
 
   <!-- Success view (hidden by default) -->
   <div id="reserve-success" class="hidden text-center py-14" data-reserve-success>
-    <div class="font-display text-[44px] text-accent leading-none uppercase">
+    <div class="font-display text-5xl text-accent leading-none uppercase">
       ¡Listo!
     </div>
-    <p class="font-body text-[15px] text-fg-dim mt-4 text-wrap-pretty" data-success-text>
+    <p class="font-body text-base text-fg-dim mt-4 text-wrap-pretty" data-success-text>
       <!-- Populated by script -->
     </p>
     <button
-      class="mt-5 py-2.5 px-5 border border-line-strong rounded-full font-body text-[13px]"
+      class="mt-5 py-2.5 px-5 border border-line-strong rounded-full font-body text-sm"
       data-reserve-reset
     >
       Hacer otra reserva
@@ -109,8 +111,10 @@ const timeOptions = ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
 
   <!-- WhatsApp link -->
   <a
-    href="#"
-    class="mt-3.5 flex justify-center items-center gap-2 py-3.5 font-body text-[13px] text-fg-dim"
+    href={whatsappLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex justify-center items-center gap-2 py-3.5 font-body text-sm text-fg-dim"
   >
     <Icon name="whatsapp" /> O escríbenos por WhatsApp
   </a>
@@ -131,13 +135,22 @@ const timeOptions = ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
       const people = data.get("people") as string;
       const time = data.get("time") as string;
       const date = (data.get("date") as string) || "—";
-
+  
       successText.innerHTML = `Tu reserva para <b>${people}</b> personas el <b>${date}</b> a las <b>${time}</b> está en cola. Te confirmamos por WhatsApp en minutos, ${name}.`;
-
+  
+      const whatsapp = form.dataset.whatsapp;
+      window.open(
+        `https://wa.me/${whatsapp}?text=${encodeURIComponent(
+          `¡Hola! Quisiera confirmar mi reserva para ${people} personas el ${date} a las ${time}. Mi nombre es ${name}.`
+        )}`,
+        "_blank",
+        "noopener noreferrer"
+      );
+  
       form.classList.add("hidden");
       successView.classList.remove("hidden");
     });
-
+  
     resetBtn.addEventListener("click", () => {
       successView.classList.add("hidden");
       form.classList.remove("hidden");
