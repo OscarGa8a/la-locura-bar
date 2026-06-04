@@ -37,7 +37,7 @@ const today = new Date().toISOString().split("T")[0];
       </label>
 
       <!-- Personas + Hora (grid) -->
-      <label class="flex flex-col gap-1.5 w-1/2 lg:px-2 order-2 lg:order-3">
+      <label class="flex flex-col gap-1.5 w-1/2 px-2 order-2 lg:order-3">
         <span class="font-mono text-xxs tracking-wide uppercase text-muted">Personas</span>
         <select
           name="people"
@@ -70,9 +70,9 @@ const today = new Date().toISOString().split("T")[0];
             name="date"
             required
             min={today}
-            class="w-full py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base outline-none md:py-3.5 md:px-4"
+            class="date-input w-full py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base outline-none md:py-3.5 md:px-4"
           />
-          <Icon name="calendar" class="absolute right-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+          <Icon name="calendar" class="date-icon hidden absolute right-3 top-1/2 -translate-y-1/2 text-white" />
         </div>
       </label>
 
@@ -91,7 +91,7 @@ const today = new Date().toISOString().split("T")[0];
         <!-- Populated by script -->
       </p>
       <button
-        class="mt-5 py-2.5 px-5 border border-line-strong rounded-full font-body text-sm"
+        class="mt-5 py-2.5 px-5 border border-line-strong rounded-full font-body text-sm hover:bg-bg-3 transition-colors md:text-base"
         data-reserve-reset
       >
         Hacer otra reserva

@@ -121,11 +121,19 @@ select {
 }
 
 /* Hide date input native picker on touch devices — we use a custom calendar icon */
+/* Solo móviles/táctiles: muestra icono custom y oculta el nativo */
 @media (hover: none) and (pointer: coarse) {
-  input[type="date"] {
-    -webkit-appearance: none;
+  .date-icon {
+    display: block !important;
   }
-  input[type="date"]::-webkit-calendar-picker-indicator {
+
+  input[type="date"].date-input {
+    padding-right: 2.75rem;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input[type="date"].date-input::-webkit-calendar-picker-indicator {
     opacity: 0;
   }
 }
