@@ -11,63 +11,69 @@ const mapEmbedUrl = `https://www.google.com/maps?q=${coordinates}&z=15&output=em
 const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${coordinates}`;
 ---
 
-<section id="location" class="py-14 px-5">
-  <SectionHeader
-    eyebrow="Dónde estamos"
-    title="UBICACIÓN"
-  />
-
-  <!-- Stylized map -->
-  <div class="mt-6 aspect-4/3 relative overflow-hidden rounded-lg border border-line">
-    <iframe
-      title="Ubicación de La Locura Bar en Villavicencio"
-      src={mapEmbedUrl}
-      width="100%"
-      height="100%"
-      style="border:0;"
-      allowfullscreen
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      aria-describedby="service-map-help"
-    ></iframe>
-  </div>
-
-  <!-- Info rows -->
-  <div class="mt-6 flex flex-col gap-3.5">
-    <div class="flex gap-3.5 items-start">
-      <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0">
-        <Icon name="pin" />
+<section id="location" class="py-14 px-5 md:py-20 md:px-8 lg:py-24 lg:px-12">
+  <div class="max-w-7xl mx-auto">
+    <SectionHeader
+      eyebrow="Dónde estamos"
+      title="UBICACIÓN"
+    />
+  
+    <div class="flex flex-col lg:flex-row gap-4 md:gap-8 justify-start mt-8">
+      <!-- Stylized map -->
+      <div class="aspect-4/3 relative overflow-hidden rounded-lg border border-line w-full lg:w-1/2 md:aspect-video">
+        <iframe
+          title="Ubicación de La Locura Bar en Villavicencio"
+          src={mapEmbedUrl}
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          aria-describedby="service-map-help"
+        ></iframe>
       </div>
+    
       <div>
-        <div class="font-body text-sm font-semibold">{address}</div>
-        <div class="font-body text-xs text-muted mt-0.5">{neighborhood}</div>
-      </div>
-    </div>
-
-    <div class="flex gap-3.5 items-start">
-      <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0">
-        <Icon name="clock" />
-      </div>
-      <div>
-        <div class="font-body text-sm font-semibold">{config.horario1Text}</div>
-        <div class="font-body text-sm font-semibold">{config.horario2Text}</div>
-        <div class="font-body text-xs text-muted mt-0.5">{config.horatio3Text}</div>
-      </div>
-    </div>
-
-      <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" class="flex gap-3.5 items-start">
-        <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0">
-          <Icon name="phone" />
+        <!-- Info rows -->
+        <div class="flex flex-col gap-3.5 md:gap-5">
+          <div class="flex gap-3.5 items-start">
+            <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0 md:w-10 md:h-10">
+              <Icon name="pin" />
+            </div>
+            <div>
+              <div class="font-body text-sm font-semibold md:text-base">{address}</div>
+              <div class="font-body text-xs text-muted mt-0.5 md:text-sm">{neighborhood}</div>
+            </div>
+          </div>
+      
+          <div class="flex gap-3.5 items-start">
+            <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0 md:w-10 md:h-10">
+              <Icon name="clock" />
+            </div>
+            <div>
+              <div class="font-body text-sm font-semibold md:text-base">{config.horario1Text}</div>
+              <div class="font-body text-sm font-semibold md:text-base">{config.horario2Text}</div>
+              <div class="font-body text-xs text-muted mt-0.5 md:text-sm">{config.horatio3Text}</div>
+            </div>
+          </div>
+      
+            <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" class="flex gap-3.5 items-start">
+              <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0 md:w-10 md:h-10">
+                <Icon name="phone" />
+              </div>
+              <div>
+                <div class="font-body text-sm font-semibold md:text-base">{whatsappNumber}</div>
+                <div class="font-body text-xs text-muted mt-0.5 md:text-sm">WhatsApp para reservas</div>
+              </div>
+            </a>
         </div>
-        <div>
-          <div class="font-body text-sm font-semibold">{whatsappNumber}</div>
-          <div class="font-body text-xs text-muted mt-0.5">WhatsApp para reservas</div>
-        </div>
-      </a>
+
+        <!-- Cómo llegar button -->
+        <Button variant="outline" href={directionsUrl} target="_blank" class="mt-5 w-full flex justify-center items-center rounded-2xl gap-2 md:mt-8 md:w-fit px-18!">
+          Cómo llegar <Icon name="arrow" />
+        </Button>
+      </div>
+    </div>  
   </div>
-
-  <!-- Cómo llegar button -->
-  <Button variant="outline" href={directionsUrl} target="_blank" class="mt-5 w-full flex justify-center items-center    rounded-2xl gap-2">
-    Cómo llegar <Icon name="arrow" />
-  </Button>
 </section>

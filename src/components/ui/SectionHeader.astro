@@ -11,18 +11,18 @@ const { eyebrow, title, sub } = Astro.props;
 <div>
   {
     eyebrow && (
-      <div class="flex items-center gap-2 mb-3 font-mono text-[10px] tracking-ultra uppercase text-accent">
+      <div class="flex items-center gap-2 mb-3 font-mono text-[10px] tracking-ultra uppercase text-accent md:text-xs md:mb-4">
         <span class="inline-block w-4 h-px bg-accent" />
         {eyebrow}
       </div>
     )
   }
-  <h2 class="font-display text-[42px] leading-[0.95] tracking-[0.01em] font-normal uppercase text-wrap-balance m-0">
+  <h2 class="font-display text-[42px] leading-[0.95] tracking-[0.01em] font-normal uppercase text-wrap-balance m-0 md:text-[56px] lg:text-[72px]">
     {title}
   </h2>
   {
     sub && (
-      <p class="font-body text-[15px] text-fg-dim mt-2.5 text-wrap-pretty">
+      <p class="font-body text-[15px] text-fg-dim mt-2.5 text-wrap-pretty md:text-base md:mt-3 lg:text-lg lg:mt-4">
         {sub}
       </p>
     )

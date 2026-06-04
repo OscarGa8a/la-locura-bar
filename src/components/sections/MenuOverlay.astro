@@ -5,7 +5,7 @@ import { NAV_LINKS } from "../../data/content";
 
 <div
   id="menu-overlay"
-  class="hidden fixed inset-0 z-50 bg-bg flex-col py-15 px-7 pb-10 overflow-auto"
+  class="hidden fixed inset-0 z-50 bg-bg flex-col py-15 px-7 pb-10 overflow-auto md:py-20 md:px-12 lg:max-w-2xl lg:mx-auto lg:left-1/2 lg:-translate-x-1/2 lg:rounded-2xl lg:border lg:border-line"
 >
   <!-- Close button -->
   <button
@@ -16,11 +16,11 @@ import { NAV_LINKS } from "../../data/content";
   </button>
 
   <!-- Nav links -->
-  <div class="flex flex-col gap-1 my-5">
+  <div class="flex flex-col gap-1 my-5 md:gap-2 md:my-8">
     {NAV_LINKS.map((link) => (
       <a
         href={link.href}
-        class="py-4 border-b border-line font-display text-[30px] font-normal tracking-[0.04em] uppercase flex justify-between items-center"
+        class="py-4 border-b border-line font-display text-[30px] font-normal tracking-[0.04em] uppercase flex justify-between items-center md:text-[36px] md:py-5 lg:text-[40px]"
       >
         <span>{link.label.toUpperCase()}</span>
         <Icon name="arrow" class="text-accent" />
