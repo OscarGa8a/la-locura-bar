@@ -1,46 +1,38 @@
-# Astro Starter Kit: Basics
+# La Locura Bar
+
+Astro static landing page for La Locura Bar in Villavicencio.
+
+## Commands
 
 ```sh
-pnpm create astro@latest -- --template basics
+pnpm install
+pnpm astro check
+pnpm build
+pnpm preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## SEO deployment configuration
 
-## 🚀 Project Structure
+The canonical production domain is configured as:
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```sh
+https://lalocurabar.com.co
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Astro uses this URL for canonical tags, Open Graph URLs, robots.txt sitemap references, and the `@astrojs/sitemap` integration. If the domain changes, override it before building with either:
 
-## 🧞 Commands
+```sh
+PUBLIC_SITE_URL=https://new-production-domain.example
+# or
+SITE_URL=https://new-production-domain.example
+```
 
-All commands are run from the root of the project, from a terminal:
+## Project structure
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `src/components/seo/SEOHead.astro` — SEO metadata and Schema.org BarOrPub structured data.
+- `src/pages/robots.txt.ts` — robots.txt endpoint with sitemap and AI crawler signals.
+- `src/pages/llms.txt.ts` — concise AI-readable business summary for answer engines.
+- `src/pages/llms-full.txt.ts` — expanded AI-readable profile with menu, activities, FAQ, and citation guidance.
+- `src/components/sections/FAQ.astro` — visible FAQ section for local SEO, AI answers, and FAQPage schema.
+- `src/data/config.ts` — business/contact/location/SEO/GEO constants.
+- `src/data/social-networks.ts` — social profiles exposed in footer and structured data.

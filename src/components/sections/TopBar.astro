@@ -1,12 +1,12 @@
 ---
-import Icon from "../ui/Icons.astro";
-import Button from "../ui/Button.astro";
-import { NAV_LINKS } from "../../data/content";
-import { config } from "../../data/config";
+import Icon from '../ui/Icons.astro';
+import { NAV_LINKS } from '../../data/content';
+import { config } from '../../data/config';
 ---
 
 <nav
   class="sticky top-0 z-50 flex justify-between items-center py-3.5 px-5 border-b border-line bg-bg md:px-8 lg:px-12"
+  aria-label="Navegación principal"
 >
   <div class="font-display text-xl tracking-neon font-normal md:text-2xl lg:text-3xl flex items-center gap-2.5">
     <img src="/images/logo.png" alt="" aria-hidden="true" class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" />
@@ -33,13 +33,18 @@ import { config } from "../../data/config";
         target="_blank"
         rel="noopener noreferrer"
         class="hidden lg:inline-flex items-center gap-2 py-2 px-4 bg-accent/10 border border-accent rounded-full font-mono text-xs tracking-wide uppercase text-accent hover:bg-accent/20 transition-all whatsapp-btn"
+        aria-label="Reservar por WhatsApp de La Locura Bar"
       >
         <Icon name="whatsapp" size="sm" /> WhatsApp
       </a>
   
       <button
+        type="button"
         data-menu-open
         class="flex items-center gap-2 py-1.5 px-2.5 border border-line-strong rounded-full font-mono text-xs tracking-wide uppercase lg:hidden"
+        aria-label="Abrir menú de navegación"
+        aria-controls="menu-overlay"
+        aria-expanded="false"
       >
         <Icon name="menu" /> Menú
       </button>
@@ -55,22 +60,76 @@ import { config } from "../../data/config";
 
 <script>
   // Menu overlay toggle — vanilla JS island
-  const openBtn = document.querySelector("[data-menu-open]");
-  const overlay = document.getElementById("menu-overlay");
-  const closeBtn = document.querySelector("[data-menu-close]");
-  const navLinks = overlay?.querySelectorAll("a");
+  const openBtn = document.querySelector('[data-menu-open]') as HTMLButtonElement | null;
+  const overlay = document.getElementById('menu-overlay');
+  const closeBtn = document.querySelector('[data-menu-close]') as HTMLButtonElement | null;
+  const navLinks = overlay?.querySelectorAll('a');
+  const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  function getFocusableElements() {
+    if (!overlay) return [];
+
+    return Array.from(overlay.querySelectorAll<HTMLElement>(focusableSelector)).filter(
+      (element) => !element.hasAttribute('disabled') && !element.getAttribute('aria-hidden')
+    );
+  }
+
+  function isMenuOpen() {
+    return Boolean(overlay && !overlay.classList.contains('hidden'));
+  }
 
   function openMenu() {
-    overlay?.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
+    if (!overlay) return;
+
+    overlay.classList.remove('hidden');
+    overlay.setAttribute('aria-hidden', 'false');
+    openBtn?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+
+    const firstFocusable = closeBtn ?? getFocusableElements()[0];
+    firstFocusable?.focus();
   }
 
-  function closeMenu() {
-    overlay?.classList.add("hidden");
-    document.body.style.overflow = "";
+  function closeMenu({ returnFocus = true } = {}) {
+    if (!overlay) return;
+
+    overlay.classList.add('hidden');
+    overlay.setAttribute('aria-hidden', 'true');
+    openBtn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+
+    if (returnFocus) {
+      openBtn?.focus();
+    }
   }
 
-  openBtn?.addEventListener("click", openMenu);
-  closeBtn?.addEventListener("click", closeMenu);
-  navLinks?.forEach((link) => link.addEventListener("click", closeMenu));
+  openBtn?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', () => closeMenu());
+  navLinks?.forEach((link) => link.addEventListener('click', () => closeMenu({ returnFocus: false })));
+
+  document.addEventListener('keydown', (event) => {
+    if (!isMenuOpen()) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeMenu();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+
+    const focusableElements = getFocusableElements();
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (!firstElement || !lastElement) return;
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      event.preventDefault();
+      lastElement.focus();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      event.preventDefault();
+      firstElement.focus();
+    }
+  });
 </script>

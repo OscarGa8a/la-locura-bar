@@ -1,24 +1,31 @@
 ---
-import Icon from "../ui/Icons.astro";
-import Button from "../ui/Button.astro";
-import { NAV_LINKS } from "../../data/content";
-import { config } from "../../data/config";
+import Icon from '../ui/Icons.astro';
+import { NAV_LINKS } from '../../data/content';
+import { config } from '../../data/config';
 ---
 
 <div
   id="menu-overlay"
   class="hidden fixed inset-0 z-50 bg-bg flex flex-col py-15 px-7 pb-10 overflow-auto md:py-20 md:px-12 lg:max-w-2xl lg:mx-auto lg:left-1/2 lg:-translate-x-1/2 lg:rounded-2xl lg:border lg:border-line"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="menu-overlay-title"
+  aria-hidden="true"
 >
+  <h2 id="menu-overlay-title" class="visually-hidden">Menú de navegación</h2>
+
   <!-- Close button -->
   <button
+    type="button"
     data-menu-close
     class="absolute top-4.5 right-5 text-fg"
+    aria-label="Cerrar menú de navegación"
   >
     <Icon name="close" />
   </button>
 
   <!-- Nav links -->
-  <div class="flex flex-col gap-1 my-5 md:gap-2 md:my-8">
+  <nav class="flex flex-col gap-1 my-5 md:gap-2 md:my-8" aria-label="Navegación móvil">
     {NAV_LINKS.map((link) => (
       <a
         href={link.href}
@@ -28,7 +35,7 @@ import { config } from "../../data/config";
         <Icon name="arrow" class="text-accent" />
       </a>
     ))}
-  </div>
+  </nav>
 
   <!-- WhatsApp CTA -->
   <div class="mt-auto pt-6">
@@ -37,6 +44,7 @@ import { config } from "../../data/config";
       target="_blank"
       rel="noopener noreferrer"
       class="flex items-center justify-center gap-3 w-full py-4 px-5 bg-accent text-bg rounded-full font-display text-lg tracking-wide uppercase"
+      aria-label="Reservar por WhatsApp de La Locura Bar"
     >
       <Icon name="whatsapp" size="lg" /> Reserva por WhatsApp
     </a>

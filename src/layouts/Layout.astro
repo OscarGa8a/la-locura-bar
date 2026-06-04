@@ -5,9 +5,10 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, ogImage } = Astro.props;
+const { title, description, ogImage, jsonLd } = Astro.props;
 ---
 
 <!doctype html>
@@ -24,9 +25,10 @@ const { title, description, ogImage } = Astro.props;
       rel="stylesheet"
     />
 
-    <SEOHead title={title} description={description} ogImage={ogImage} />
+    <SEOHead title={title} description={description} ogImage={ogImage} jsonLd={jsonLd} />
   </head>
   <body class="bg-bg text-fg font-body grain">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <slot />
   </body>
 </html>

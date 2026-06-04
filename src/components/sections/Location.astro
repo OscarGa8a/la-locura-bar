@@ -32,6 +32,9 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${coor
           referrerpolicy="no-referrer-when-downgrade"
           aria-describedby="service-map-help"
         ></iframe>
+        <p id="service-map-help" class="visually-hidden">
+          Mapa embebido con la ubicación aproximada de La Locura Bar. También puedes usar el botón Cómo llegar.
+        </p>
       </div>
     
       <div>
@@ -70,7 +73,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${coor
         </div>
 
         <!-- Cómo llegar button -->
-        <Button variant="outline" href={directionsUrl} target="_blank" class="mt-5 w-full flex justify-center items-center rounded-2xl gap-2 md:mt-8 md:w-fit px-18!">
+        <Button variant="outline" href={directionsUrl} target="_blank" rel="noopener noreferrer" class="mt-5 w-full flex justify-center items-center rounded-2xl gap-2 md:mt-8 md:w-fit px-18!">
           Cómo llegar <Icon name="arrow" />
         </Button>
       </div>

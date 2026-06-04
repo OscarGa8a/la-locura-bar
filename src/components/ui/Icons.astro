@@ -3,9 +3,10 @@ interface Props {
   name: string;
   class?: string;
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+  label?: string;
 }
 
-const { name, class: className = "", size = "md", } = Astro.props;
+const { name, class: className = "", size = "md", label } = Astro.props;
 
 const sizes = {
   xs: "w-3 h-3",
@@ -15,25 +16,29 @@ const sizes = {
   xl: "w-8 h-8",
   '2xl': "w-10 h-10",
 };
+
+const a11yAttrs = label
+  ? { role: "img" as const, "aria-label": label, focusable: "false" as const }
+  : { "aria-hidden": "true" as const, focusable: "false" as const };
 ---
 
 {
   name === "menu" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <path d="M3 6h18M3 12h18M3 18h18" />
     </svg>
   )
 }
 {
   name === "close" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <path d="M6 6l12 12M18 6L6 18" />
     </svg>
   )
 }
 {
   name === "pin" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <path d="M12 22s-7-7.58-7-13a7 7 0 0 1 14 0c0 5.42-7 13-7 13z" />
       <circle cx="12" cy="9" r="2.5" />
     </svg>
@@ -41,7 +46,7 @@ const sizes = {
 }
 {
   name === "clock" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7v5l3 2" />
     </svg>
@@ -49,14 +54,14 @@ const sizes = {
 }
 {
   name === "phone" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   )
 }
 {
   name === "instagram" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <rect x="3" y="3" width="18" height="18" rx="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" />
@@ -65,7 +70,7 @@ const sizes = {
 }
 {
   name === "tiktok" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <path d="M14 4v9.5a3.5 3.5 0 1 1-3.5-3.5" />
       <path d="M14 4c.5 2.5 2 4 4.5 4.5" />
     </svg>
@@ -73,42 +78,42 @@ const sizes = {
 }
 {
   name === "facebook" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
     </svg>
   )
 }
 {
   name === "whatsapp" && (
-    <svg class={`${className} ${sizes[size]}`}  viewBox="0 0 24 24" fill="currentColor">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`}  viewBox="0 0 24 24" fill="currentColor">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
   )
 }
 {
   name === "arrow" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
       <path d="M5 12h14M13 6l6 6-6 6" />
     </svg>
   )
 }
 {
   name === "star" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="currentColor">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 2l3 7 7 .5-5.5 4.5 2 7-6.5-4-6.5 4 2-7L2 9.5 9 9z" />
     </svg>
   )
 }
 {
   name === "sparkle" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="currentColor">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 2l1.5 6 6 1.5-6 1.5L12 17l-1.5-6-6-1.5 6-1.5z" />
     </svg>
   )
 }
 {
   name === "calendar" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <rect x="3" y="5" width="18" height="16" rx="2" />
       <path d="M8 3v4M16 3v4M3 9h18" />
     </svg>
@@ -116,14 +121,14 @@ const sizes = {
 }
 {
   name === "ball" && (
-    <svg  class={`${className} ${sizes[size]}`} fill="currentColor" viewBox="0 0 256 256">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} fill="currentColor" viewBox="0 0 256 256">
       <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm76.52,147.42H170.9l-9.26-12.76,12.63-36.78,15-4.89,26.24,20.13A87.38,87.38,0,0,1,204.52,171.42Zm-164-34.3L66.71,117l15,4.89,12.63,36.78L85.1,171.42H51.48A87.38,87.38,0,0,1,40.47,137.12Zm10-50.64,5.51,18.6L40.71,116.77A87.33,87.33,0,0,1,50.43,86.48ZM109,152,97.54,118.65,128,97.71l30.46,20.94L147,152Zm91.07-46.92,5.51-18.6a87.33,87.33,0,0,1,9.72,30.29Zm-6.2-35.38-9.51,32.08-15.07,4.89L136,83.79V68.21l29.09-20A88.58,88.58,0,0,1,193.86,69.7ZM146.07,41.87,128,54.29,109.93,41.87a88.24,88.24,0,0,1,36.14,0ZM90.91,48.21l29.09,20V83.79L86.72,106.67l-15.07-4.89L62.14,69.7A88.58,88.58,0,0,1,90.91,48.21ZM63.15,187.42H83.52l7.17,20.27A88.4,88.4,0,0,1,63.15,187.42ZM110,214.13,98.12,180.71,107.35,168h41.3l9.23,12.71-11.83,33.42a88,88,0,0,1-36.1,0Zm55.36-6.44,7.17-20.27h20.37A88.4,88.4,0,0,1,165.31,207.69Z"></path>
     </svg>
   )
 }
 {
   name === "music" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <path d="M9 18V5l12-2v13" />
       <circle cx="6" cy="18" r="3" />
       <circle cx="18" cy="16" r="3" />
@@ -132,7 +137,7 @@ const sizes = {
 }
 {
   name === "beer" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <path d="M6 9h10v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z" />
       <path d="M16 11h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2" />
       <path d="M5 9c1.5-1.5 3.5-1 5 0s3.5-1 5 0" />
@@ -143,7 +148,7 @@ const sizes = {
 }
 {
   name === "users" && (
-    <svg class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <svg {...a11yAttrs} class={`${className} ${sizes[size]}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
       <circle cx="9" cy="7" r="4" />
       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
