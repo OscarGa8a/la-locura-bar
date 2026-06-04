@@ -232,7 +232,7 @@ export const COPY_NEON: Copy = {
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "La Semana", href: "#events" },
+  { label: "El ambiente", href: "#activities" },
   { label: "Sobre nosotros", href: "#about" },
   { label: "Carta", href: "#menu" },
   { label: "Galería", href: "#gallery" },
