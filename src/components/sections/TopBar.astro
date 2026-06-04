@@ -1,17 +1,20 @@
 ---
 import Icon from "../ui/Icons.astro";
+import Button from "../ui/Button.astro";
 import { NAV_LINKS } from "../../data/content";
+import { config } from "../../data/config";
 ---
 
 <nav
   class="sticky top-0 z-50 flex justify-between items-center py-3.5 px-5 border-b border-line bg-bg md:px-8 lg:px-12"
 >
-  <div class="font-display text-xl tracking-neon font-normal md:text-2xl lg:text-3xl">
+  <div class="font-display text-xl tracking-neon font-normal md:text-2xl lg:text-3xl flex items-center gap-2.5">
+    <img src="/images/logo.png" alt="" aria-hidden="true" class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" />
     LA LOCURA
   </div>
 
   <!-- Inline nav links (desktop only) -->
-  <ul class="hidden md:flex items-center gap-6 font-mono text-xs tracking-wide uppercase">
+  <ul class="hidden lg:flex items-center gap-6 font-mono text-xs tracking-wide uppercase">
     {NAV_LINKS.map((link) => (
       <li>
         <a href={link.href} class="text-fg hover:text-accent transition-colors">
@@ -21,20 +24,38 @@ import { NAV_LINKS } from "../../data/content";
     ))}
   </ul>
 
-  <button
-    data-menu-open
-    class="flex items-center gap-2 py-1.5 px-2.5 border border-line-strong rounded-full font-mono text-xs tracking-wide uppercase md:hidden"
-  >
-    <Icon name="menu" /> Menú
-  </button>
+  <div class="flex items-center gap-3">
+    <!-- WhatsApp desktop -->
+    <a
+      href={config.whatsappReserveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hidden lg:inline-flex items-center gap-2 py-2 px-4 bg-accent/10 border border-accent rounded-full font-mono text-xs tracking-wide uppercase text-accent hover:bg-accent/20 transition-all whatsapp-btn"
+    >
+      <Icon name="whatsapp" size="sm" /> WhatsApp
+    </a>
+
+    <button
+      data-menu-open
+      class="flex items-center gap-2 py-1.5 px-2.5 border border-line-strong rounded-full font-mono text-xs tracking-wide uppercase lg:hidden"
+    >
+      <Icon name="menu" /> Menú
+    </button>
+  </div>
 </nav>
+
+<style>
+  .whatsapp-btn {
+    box-shadow: 0 0 16px rgba(255, 45, 135, 0.15);
+  }
+</style>
 
 <script>
   // Menu overlay toggle — vanilla JS island
   const openBtn = document.querySelector("[data-menu-open]");
   const overlay = document.getElementById("menu-overlay");
   const closeBtn = document.querySelector("[data-menu-close]");
-  const navLinks = overlay?.querySelectorAll("a[href^='#']");
+  const navLinks = overlay?.querySelectorAll("a");
 
   function openMenu() {
     overlay?.classList.remove("hidden");

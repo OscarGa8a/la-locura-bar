@@ -8,7 +8,6 @@ import { config } from "../../data/config";
 const peopleOptions = [1, 2, 3, 4, 5, 6, 7, 8, 10];
 const timeOptions = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 AM"];
 const today = new Date().toISOString().split("T")[0];
-const whatsappLink = `https://wa.me/${config.whatsapp}?text=Hola,%20quiero%20hacer%20una%20reserva`;
 ---
 
 <section
@@ -22,7 +21,7 @@ const whatsappLink = `https://wa.me/${config.whatsapp}?text=Hola,%20quiero%20hac
       title="RESERVA TU MESA"
       sub={COPY_NEON.reserveNote}
     />
-  
+
     <!-- Form view -->
     <form id="reserve-form" class="flex flex-wrap lg:-mx-2 gap-y-3.5 mt-7 mb-4 md:gap-y-4" data-reserve-form data-whatsapp={config.whatsapp}>
       <!-- Nombre -->
@@ -36,10 +35,8 @@ const whatsappLink = `https://wa.me/${config.whatsapp}?text=Hola,%20quiero%20hac
           class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base w-full outline-none md:py-3.5 md:px-4"
         />
       </label>
-  
+
       <!-- Personas + Hora (grid) -->
-      <!-- <div class="grid grid-cols-2 gap-2.5 md:gap-3 lg:gap-4">
-      </div> -->
       <label class="flex flex-col gap-1.5 w-1/2 lg:px-2 order-2 lg:order-3">
         <span class="font-mono text-xxs tracking-wide uppercase text-muted">Personas</span>
         <select
@@ -63,25 +60,28 @@ const whatsappLink = `https://wa.me/${config.whatsapp}?text=Hola,%20quiero%20hac
           ))}
         </select>
       </label>
-  
+
       <!-- Fecha -->
       <label class="flex flex-col gap-1.5 w-full lg:w-1/2 px-2 order-4 lg:order-2">
         <span class="font-mono text-xxs tracking-wide uppercase text-muted">Fecha</span>
-        <input
-          type="date"
-          name="date"
-          required
-          min={today}
-          class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base w-full outline-none md:py-3.5 md:px-4"
-        />
+        <div class="relative">
+          <input
+            type="date"
+            name="date"
+            required
+            min={today}
+            class="w-full py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base outline-none md:py-3.5 md:px-4"
+          />
+          <Icon name="calendar" class="absolute right-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+        </div>
       </label>
-  
+
       <!-- Submit -->
-      <Button type="submit" class="rounded-full mt-4 flex justify-center items-center gap-2 md:mt-5 order-5 lg:order-5 mx-auto w-full md:px-18 md:w-auto">
-        Confirmar reserva <Icon name="arrow" />
+      <Button type="submit" class="rounded-full mt-4 flex justify-center items-center gap-2 md:mt-5 order-5 lg:order-5 mx-auto w-full md:px-18 md:w-auto text-base!">
+        Confirmar reserva <Icon name="whatsapp" />
       </Button>
     </form>
-  
+
     <!-- Success view (hidden by default) -->
     <div id="reserve-success" class="hidden text-center py-14 md:py-20 lg:py-24" data-reserve-success>
       <div class="font-display text-5xl text-accent leading-none uppercase md:text-6xl lg:text-7xl">
@@ -97,15 +97,15 @@ const whatsappLink = `https://wa.me/${config.whatsapp}?text=Hola,%20quiero%20hac
         Hacer otra reserva
       </button>
     </div>
-  
+
     <!-- WhatsApp link -->
     <a
-      href={whatsappLink}
+      href={config.whatsappReserveUrl}
       target="_blank"
       rel="noopener noreferrer"
       class="flex justify-center items-center gap-2 py-3.5 font-body text-sm text-fg-dim md:text-base"
     >
-      <Icon name="whatsapp" /> O escríbenos por WhatsApp
+      O escríbenos por WhatsApp <Icon name="whatsapp" />
     </a>
   </div>
 </section>
@@ -125,9 +125,9 @@ const whatsappLink = `https://wa.me/${config.whatsapp}?text=Hola,%20quiero%20hac
       const people = data.get("people") as string;
       const time = data.get("time") as string;
       const date = (data.get("date") as string) || "—";
-  
+
       successText.innerHTML = `Tu reserva para <b>${people}</b> personas el <b>${date}</b> a las <b>${time}</b> está en cola. Te confirmamos por WhatsApp en minutos, ${name}.`;
-  
+
       const whatsapp = form.dataset.whatsapp;
       window.open(
         `https://wa.me/${whatsapp}?text=${encodeURIComponent(
@@ -136,11 +136,11 @@ const whatsappLink = `https://wa.me/${config.whatsapp}?text=Hola,%20quiero%20hac
         "_blank",
         "noopener noreferrer"
       );
-  
+
       form.classList.add("hidden");
       successView.classList.remove("hidden");
     });
-  
+
     resetBtn.addEventListener("click", () => {
       successView.classList.add("hidden");
       form.classList.remove("hidden");

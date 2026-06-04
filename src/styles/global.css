@@ -115,3 +115,17 @@ button {
 input {
   color-scheme: dark;
 }
+
+select {
+  color-scheme: dark;
+}
+
+/* Hide date input native picker on touch devices — we use a custom calendar icon */
+@media (hover: none) and (pointer: coarse) {
+  input[type="date"] {
+    -webkit-appearance: none;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
+}
