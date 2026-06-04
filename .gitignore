@@ -35,9 +35,6 @@ pnpm-debug.log*
 # Playwright MCP artifacts
 .playwright-mcp/
 
-# Screenshots (local testing)
-*.png
-
 # Reference project
 docs/
 
