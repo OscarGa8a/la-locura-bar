@@ -68,8 +68,8 @@ export const WEEK_EVENTS: WeekEvent[] = [
   {
     day: "SÁB",
     name: "La Locura Total",
-    sub: "Fiesta hasta el amanecer · 6pm–3am",
-    tag: "Reserva obligatoria",
+    sub: "Fiesta hasta el amanecer · 6pm–4am",
+    tag: "Reserva o llega al parche",
   },
   {
     day: "DOM",
