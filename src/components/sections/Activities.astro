@@ -1,0 +1,93 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import Icon from "../ui/Icons.astro";
+import { ACTIVITIES } from "../../data/content";
+
+const icons = ["ball", "music", "beer", "users"] as const;
+---
+
+<section
+  id="activities"
+  class="py-14 px-5 pb-12 bg-bg-2 md:py-20 md:px-8 md:pb-16 lg:py-24 lg:px-12"
+>
+  <div class="max-w-7xl mx-auto">
+    <SectionHeader
+      eyebrow="EL AMBIENTE"
+      title="QUÉ SE VIVE AQUÍ"
+      sub="Fútbol, música, cerveza fría y el parche del bueno en Villavicencio. Cada noche tiene su propia locura."
+    />
+
+    <div
+      class="grid grid-cols-1 gap-4 mt-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5"
+      data-activities-grid
+    >
+      {ACTIVITIES.map((event, i) => (
+        <div
+          class="group relative flex flex-col items-center text-center p-6 bg-bg rounded-xl border border-line transition-all duration-300 hover:border-accent hover:shadow-neon lg:p-8"
+          style={`animation-delay: ${i * 120}ms`}
+          data-animate="fade-up"
+        >
+          {/* Number */}
+          <span class="font-mono text-xxs tracking-ultra uppercase text-muted absolute top-4 right-4 lg:top-5 lg:right-5">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+
+          {/* Icon */}
+          <div class="mb-4 text-accent-2 transition-colors duration-300 group-hover:text-accent">
+            <Icon name={icons[i]} size="2xl" />
+          </div>
+
+          {/* Title */}
+          <h3 class="font-display text-xl leading-tight tracking-wider uppercase text-fg mb-2 lg:text-2xl">
+            {event.name}
+          </h3>
+
+          {/* Description */}
+          <p class="font-body text-xs text-fg-dim leading-snug max-w-55 md:text-sm">
+            {event.sub}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  [data-animate="fade-up"] {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease-out forwards;
+    animation-play-state: paused;
+  }
+
+  [data-activities-grid].in-view [data-animate="fade-up"] {
+    animation-play-state: running;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const grid = document.querySelector("[data-activities-grid]");
+
+  if (grid) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            grid.classList.add("in-view");
+            observer.unobserve(grid);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(grid);
+  }
+</script>

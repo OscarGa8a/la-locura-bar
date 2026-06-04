@@ -8,6 +8,12 @@ export interface WeekEvent {
   closed?: boolean;
 }
 
+export interface Activity {
+  name: string;
+  sub: string;
+  tag?: string;
+}
+
 export interface MenuItem {
   name: string;
   desc: string;
@@ -76,6 +82,25 @@ export const WEEK_EVENTS: WeekEvent[] = [
     name: "Domingo Resaca",
     sub: "Micheladas, parrilla y fútbol · 12pm–8pm",
     tag: "Michelada + sancocho",
+  },
+];
+
+export const ACTIVITIES: Activity[] = [
+  {
+    name: "Fútbol en pantalla gigante",
+    sub: "Partidos, cerveza fría y ambiente para vivir cada jugada con el parche.",
+  },
+  {
+    name: "Música para el ambiente",
+    sub: "Pide tus canciones, canta, baila y disfruta una noche a tu gusto.",
+  },
+  {
+    name: "Cerveza fría y tragos",
+    sub: "El plan perfecto para pasar de paso, quedarse un rato o empezar la noche.",
+  },
+  {
+    name: "Parche de barrio",
+    sub: "Un lugar relajado, con buena energía, atención cercana y ambiente sin complicarse.",
   },
 ];
 
