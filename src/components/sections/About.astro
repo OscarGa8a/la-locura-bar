@@ -10,35 +10,39 @@ const stats = [
 ];
 ---
 
-<section id="about" class="py-14 px-5 space-y-8">
-  <SectionHeader
-    eyebrow="Sobre nosotros"
-    title={COPY_NEON.aboutTitle}
-    sub={COPY_NEON.aboutBody}
-  />
-
-  <!-- Photo grid: 1 tall left + 2 stacked right -->
-  <div class="grid grid-cols-2 gap-3">
-    <PlaceholderImg label="foto interior" h={280} />
-    <div class="flex flex-col gap-3">
-      <PlaceholderImg label="barra" h={135} />
-      <PlaceholderImg label="parche" h={135} />
-    </div>
-  </div>
-
-  <!-- Stats row -->
-  <div class="grid grid-cols-3 border-t border-b border-line">
-    {stats.map((s, i) => (
-      <div
-        class={`py-4.5 px-2.5 text-center ${i < stats.length - 1 ? "border-r border-line" : ""}`}
-      >
-        <div class="font-display text-3xl font-medium text-accent leading-none">
-          {s.n}
-        </div>
-        <div class="font-mono text-xxs tracking-wide uppercase text-muted mt-1.5">
-          {s.l}
-        </div>
+<section id="about" class="py-14 px-5 space-y-8 md:py-20 md:px-8 lg:py-24 lg:px-12">
+  <div class="max-w-7xl mx-auto">
+    <SectionHeader
+      eyebrow="Sobre nosotros"
+      title={COPY_NEON.aboutTitle}
+      sub={COPY_NEON.aboutBody}
+    />
+  
+    <!-- Photo grid: 1 tall left + 2 stacked right -->
+    <div class="grid grid-cols-2 gap-3 my-8 md:gap-5 lg:gap-6">
+      <div class="md:h-87.5">
+        <PlaceholderImg label="foto interior" h={280} />
       </div>
-    ))}
+      <div class="flex flex-col gap-3">
+        <PlaceholderImg label="barra" h={135} />
+        <PlaceholderImg label="parche" h={135} />
+      </div>
+    </div>
+  
+    <!-- Stats row -->
+    <div class="grid grid-cols-3 border-t border-b border-line md:py-6 md:px-4 lg:py-8">
+      {stats.map((s, i) => (
+        <div
+          class={`py-4.5 px-2.5 text-center ${i < stats.length - 1 ? "border-r border-line" : ""}`}
+        >
+          <div class="font-display text-3xl font-medium text-accent leading-none md:text-4xl lg:text-5xl">
+            {s.n}
+          </div>
+          <div class="font-mono text-xxs tracking-wide uppercase text-muted mt-1.5 md:text-xs">
+            {s.l}
+          </div>
+        </div>
+      ))}
+    </div>
   </div>
 </section>

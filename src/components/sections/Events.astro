@@ -8,53 +8,55 @@ const adjustedDay = today === 0 ? 6 : today - 1; // Adjust so Monday=0, Sunday=6
 
 <section
   id="events"
-  class="py-14 px-5 pb-12 border-t border-b border-line"
+  class="py-14 px-5 pb-12 border-t border-b border-line md:py-20 md:px-8 md:pb-16 lg:py-24 lg:px-12"
 >
-  <SectionHeader
-    eyebrow={COPY_NEON.promoBadge}
-    title="LA SEMANA"
-    sub="Cada noche tiene su propia locura."
-  />
-
-  <div class="flex flex-col gap-2 mt-8">
-    {WEEK_EVENTS.map((event, i) => (
-      <div>
-        {event.closed ? (
-          /* Closed day row */
-          <div class="py-4.5 px-3.5 bg-bg-2 flex items-center gap-4 opacity-50">
-            <div class="font-mono text-xs tracking-wide w-10 text-muted">
-              {event.day}
-            </div>
-            <div class="font-display text-lg text-muted line-through">
-              {event.name} — {event.sub}
-            </div>
-          </div>
-        ) : (
-          /* Normal day row */
-          <div class={`py-4 px-3.5 bg-bg-2 flex items-start gap-4 relative ${i === adjustedDay ? 'bg-[linear-gradient(90deg,rgba(255,45,135,0.15),rgba(0,229,255,0.1))] border border-accent' : ''}`}>
-            <div class={`font-display text-2xl font-normal tracking-wider w-14 shrink-0 ${i === adjustedDay ? 'text-accent' : 'text-fg'}`}>
-              {event.day}
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="font-display text-2xl leading-6 tracking-wider uppercase text-fg mb-1">
-                {event.name}
+  <div class="max-w-7xl mx-auto">
+    <SectionHeader
+      eyebrow={COPY_NEON.promoBadge}
+      title="LA SEMANA"
+      sub="Cada noche tiene su propia locura."
+    />
+  
+    <div class="flex flex-col gap-2 mt-8 md:gap-4 md:grid md:grid-cols-2">
+      {WEEK_EVENTS.map((event, i) => (
+        <div>
+          {event.closed ? (
+            /* Closed day row */
+            <div class="py-4 px-3.5 bg-bg-2 flex items-start h-full gap-4 opacity-50 md:py-4 md:px-4 md:rounded-lg">
+              <div class="font-mono text-xs tracking-wide w-10 text-muted md:text-sm">
+                {event.day}
               </div>
-              <div class="font-body text-xs text-fg-dim leading-snug">
-                {event.sub}
+              <div class="font-display text-lg text-muted line-through">
+                {event.name} — {event.sub}
               </div>
-              {event.tag && (
-                <div class="inline-block mt-2 py-1 px-2.5 bg-accent text-bg font-mono text-xxs tracking-wide uppercase font-semibold rounded-sm">
-                  {event.tag}
+            </div>
+          ) : (
+            /* Normal day row */
+            <div class={`py-4 px-3.5 bg-bg-2 flex items-start h-full gap-4 relative rounded-lg ${i === adjustedDay ? 'border border-accent shadow-neon' : ''}`}>
+              <div class={`font-display text-2xl font-normal tracking-wider w-12 shrink-0 ${i === adjustedDay ? 'text-accent' : 'text-fg'} md:text-2xl lg:text-3xl`}>
+                {event.day}
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="font-display text-xl leading-tight tracking-wider uppercase text-fg mb-1 md:text-xl lg:text-2xl">
+                  {event.name}
                 </div>
-              )}
+                <div class="font-body text-xs text-fg-dim leading-snug md:text-sm">
+                  {event.sub}
+                </div>
+                {event.tag && (
+                  <div class="inline-block mt-2 py-1 px-2.5 bg-accent text-bg font-mono text-xxs tracking-wide uppercase font-semibold rounded-sm md:text-xs">
+                    {event.tag}
+                  </div>
+                )}
+              </div>
+              {/* HOY badge — hidden by default, shown by script */}
+              <div class={`font-mono text-xxs tracking-wide text-accent py-0.5 px-1.5 border border-accent rounded-full self-start md:text-xs ${i === adjustedDay ? 'block' : 'hidden'}`}>
+                HOY
+              </div>
             </div>
-            {/* HOY badge — hidden by default, shown by script */}
-            <div class={`font-mono text-xxs tracking-wide text-accent py-0.5 px-1.5 border border-accent rounded-full self-start ${i === adjustedDay ? 'block' : 'hidden'}`}>
-              HOY
-            </div>
-          </div>
-        )}
-      </div>
-    ))}
+          )}
+        </div>
+      ))}
+    </div>
   </div>
 </section>
