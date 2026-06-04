@@ -1,0 +1,14 @@
+---
+import Icon from "../ui/Icons.astro";
+import { config } from "../../data/config";
+---
+
+<a
+  href={config.whatsappReserveUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="fixed bottom-5 right-5 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-accent text-bg shadow-lg shadow-accent/50 md:hidden"
+  aria-label="Reservar por WhatsApp"
+>
+  <Icon name="whatsapp" size="xl" />
+</a>

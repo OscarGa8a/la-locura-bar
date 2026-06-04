@@ -30,7 +30,7 @@ const tonightEvent = WEEK_EVENTS[adjustedDay];
       <span class="block">LA</span>
       <span class="block text-accent-2 text-glow-cyan">LOCURA</span>
       <span class="block text-xl text-fg-dim tracking-ultra mt-2 text-shadow-none">
-        // BAR
+        // BAR EN VILLAVICENCIO
       </span>
     </h1>
 
@@ -71,6 +71,14 @@ const tonightEvent = WEEK_EVENTS[adjustedDay];
   <!-- Grid overlay -->
   <div class="absolute inset-0 opacity-15 bg-grid" />
 
+  <!-- Logo watermark -->
+  <img
+    src="/images/logo-transparent.png"
+    alt=""
+    aria-hidden="true"
+    class="absolute right-0 top-1/2 -translate-y-1/2 w-[320px] opacity-30 pointer-events-none select-none lg:w-[400px]"
+  />
+
   <!-- Inner container centered, max-width constrained -->
   <div class="relative w-full max-w-7xl mx-auto md:py-16 lg:py-20">
 
@@ -80,12 +88,12 @@ const tonightEvent = WEEK_EVENTS[adjustedDay];
         <span class="w-2 h-2 rounded-full bg-accent animate-pulse" />
         EN VIVO · ABIERTO HOY
       </div>
-  
+
       <!-- Brand name — single line, scales with viewport -->
       <h1 class="font-display font-normal uppercase m-0 leading-none text-fg text-glow inline-flex items-baseline flex-nowrap gap-x-2 md:gap-x-3 lg:gap-x-4">
         <span class="text-5xl md:text-8xl lg:text-9xl">LA</span>
         <span class="text-7xl md:text-8xl lg:text-9xl text-accent-2 text-glow-cyan">LOCURA</span>
-        <span class="text-sm md:text-base lg:text-lg text-fg-dim tracking-ultra self-end pb-1">// BAR</span>
+        <span class="text-sm md:text-base lg:text-lg text-fg-dim tracking-ultra self-end pb-1">// BAR EN VILLAVICENCIO</span>
       </h1>
     </div>
 
@@ -110,34 +118,23 @@ const tonightEvent = WEEK_EVENTS[adjustedDay];
         </div>
       </div>
 
-      <!-- Right column: tonight event — visual card -->
+      <!-- Right column: static featured card -->
       <div class="mt-8 lg:mt-0 lg:w-80 lg:shrink-0 max-w-xl">
         <div class="py-5 px-5 border border-dashed border-line-strong rounded-xl bg-bg-2 backdrop-blur-sm">
           <div class="font-mono text-xxs tracking-ultra uppercase text-muted mb-3">
-            Esta noche
+            FÚTBOL, MÚSICA Y PARCHE
           </div>
-          {tonightEvent.closed ? (
-            <div class="font-display text-2xl text-muted leading-none uppercase line-through">
-              Cerrado
-            </div>
-          ) : (
-            <>
-              <div class="font-display text-3xl leading-none tracking-wider uppercase text-fg mb-2">
-                {tonightEvent.name}
-              </div>
-              <div class="font-body text-sm text-fg-dim mb-3">
-                {tonightEvent.sub}
-              </div>
-              {tonightEvent.tag && (
-                <div class="inline-block py-1 px-2.5 bg-accent text-bg font-mono text-xs tracking-wide uppercase font-semibold rounded-sm">
-                  {tonightEvent.tag}
-                </div>
-              )}
-              <div class="mt-4 font-mono text-xs text-accent tracking-wide">
-                DESDE LAS 6 PM
-              </div>
-            </>
-          )}
+          <div class="font-display text-3xl leading-none tracking-wider uppercase text-fg mb-2">
+            Vení al parche
+          </div>
+          <div class="font-body text-sm text-fg-dim mb-3">
+            Cerveza fría, canción a todo volumen y ambiente de barrio sin complicarse.
+          </div>
+          <div class="mt-4">
+            <Button href="#reserve" variant="primary" class="w-full justify-center text-sm">
+              PIDE TU CANCIÓN
+            </Button>
+          </div>
         </div>
       </div>
     </div>
