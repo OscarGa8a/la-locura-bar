@@ -1,11 +1,11 @@
 ---
-import SectionHeader from "../ui/SectionHeader.astro";
-import { MENU, type MenuTab } from "../../data/content";
+import SectionHeader from '../ui/SectionHeader.astro';
+import { MENU, type MenuTab } from '../../data/content';
 
 const tabs: { id: MenuTab; label: string }[] = [
-  { id: "beersPersonal", label: "Cervezas personales" },
-  { id: "beersShare", label: "Cervezas para compartir" },
-  { id: "licores", label: "Licores" },
+  { id: 'beersPersonal', label: 'Cervezas personales' },
+  { id: 'beersShare', label: 'Cervezas para compartir' },
+  { id: 'licores', label: 'Licores' },
 ];
 ---
 
@@ -22,19 +22,30 @@ const tabs: { id: MenuTab; label: string }[] = [
       <div
         class="flex overflow-x-auto scrollbar-width:none [&::-webkit-scrollbar]:hidden scroll-smooth snap-x snap-mandatory gap-2 pb-1 mb-6 md:justify-center md:gap-3 md:overflow-visible md:snap-none"
         data-menu-tabs
+        role="tablist"
+        aria-label="Categorías de la carta"
       >
-        {tabs.map((t) => (
-          <button
-            data-tab={t.id}
-            class={`shrink-0 snap-start py-2.5 px-5 rounded-full font-body text-xs font-semibold tracking-[0.04em] transition-all duration-150 border md:text-sm md:py-3 md:px-6 ${
-              t.id === "beersPersonal"
-                ? "bg-accent text-bg border-accent"
-                : "bg-bg-2 text-fg border-line hover:border-line-strong"
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
+        {tabs.map((t) => {
+          const isActive = t.id === 'beersPersonal';
+          return (
+            <button
+              id={`menu-tab-${t.id}`}
+              type="button"
+              data-tab={t.id}
+              role="tab"
+              aria-selected={isActive ? 'true' : 'false'}
+              aria-controls={`menu-panel-${t.id}`}
+              tabindex={isActive ? '0' : '-1'}
+              class={`shrink-0 snap-start py-2.5 px-5 rounded-full font-body text-xs font-semibold tracking-[0.04em] transition-all duration-150 border md:text-sm md:py-3 md:px-6 ${
+                isActive
+                  ? 'bg-accent text-bg border-accent'
+                  : 'bg-bg-2 text-fg border-line hover:border-line-strong'
+              }`}
+            >
+              {t.label}
+            </button>
+          );
+        })}
       </div>
 
       <!-- Menu panels -->
@@ -44,8 +55,13 @@ const tabs: { id: MenuTab; label: string }[] = [
         const list = items.filter((i) => !i.featured);
         return (
           <div
+            id={`menu-panel-${t.id}`}
             data-panel={t.id}
-            class={t.id !== "beersPersonal" ? "hidden" : ""}
+            role="tabpanel"
+            aria-labelledby={`menu-tab-${t.id}`}
+            tabindex="0"
+            hidden={t.id !== 'beersPersonal'}
+            class={t.id !== 'beersPersonal' ? 'hidden' : ''}
           >
             {/* Featured cards */}
             {featured.length > 0 && (
@@ -53,9 +69,9 @@ const tabs: { id: MenuTab; label: string }[] = [
                 {featured.map((item) => (
                   <div class="group bg-bg-2 rounded-xl border border-line overflow-hidden transition-all duration-300 hover:border-accent hover:shadow-neon">
                     {/* Image placeholder */}
-                    <div class="aspect-16/10 w-full bg-bg-3 border-b border-line flex items-center justify-center text-muted font-mono text-xs uppercase tracking-wide">
+                    <div class="aspect-16/10 w-full bg-bg-3 border-b border-line flex items-center justify-center text-muted font-mono text-xs uppercase tracking-wide" aria-label={`Imagen pendiente de ${item.name}`} role="img">
                       <span class="flex items-center gap-1.5">
-                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-muted animate-pulse" />
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-muted animate-pulse" aria-hidden="true" />
                         {item.image}
                       </span>
                     </div>
@@ -87,7 +103,7 @@ const tabs: { id: MenuTab; label: string }[] = [
               {list.map((item) => (
                 <div class="py-4 flex gap-3 items-start not-last:border-b not-last:border-line md:py-5 md:gap-4 lg:py-6">
                   {/* Thumbnail */}
-                  <div class="shrink-0 w-16 h-16 rounded-lg bg-bg-3 border border-line flex items-center justify-center text-muted font-mono text-xxs uppercase tracking-wide md:w-18 md:h-18">
+                  <div class="shrink-0 w-16 h-16 rounded-lg bg-bg-3 border border-line flex items-center justify-center text-muted font-mono text-xxs uppercase tracking-wide md:w-18 md:h-18" aria-label={`Imagen pendiente de ${item.name}`} role="img">
                     {item.image}
                   </div>
                   <div class="flex-1 min-w-0">
@@ -119,48 +135,75 @@ const tabs: { id: MenuTab; label: string }[] = [
 </div>
 
 <script>
-  const tabContainer = document.querySelector("[data-menu-tabs]") as HTMLElement | null;
-  const panels = document.querySelectorAll("[data-panel]");
+  const tabContainer = document.querySelector('[data-menu-tabs]') as HTMLElement | null;
+  const panels = document.querySelectorAll<HTMLElement>('[data-panel]');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  function switchTab(tabId: string | null) {
-    if (!tabId) return;
+  function setActiveStyles(button: HTMLElement, isActive: boolean) {
+    button.classList.toggle('bg-accent', isActive);
+    button.classList.toggle('text-bg', isActive);
+    button.classList.toggle('border-accent', isActive);
+    button.classList.toggle('text-fg', !isActive);
+    button.classList.toggle('bg-bg-2', !isActive);
+    button.classList.toggle('border-line', !isActive);
+    button.setAttribute('aria-selected', String(isActive));
+    button.setAttribute('tabindex', isActive ? '0' : '-1');
+  }
 
-    if (tabContainer) {
-      const buttons = tabContainer.querySelectorAll("[data-tab]");
-      buttons.forEach((b) => {
-        b.classList.remove("bg-accent", "text-bg", "border-accent");
-        b.classList.add("text-fg", "bg-bg-2", "border-line");
-      });
+  function switchTab(tabId: string | null, focusTab = false) {
+    if (!tabId || !tabContainer) return;
 
-      const activeBtn = tabContainer.querySelector(`[data-tab="${tabId}"]`);
-      if (activeBtn) {
-        activeBtn.classList.remove("text-fg", "bg-bg-2", "border-line");
-        activeBtn.classList.add("bg-accent", "text-bg", "border-accent");
-      }
+    const buttons = Array.from(tabContainer.querySelectorAll<HTMLButtonElement>('[data-tab]'));
+
+    buttons.forEach((button) => {
+      setActiveStyles(button, button.dataset.tab === tabId);
+    });
+
+    const activeBtn = buttons.find((button) => button.dataset.tab === tabId);
+    if (focusTab) {
+      activeBtn?.focus();
     }
 
     panels.forEach((panel) => {
-      if (panel.getAttribute("data-panel") === tabId) {
-        panel.classList.remove("hidden");
-      } else {
-        panel.classList.add("hidden");
-      }
+      const isActive = panel.dataset.panel === tabId;
+      panel.hidden = !isActive;
+      panel.classList.toggle('hidden', !isActive);
     });
+
+    if (activeBtn && window.innerWidth < 768) {
+      tabContainer.scrollTo({
+        left: activeBtn.offsetLeft - tabContainer.offsetLeft,
+        behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+      });
+    }
   }
 
   if (tabContainer) {
-    const buttons = tabContainer.querySelectorAll("[data-tab]") as NodeListOf<HTMLButtonElement>;
-    buttons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const tabId = btn.getAttribute("data-tab");
-        switchTab(tabId);
+    const buttons = Array.from(tabContainer.querySelectorAll<HTMLButtonElement>('[data-tab]'));
 
-        if (window.innerWidth < 768) {
-          tabContainer.scrollTo({
-            left: btn.offsetLeft - tabContainer.offsetLeft,
-            behavior: "smooth",
-          });
+    buttons.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        switchTab(btn.dataset.tab ?? null);
+      });
+
+      btn.addEventListener('keydown', (event) => {
+        const lastIndex = buttons.length - 1;
+        let nextIndex = index;
+
+        if (event.key === 'ArrowRight') {
+          nextIndex = index === lastIndex ? 0 : index + 1;
+        } else if (event.key === 'ArrowLeft') {
+          nextIndex = index === 0 ? lastIndex : index - 1;
+        } else if (event.key === 'Home') {
+          nextIndex = 0;
+        } else if (event.key === 'End') {
+          nextIndex = lastIndex;
+        } else {
+          return;
         }
+
+        event.preventDefault();
+        switchTab(buttons[nextIndex]?.dataset.tab ?? null, true);
       });
     });
   }

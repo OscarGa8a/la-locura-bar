@@ -1,13 +1,13 @@
 ---
-import SectionHeader from "../ui/SectionHeader.astro";
-import Icon from "../ui/Icons.astro";
-import { COPY_NEON } from "../../data/content";
-import Button from "../ui/Button.astro";
-import { config } from "../../data/config";
+import SectionHeader from '../ui/SectionHeader.astro';
+import Icon from '../ui/Icons.astro';
+import { COPY_NEON } from '../../data/content';
+import Button from '../ui/Button.astro';
+import { config } from '../../data/config';
 
 const peopleOptions = [1, 2, 3, 4, 5, 6, 7, 8, 10];
-const timeOptions = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 AM"];
-const today = new Date().toISOString().split("T")[0];
+const timeOptions = ['6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM', '12 AM'];
+const today = new Date().toISOString().split('T')[0];
 ---
 
 <section
@@ -31,6 +31,7 @@ const today = new Date().toISOString().split("T")[0];
           type="text"
           name="name"
           required
+          autocomplete="name"
           placeholder="Tu nombre"
           class="py-3 px-3.5 bg-bg-3 border border-line-strong rounded-xl text-fg font-body text-base w-full outline-none md:py-3.5 md:px-4"
         />
@@ -76,14 +77,24 @@ const today = new Date().toISOString().split("T")[0];
         </div>
       </label>
 
-      <!-- Submit -->
-      <Button type="submit" class="rounded-full mt-4 flex justify-center items-center gap-2 md:mt-5 order-5 lg:order-5 mx-auto w-full md:px-18 md:w-auto text-base!">
-        Confirmar reserva <Icon name="whatsapp" />
-      </Button>
+      <div class="flex justify-center w-full md:mt-5 order-5 lg:order-5 px-2">
+        <!-- Submit -->
+        <Button type="submit" class="rounded-full mt-4 flex justify-center items-center gap-2 w-full md:px-18 md:w-auto text-base!">
+          Confirmar reserva <Icon name="whatsapp" />
+        </Button>
+      </div>
     </form>
 
     <!-- Success view (hidden by default) -->
-    <div id="reserve-success" class="hidden text-center py-14 md:py-20 lg:py-24" data-reserve-success>
+    <div
+      id="reserve-success"
+      class="hidden text-center py-14 md:py-20 lg:py-24"
+      data-reserve-success
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      tabindex="-1"
+    >
       <div class="font-display text-5xl text-accent leading-none uppercase md:text-6xl lg:text-7xl">
         ¡Listo!
       </div>
@@ -91,6 +102,7 @@ const today = new Date().toISOString().split("T")[0];
         <!-- Populated by script -->
       </p>
       <button
+        type="button"
         class="mt-5 py-2.5 px-5 border border-line-strong rounded-full font-body text-sm hover:bg-bg-3 transition-colors md:text-base"
         data-reserve-reset
       >
@@ -104,6 +116,7 @@ const today = new Date().toISOString().split("T")[0];
       target="_blank"
       rel="noopener noreferrer"
       class="flex justify-center items-center gap-2 py-3.5 font-body text-sm text-fg-dim md:text-base"
+      aria-label="Escribir por WhatsApp a La Locura Bar para reservar"
     >
       O escríbenos por WhatsApp <Icon name="whatsapp" />
     </a>
@@ -112,39 +125,56 @@ const today = new Date().toISOString().split("T")[0];
 
 <script>
   // Reservation form — vanilla JS island
-  const form = document.querySelector("[data-reserve-form]") as HTMLFormElement | null;
-  const successView = document.querySelector("[data-reserve-success]") as HTMLElement | null;
-  const successText = document.querySelector("[data-success-text]") as HTMLElement | null;
-  const resetBtn = document.querySelector("[data-reserve-reset]") as HTMLButtonElement | null;
+  const form = document.querySelector('[data-reserve-form]') as HTMLFormElement | null;
+  const successView = document.querySelector('[data-reserve-success]') as HTMLElement | null;
+  const successText = document.querySelector('[data-success-text]') as HTMLElement | null;
+  const resetBtn = document.querySelector('[data-reserve-reset]') as HTMLButtonElement | null;
+
+  function strongText(value: string) {
+    const strong = document.createElement('strong');
+    strong.textContent = value;
+    return strong;
+  }
 
   if (form && successView && successText && resetBtn) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       const data = new FormData(form);
-      const name = data.get("name") as string;
-      const people = data.get("people") as string;
-      const time = data.get("time") as string;
-      const date = (data.get("date") as string) || "—";
+      const name = String(data.get('name') ?? '').trim();
+      const people = String(data.get('people') ?? '—');
+      const time = String(data.get('time') ?? '—');
+      const date = String(data.get('date') || '—');
 
-      successText.innerHTML = `Tu reserva para <b>${people}</b> personas el <b>${date}</b> a las <b>${time}</b> está en cola. Te confirmamos por WhatsApp en minutos, ${name}.`;
+      successText.replaceChildren(
+        'Tu reserva para ',
+        strongText(people),
+        ' personas el ',
+        strongText(date),
+        ' a las ',
+        strongText(time),
+        ' está en cola. Te confirmamos por WhatsApp en minutos',
+        name ? `, ${name}.` : '.'
+      );
 
       const whatsapp = form.dataset.whatsapp;
       window.open(
         `https://wa.me/${whatsapp}?text=${encodeURIComponent(
           `¡Hola! Quisiera confirmar mi reserva para ${people} personas el ${date} a las ${time}. Mi nombre es ${name}.`
         )}`,
-        "_blank",
-        "noopener noreferrer"
+        '_blank',
+        'noopener noreferrer'
       );
 
-      form.classList.add("hidden");
-      successView.classList.remove("hidden");
+      form.classList.add('hidden');
+      successView.classList.remove('hidden');
+      successView.focus();
     });
 
-    resetBtn.addEventListener("click", () => {
-      successView.classList.add("hidden");
-      form.classList.remove("hidden");
+    resetBtn.addEventListener('click', () => {
+      successView.classList.add('hidden');
+      form.classList.remove('hidden');
       form.reset();
+      form.querySelector<HTMLElement>('input, select, button')?.focus();
     });
   }
 </script>

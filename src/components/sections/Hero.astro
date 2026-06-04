@@ -1,11 +1,7 @@
 ---
 import Icon from "../ui/Icons.astro";
-import { COPY_NEON, WEEK_EVENTS } from "../../data/content";
+import { COPY_NEON } from "../../data/content";
 import Button from "../ui/Button.astro";
-
-const today = new Date().getDay(); // 0 (Sun) to 6 (Sat)
-const adjustedDay = today === 0 ? 6 : today - 1; // Adjust so Monday=0, Sunday=6
-const tonightEvent = WEEK_EVENTS[adjustedDay];
 ---
 
 <!-- ═══════════════════════════════════════════ -->
@@ -52,11 +48,7 @@ const tonightEvent = WEEK_EVENTS[adjustedDay];
 
     <!-- Tonight chip -->
     <div class="mt-15 py-3 px-3.5 border border-dashed border-line-strong flex items-center gap-3 font-mono text-xs tracking-wider">
-      <span class="text-accent">◉</span>
-      {tonightEvent.closed
-        ? "CERRADO HOY · NOS VEMOS MAÑANA"
-        : `HOY: ${tonightEvent.name.toUpperCase()} · DESDE 6PM`
-      }
+      <span class="text-accent">◉</span> FÚTBOL, MÚSICA Y PARCHE
     </div>
   </div>
 </section>

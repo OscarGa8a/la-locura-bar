@@ -1,8 +1,6 @@
 ---
 import Icon from "../ui/Icons.astro";
 import { socialNetworks } from "../../data/social-networks";
-
-const currentYear = new Date().getFullYear();
 ---
 
 <footer class="pt-12 px-5 pb-8 border-t border-line-strong md:pt-16 md:px-8 md:pb-10 lg:pt-20 lg:px-12">
@@ -27,6 +25,7 @@ const currentYear = new Date().getFullYear();
           target="_blank"
           rel="noopener noreferrer"
           class="flex-1 py-3 px-1 border border-line-strong rounded-lg flex flex-col items-center gap-1.5 font-mono text-xxs md:py-4 md:px-2 hover:bg-bg-2 transition-colors md:text-xs"
+          aria-label={`Visitar ${s.name} de La Locura Bar`}
         >
           <Icon name={s.icon} />
           <span class="text-center">{s.label}</span>
@@ -37,7 +36,16 @@ const currentYear = new Date().getFullYear();
 
   <!-- Copyright strip -->
   <div class="mt-9 pt-5 border-t border-line font-mono text-xxs tracking-neon opacity-60 flex justify-between flex-wrap gap-2 md:mt-12 md:pt-6">
-    <span>© {currentYear} LA LOCURA BAR</span>
+    <span data-year></span>
     <span>VILLAVICENCIO · CO</span>
   </div>
 </footer>
+
+<script>
+  const currentYear = new Date().getFullYear();
+
+  const yearElement = document.querySelector('[data-year]');
+  if (yearElement) {
+    yearElement.textContent = `© ${currentYear} LA LOCURA BAR`;
+  }
+</script>

@@ -5,32 +5,49 @@ import '../styles/global.css';
 import TopBar from '../components/sections/TopBar.astro';
 import Marquee from '../components/sections/Marquee.astro';
 import Hero from '../components/sections/Hero.astro';
-import Events from '../components/sections/Events.astro';
 import About from '../components/sections/About.astro';
 import MenuSection from '../components/sections/MenuSection.astro';
 import Gallery from '../components/sections/Gallery.astro';
+import FAQ from '../components/sections/FAQ.astro';
 import Reserve from '../components/sections/Reserve.astro';
 import Location from '../components/sections/Location.astro';
 import Footer from '../components/sections/Footer.astro';
 import MenuOverlay from '../components/sections/MenuOverlay.astro';
 import Activities from '../components/sections/Activities.astro';
 import WhatsAppFab from '../components/ui/WhatsAppFab.astro';
+import { FAQS } from '../data/content';
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
 ---
 
 <Layout
   title="Cervezas frías, tragos y locura bien hecha en Villavicencio"
-  description="Bar en Villavicencio. Cervezas frías, tragos clásicos, noches temáticas de martes a domingo. Reserva tu mesa."
+  description="Bar en Villavicencio. Cervezas frías, tragos clásicos, música, fútbol en pantalla gigante y reservas por WhatsApp."
+  jsonLd={faqJsonLd}
 >
   <TopBar />
-  <Marquee />
-  <Hero />
-  <!-- <Events /> -->
-  <Activities />
-  <About />
-  <MenuSection />
-  <Gallery />
-  <Reserve />
-  <Location />
+  <main id="main-content" tabindex="-1">
+    <Marquee />
+    <Hero />
+    <Activities />
+    <About />
+    <MenuSection />
+    <Gallery />
+    <Reserve />
+    <Location />
+    <FAQ />
+  </main>
   <Footer />
   <MenuOverlay />
   <WhatsAppFab />
