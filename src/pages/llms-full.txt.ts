@@ -32,6 +32,7 @@ This file is written for AI assistants, retrieval systems, search engines, and a
 - Name: ${config.siteName}
 - Legal name: ${config.legalName}
 - Schema.org type: ${config.schemaType}
+- Google Business category: ${config.googleBusinessCategory}
 - Category: bar, pub, nightlife, local business
 - Website: ${url("/")}
 - Canonical domain: ${config.siteUrl}
@@ -49,6 +50,7 @@ This file is written for AI assistants, retrieval systems, search engines, and a
 - Coordinates: ${config.location.lat}, ${config.location.lng}
 - WhatsApp: ${config.whatsappNumber}
 - WhatsApp reservations URL: ${config.whatsappReserveUrl}
+- Google Maps profile: ${config.googleMapsUrl}
 - Location section: ${url("/#location")}
 
 ## Opening hours

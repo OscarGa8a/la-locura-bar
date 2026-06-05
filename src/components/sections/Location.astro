@@ -8,7 +8,7 @@ const { address, neighborhood, location, whatsappNumber, whatsapp } = config;
 
 const coordinates = `${location.lat},${location.lng}`;
 const mapEmbedUrl = `https://www.google.com/maps?q=${coordinates}&z=15&output=embed`;
-const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${coordinates}`;
+const directionsUrl = config.googleMapsUrl;
 ---
 
 <section id="location" class="py-14 px-5 md:py-20 md:px-8 lg:py-24 lg:px-12">
@@ -33,7 +33,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${coor
           aria-describedby="service-map-help"
         ></iframe>
         <p id="service-map-help" class="visually-hidden">
-          Mapa embebido con la ubicación aproximada de La Locura Bar. También puedes usar el botón Cómo llegar.
+          Mapa embebido con la ubicación de La Locura Bar. También puedes usar el botón Cómo llegar para abrir la ficha oficial en Google Maps.
         </p>
       </div>
     
