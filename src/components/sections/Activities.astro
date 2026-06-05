@@ -2,8 +2,6 @@
 import SectionHeader from "../ui/SectionHeader.astro";
 import Icon from "../ui/Icons.astro";
 import { ACTIVITIES } from "../../data/content";
-
-const icons = ["ball", "music", "beer", "users"] as const;
 ---
 
 <section
@@ -14,11 +12,11 @@ const icons = ["ball", "music", "beer", "users"] as const;
     <SectionHeader
       eyebrow="EL AMBIENTE"
       title="QUÉ SE VIVE AQUÍ"
-      sub="Fútbol, música, cerveza fría y el parche del bueno en Villavicencio. Cada noche tiene su propia locura."
+      sub="Bolirana, fútbol, música, baile, cerveza fría y el parche del bueno en Villavicencio. Cada noche tiene su propia locura."
     />
 
     <div
-      class="grid grid-cols-1 gap-4 mt-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5"
+      class="grid grid-cols-1 gap-4 mt-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 lg:gap-5"
       data-activities-grid
     >
       {ACTIVITIES.map((event, i) => (
@@ -34,7 +32,7 @@ const icons = ["ball", "music", "beer", "users"] as const;
 
           {/* Icon */}
           <div class="mb-4 text-accent-2 transition-colors duration-300 group-hover:text-accent">
-            <Icon name={icons[i]} size="2xl" />
+            <Icon name={event.icon} size="2xl" />
           </div>
 
           {/* Title */}

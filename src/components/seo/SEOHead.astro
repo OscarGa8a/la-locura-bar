@@ -95,6 +95,18 @@ const localBusinessSchema = {
   publicAccess: true,
   areaServed: config.areaServed,
   knowsAbout: config.primaryServices,
+  amenityFeature: [
+    {
+      '@type': 'LocationFeatureSpecification',
+      name: 'Bolirana',
+      value: true,
+    },
+    {
+      '@type': 'LocationFeatureSpecification',
+      name: 'Baile',
+      value: true,
+    },
+  ],
   ...(menuUrl ? { hasMenu: menuUrl } : {}),
   ...(mapsUrl ? { hasMap: mapsUrl } : {}),
   address: {
