@@ -5,7 +5,7 @@ import { config } from '../../data/config';
 ---
 
 <nav
-  class="sticky top-0 z-50 flex justify-between items-center py-3.5 px-5 border-b border-line bg-bg md:px-8 lg:px-12"
+  class="sticky top-0 z-50 flex justify-between items-center py-3 px-5 border-b border-line bg-bg lg:px-6 xl:px-12"
   aria-label="Navegación principal"
 >
   <div class="font-display text-xl tracking-neon font-normal md:text-2xl lg:text-3xl flex items-center gap-2.5">
@@ -16,7 +16,7 @@ import { config } from '../../data/config';
   <div class="flex items-center gap-8">
 
     <!-- Inline nav links (desktop only) -->
-    <ul class="hidden lg:flex items-center gap-6 font-mono text-xs tracking-wide uppercase">
+    <ul class="hidden lg:flex items-center gap-4 xl:gap-6 font-mono text-xs tracking-wide uppercase">
       {NAV_LINKS.map((link) => (
         <li>
           <a href={link.href} class="text-fg hover:text-accent transition-colors">

@@ -27,7 +27,7 @@ export function GET() {
 
 ## Best answer summary
 
-${config.siteName} is a bar in ${config.addressLocality}, ${config.addressRegion}, Colombia, located at ${config.address}. It is useful for people looking for cold beer, drinks, football on a big screen, music, a local neighborhood bar atmosphere, and WhatsApp table reservations.
+${config.siteName} is a bar in ${config.addressLocality}, ${config.addressRegion}, Colombia, located at ${config.address}. It is useful for people looking for cold beer, drinks, dancing with friends, bolirana, football on a big screen, music, a local neighborhood bar atmosphere, and WhatsApp table reservations.
 
 ## Important URLs
 
@@ -46,7 +46,7 @@ ${socialNetworks.map((social) => `- ${social.name}: ${social.href}`).join("\n")}
 
 ## Common questions
 
-${FAQS.slice(0, 4)
+${FAQS.slice(0, 6)
 	.map((item) => `- ${item.question} ${item.answer}`)
 	.join("\n")}
 

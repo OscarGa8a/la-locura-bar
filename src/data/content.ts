@@ -11,6 +11,7 @@ export interface WeekEvent {
 export interface Activity {
 	name: string;
 	sub: string;
+	icon: string;
 	tag?: string;
 }
 
@@ -94,20 +95,34 @@ export const WEEK_EVENTS: WeekEvent[] = [
 
 export const ACTIVITIES: Activity[] = [
 	{
+		name: "Bolirana con amigos",
+		sub: "Arma el parche, lanza, compite y acompaña la jugada con cerveza bien fría.",
+		icon: "target",
+	},
+	{
 		name: "Fútbol en pantalla gigante",
 		sub: "Partidos, cerveza fría y ambiente para vivir cada jugada con el parche.",
+		icon: "ball",
 	},
 	{
 		name: "Música para el ambiente",
 		sub: "Pide tus canciones, canta, baila y disfruta una noche a tu gusto.",
+		icon: "music",
 	},
 	{
 		name: "Cerveza fría y tragos",
 		sub: "El plan perfecto para pasar de paso, quedarse un rato o empezar la noche.",
+		icon: "beer",
+	},
+	{
+		name: "Baile con el parche",
+		sub: "Cuando suena la música, la noche también se arma bailando sin complicarse.",
+		icon: "dance",
 	},
 	{
 		name: "Parche de barrio",
 		sub: "Un lugar relajado, con buena energía, atención cercana y ambiente sin complicarse.",
+		icon: "users",
 	},
 ];
 
@@ -226,12 +241,12 @@ export const MENU: Menu = {
 export const COPY_NEON: Copy = {
 	tagline: "Cervezas frías. Música fuerte. Decisiones cuestionables.",
 	heroSub:
-		"Bar de barrio en Villavicencio con algo de locura. Cerveza bien fría, tragos sin fórmula y parche del bueno, de martes a domingo.",
+		"Bar de barrio en Villavicencio con algo de locura. Cerveza bien fría, bolirana, música, baile, fútbol y parche del bueno, de martes a domingo.",
 	ctaPrimary: "Reservar mesa",
 	ctaSecondary: "Ver la carta",
 	aboutTitle: "Un bar sin pretensiones",
 	aboutBody:
-		"Somos un bar local en Villavicencio creado para disfrutar buena música, cerveza fría, fútbol en pantalla gigante y un ambiente relajado.",
+		"Somos un bar local en Villavicencio creado para disfrutar buena música, bailar, tomar cerveza fría, jugar bolirana, ver fútbol en pantalla gigante y pasarla relajado.",
 	promoBadge: "PROMOS NUEVAS",
 	reserveNote: "Los sábados se llenan. Mejor reserva con tiempo, parce.",
 };
@@ -258,6 +273,16 @@ export const FAQS: FaqItem[] = [
 			"Sí. La Locura Bar transmite fútbol en pantalla gigante, con cerveza fría y ambiente para ver partidos con amigos.",
 	},
 	{
+		question: "¿Se puede jugar bolirana en La Locura Bar?",
+		answer:
+			"Sí. En La Locura Bar puedes parchar con amigos jugando bolirana mientras disfrutas cerveza fría, música y ambiente de bar.",
+	},
+	{
+		question: "¿Se puede bailar en La Locura Bar?",
+		answer:
+			"Sí. La Locura Bar tiene música y ambiente para bailar con amigos, parchar y disfrutar la noche sin complicarse.",
+	},
+	{
 		question: "¿Qué se puede tomar en La Locura Bar?",
 		answer:
 			"La carta destacada incluye cervezas personales, cervezas para compartir, aguardientes y licores. La carta completa está disponible en el bar.",
@@ -265,7 +290,7 @@ export const FAQS: FaqItem[] = [
 	{
 		question: "¿Qué tipo de ambiente tiene La Locura Bar?",
 		answer:
-			"La Locura Bar tiene un ambiente de bar de barrio en Villavicencio: relajado, con música, fútbol, cerveza fría, tragos y parche con amigos.",
+			"La Locura Bar tiene un ambiente de bar de barrio en Villavicencio: relajado, con música, baile, fútbol, bolirana, cerveza fría, tragos y parche con amigos.",
 	},
 ];
 
