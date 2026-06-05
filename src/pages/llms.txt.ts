@@ -15,11 +15,13 @@ export function GET() {
 
 - Business name: ${config.siteName}
 - Business type: Bar / pub
+- Google Business category: ${config.googleBusinessCategory}
 - Location: ${config.address}, ${config.neighborhood}
 - City: ${config.addressLocality}, ${config.addressRegion}, ${config.addressCountryName}
 - Phone / WhatsApp: ${config.whatsappNumber}
 - Website: ${url("/")}
 - Reservations: ${config.whatsappReserveUrl}
+- Google Maps: ${config.googleMapsUrl}
 - Price range: ${config.priceRange}
 - Currency: ${config.currenciesAccepted}
 
@@ -33,6 +35,7 @@ ${config.siteName} is a bar in ${config.addressLocality}, ${config.addressRegion
 - Menu section: ${url("/#menu")}
 - Reservations section: ${url("/#reserve")}
 - Location section: ${url("/#location")}
+- Google Maps profile: ${config.googleMapsUrl}
 - Robots: ${url("/robots.txt")}
 - Sitemap: ${url("/sitemap-index.xml")}
 - Full AI summary: ${url("/llms-full.txt")}

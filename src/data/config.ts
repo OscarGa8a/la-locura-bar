@@ -1,4 +1,4 @@
-const WHATSAPP_ID = "573106495249";
+const WHATSAPP_ID = "573180429823";
 const WHATSAPP_RESERVE_TEXT = "¡Hola! Quisiera hacer una reserva";
 const DEFAULT_SITE_URL = "https://lalocurabar.com.co";
 const rawSiteUrl =
@@ -9,6 +9,8 @@ const rawSiteUrl =
 export const config = {
 	siteName: "La Locura Bar",
 	legalName: "La Locura Bar",
+	googleBusinessCategory: "Bar",
+	googleMapsUrl: "https://maps.app.goo.gl/cALLfS7GvzKurkEx7",
 	siteUrl: rawSiteUrl.replace(/\/+$/, ""),
 	locale: "es_CO",
 	themeColor: "#0a0820",
@@ -38,9 +40,9 @@ export const config = {
 		"reservar mesa en bar de Villavicencio",
 		"bar con música en Villavicencio",
 	],
-	phone: "3106495249",
+	phone: "3180429823",
 	whatsapp: WHATSAPP_ID,
-	whatsappNumber: "+57 310 649 5249",
+	whatsappNumber: "+57 318 042 9823",
 	whatsappReserveText: WHATSAPP_RESERVE_TEXT,
 	whatsappReserveUrl: `https://wa.me/${WHATSAPP_ID}?text=${encodeURIComponent(WHATSAPP_RESERVE_TEXT)}`,
 	address: "CRA 30A # 10B 81",

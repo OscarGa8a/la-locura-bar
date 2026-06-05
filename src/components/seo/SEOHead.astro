@@ -45,8 +45,8 @@ const llmsUrl = siteUrl ? new URL('/llms.txt', siteUrl).href : undefined;
 const businessId = siteUrl ? `${siteUrl}/#business` : undefined;
 const organizationId = siteUrl ? `${siteUrl}/#organization` : undefined;
 const websiteId = siteUrl ? `${siteUrl}/#website` : undefined;
-const sameAs = socialNetworks.map((social) => social.href);
-const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${config.location.lat},${config.location.lng}`;
+const sameAs = [...socialNetworks.map((social) => social.href), config.googleMapsUrl];
+const mapsUrl = config.googleMapsUrl;
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -123,8 +123,9 @@ const localBusinessSchema = {
       ? [
           {
             '@type': 'ViewAction',
-            name: 'Ver ubicación de La Locura Bar',
-            target: locationUrl,
+            name: 'Ver ubicación de La Locura Bar en Google Maps',
+            target: mapsUrl,
+            url: locationUrl,
           },
         ]
       : []),
