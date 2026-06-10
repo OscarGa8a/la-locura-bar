@@ -17,13 +17,13 @@ import { ACTIVITIES } from "../../data/content";
 
     <div
       class="grid grid-cols-1 gap-4 mt-10 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 lg:gap-5"
-      data-activities-grid
+      data-animate-container
     >
       {ACTIVITIES.map((event, i) => (
         <div
           class="group relative flex flex-col items-center text-center p-6 bg-bg rounded-xl border border-line transition-all duration-300 hover:border-accent hover:shadow-neon lg:p-8"
-          style={`animation-delay: ${i * 120}ms`}
           data-animate="fade-up"
+          data-animate-delay={String(Math.min(i + 1, 8))}
         >
           {/* Number */}
           <span class="font-mono text-xxs tracking-ultra uppercase text-muted absolute top-4 right-4 lg:top-5 lg:right-5">
@@ -50,42 +50,4 @@ import { ACTIVITIES } from "../../data/content";
   </div>
 </section>
 
-<style>
-  [data-animate="fade-up"] {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.6s ease-out forwards;
-    animation-play-state: paused;
-  }
 
-  [data-activities-grid].in-view [data-animate="fade-up"] {
-    animation-play-state: running;
-  }
-
-  @keyframes fadeUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
-
-<script>
-  const grid = document.querySelector("[data-activities-grid]");
-
-  if (grid) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            grid.classList.add("in-view");
-            observer.unobserve(grid);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    observer.observe(grid);
-  }
-</script>

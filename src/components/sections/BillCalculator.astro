@@ -14,11 +14,12 @@ function formatPrice(price: number): string {
 ---
 
 <section id="calculator" class="py-14 px-5 border-t border-line md:py-20 md:px-8 lg:py-24 lg:px-12">
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-7xl mx-auto" data-animate-container>
     <SectionHeader
       eyebrow="Calcula tu cuenta"
       title="CUÁNTO SALE"
       sub="Seleccioná lo que vas a pedir y calculá el total."
+      data-animate="fade-up"
     />
 
     <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -26,6 +27,8 @@ function formatPrice(price: number): string {
         <div
           class="flex items-center gap-3 p-3 bg-bg-2 rounded-xl border border-line transition-all hover:border-line-strong"
           data-bill-item
+          data-animate="fade-up"
+          data-animate-delay={String(Math.min(index + 1, 8))}
           data-index={index}
           data-price={String(item.price)}
         >
@@ -62,7 +65,7 @@ function formatPrice(price: number): string {
       ))}
     </div>
 
-    <div class="mt-8 sticky bottom-4 bg-bg-2 border border-line rounded-xl p-4 md:p-6 flex justify-between items-center">
+    <div class="mt-8 sticky bottom-4 bg-bg-2 border border-line rounded-xl p-4 md:p-6 flex justify-between items-center" data-animate="fade-up" data-animate-delay="1">
       <div>
         <div class="font-mono text-xxs uppercase tracking-wide text-muted">Total estimado</div>
         <div class="font-display text-3xl text-accent" id="bill-total">$0</div>

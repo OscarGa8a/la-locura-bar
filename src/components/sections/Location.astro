@@ -12,15 +12,16 @@ const directionsUrl = config.googleMapsUrl;
 ---
 
 <section id="location" class="py-14 px-5 md:py-20 md:px-8 lg:py-24 lg:px-12">
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-7xl mx-auto" data-animate-container>
     <SectionHeader
       eyebrow="Dónde estamos"
       title="UBICACIÓN"
+      data-animate="fade-up"
     />
   
     <div class="flex flex-col lg:flex-row gap-4 md:gap-8 justify-start mt-8">
       <!-- Stylized map -->
-      <div class="aspect-4/3 relative overflow-hidden rounded-lg border border-line w-full lg:w-1/2 md:aspect-video">
+      <div class="aspect-4/3 relative overflow-hidden rounded-lg border border-line w-full lg:w-1/2 md:aspect-video" data-animate="fade-left" data-animate-delay="1">
         <iframe
           title="Ubicación de La Locura Bar en Villavicencio"
           src={mapEmbedUrl}
@@ -37,10 +38,10 @@ const directionsUrl = config.googleMapsUrl;
         </p>
       </div>
     
-      <div>
+      <div data-animate="fade-right" data-animate-delay="2">
         <!-- Info rows -->
         <div class="flex flex-col gap-3.5 md:gap-5">
-          <div class="flex gap-3.5 items-start">
+          <div class="flex gap-3.5 items-start" data-animate="fade-up" data-animate-delay="1">
             <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0 md:w-10 md:h-10">
               <Icon name="pin" />
             </div>
@@ -50,7 +51,7 @@ const directionsUrl = config.googleMapsUrl;
             </div>
           </div>
       
-          <div class="flex gap-3.5 items-start">
+          <div class="flex gap-3.5 items-start" data-animate="fade-up" data-animate-delay="2">
             <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0 md:w-10 md:h-10">
               <Icon name="clock" />
             </div>
@@ -61,7 +62,7 @@ const directionsUrl = config.googleMapsUrl;
             </div>
           </div>
       
-            <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" class="flex gap-3.5 items-start">
+            <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" class="flex gap-3.5 items-start" data-animate="fade-up" data-animate-delay="3">
               <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0 md:w-10 md:h-10">
                 <Icon name="phone" />
               </div>
@@ -73,7 +74,7 @@ const directionsUrl = config.googleMapsUrl;
         </div>
 
         <!-- Cómo llegar button -->
-        <Button variant="outline" href={directionsUrl} target="_blank" rel="noopener noreferrer" class="mt-5 w-full flex justify-center items-center rounded-2xl gap-2 md:mt-8 md:w-fit px-18!">
+        <Button variant="outline" href={directionsUrl} target="_blank" rel="noopener noreferrer" class="mt-5 w-full flex justify-center items-center rounded-2xl gap-2 md:mt-8 md:w-fit px-18!" data-animate="fade-up" data-animate-delay="4">
           Cómo llegar <Icon name="arrow" />
         </Button>
       </div>

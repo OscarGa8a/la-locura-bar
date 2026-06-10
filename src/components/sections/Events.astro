@@ -10,16 +10,17 @@ const adjustedDay = today === 0 ? 6 : today - 1; // Adjust so Monday=0, Sunday=6
   id="events"
   class="py-14 px-5 pb-12 border-t border-b border-line md:py-20 md:px-8 md:pb-16 lg:py-24 lg:px-12"
 >
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-7xl mx-auto" data-animate-container>
     <SectionHeader
       eyebrow={COPY_NEON.promoBadge}
       title="LA SEMANA"
       sub="Cada noche tiene su propia locura."
+      data-animate="fade-up"
     />
   
     <div class="flex flex-col gap-2 mt-8 md:gap-4 md:grid md:grid-cols-2">
       {WEEK_EVENTS.map((event, i) => (
-        <div>
+        <div data-animate="fade-up" data-animate-delay={String(Math.min(i + 1, 8))}>
           {event.closed ? (
             /* Closed day row */
             <div class="py-4 px-3.5 bg-bg-2 flex items-start h-full gap-4 opacity-50 md:py-4 md:px-4 md:rounded-lg">

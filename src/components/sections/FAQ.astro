@@ -5,8 +5,8 @@ import { FAQS } from '../../data/content';
 
 <section id="faq" class="py-14 px-5 border-t border-line md:py-20 md:px-8 lg:py-24 lg:px-12">
   <div class="max-w-7xl mx-auto">
-    <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
-      <div>
+    <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12" data-animate-container>
+      <div data-animate="fade-left">
         <SectionHeader
           eyebrow="Preguntas frecuentes"
           title="ANTES DE CAER"
@@ -14,11 +14,13 @@ import { FAQS } from '../../data/content';
         />
       </div>
 
-      <div class="space-y-3">
-        {FAQS.map((item) => (
+      <div class="space-y-3" data-animate="fade-right" data-animate-delay="1">
+        {FAQS.map((item, index) => (
           <details
             class="faq-item rounded-xl border border-line bg-bg-2/70 px-4 py-3 transition-colors open:border-accent/70 md:px-5 md:py-4"
             data-faq-item
+            data-animate="fade-up"
+            data-animate-delay={String(Math.min(index + 1, 8))}
           >
             <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-base font-semibold text-fg md:text-lg [&::-webkit-details-marker]:hidden">
               <span>{item.question}</span>
