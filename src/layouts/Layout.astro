@@ -30,5 +30,43 @@ const { title, description, ogImage, jsonLd } = Astro.props;
   <body class="bg-bg text-fg font-body grain">
     <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <slot />
+
+    <script>
+      // Scroll Reveal Animation System
+      (function() {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (prefersReducedMotion.matches) return;
+
+        const animateElements = document.querySelectorAll('[data-animate]');
+        if (!animateElements.length) return;
+
+        // Group elements by their closest parent that has data-animate-container
+        const containers = new Map();
+        
+        animateElements.forEach((el) => {
+          const container = el.closest('[data-animate-container]') || el.parentElement;
+          if (!containers.has(container)) {
+            containers.set(container, []);
+          }
+          containers.get(container).push(el);
+        });
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+        );
+
+        containers.forEach((_, container) => {
+          observer.observe(container);
+        });
+      })();
+    </script>
   </body>
 </html>
