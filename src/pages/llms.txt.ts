@@ -33,6 +33,7 @@ ${config.siteName} is a bar in ${config.addressLocality}, ${config.addressRegion
 
 - Home: ${url("/")}
 - Menu section: ${url("/#menu")}
+- Calculator section: ${url("/#calculator")}
 - Reservations section: ${url("/#reserve")}
 - Location section: ${url("/#location")}
 - Google Maps profile: ${config.googleMapsUrl}

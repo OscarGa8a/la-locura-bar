@@ -1,39 +1,105 @@
 ---
-import SectionHeader from "../ui/SectionHeader.astro";
-import PlaceholderImg from "../ui/PlaceholderImg.astro";
-import { COPY_NEON } from "../../data/content";
+import { CldImage } from 'astro-cloudinary';
+import { PUBLIC_CLOUDINARY_CLOUD_NAME } from 'astro:env/client';
+import SectionHeader from '../ui/SectionHeader.astro';
+import { COPY_NEON, ABOUT_GALLERY } from '../../data/content';
 
 const stats = [
-  { n: "+8", l: "Referencias de cerveza" },
-  { n: "6", l: "Días abiertos" },
-  { n: "2024", l: "Año de apertura" },
+  { n: '+8', l: 'Referencias de cerveza' },
+  { n: '6', l: 'Días abiertos' },
+  { n: '2024', l: 'Año de apertura' },
 ];
+
+function getGridClasses(position: number): string {
+  const base: Record<number, string> = {
+    0: 'col-span-2 row-span-2 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2',
+    1: 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+    2: 'col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2',
+    3: 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+    4: 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-1',
+    5: 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+  };
+  return base[position] ?? 'col-span-1 row-span-1';
+}
 ---
 
-<section id="about" class="py-14 px-5 space-y-8 md:py-20 md:px-8 lg:py-24 lg:px-12">
-  <div class="max-w-7xl mx-auto">
+<section id="about" class="py-14 px-5 md:py-20 md:px-8 lg:py-24 lg:px-12">
+  <div class="max-w-7xl mx-auto space-y-8">
     <SectionHeader
       eyebrow="Sobre nosotros"
       title={COPY_NEON.aboutTitle}
       sub={COPY_NEON.aboutBody}
     />
-  
-    <!-- Photo grid: 1 tall left + 2 stacked right -->
-    <div class="grid grid-cols-2 gap-3 my-8 md:gap-5 lg:gap-6">
-      <div class="md:h-87.5">
-        <PlaceholderImg label="foto interior" h={280} />
-      </div>
-      <div class="flex flex-col gap-3">
-        <PlaceholderImg label="barra" h={135} />
-        <PlaceholderImg label="parche" h={135} />
-      </div>
+
+    <!-- BENTO GRID — 6 items -->
+    <div class="grid grid-cols-2 auto-rows-[120px] gap-2 mt-7 md:grid-cols-3 md:auto-rows-[160px] md:gap-3 lg:grid-cols-4 lg:auto-rows-[180px] lg:gap-4">
+      {ABOUT_GALLERY.map((item) => {
+        const gridClasses = getGridClasses(item.gridPosition);
+        if (item.type === 'video') {
+          return (
+            <a
+              href={`https://res.cloudinary.com/${PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/${item.publicId}.mp4`}
+              data-lightbox="about-gallery"
+              data-type="video"
+              class={`block overflow-hidden rounded-xl border border-line group relative w-full h-full ${gridClasses}`}
+            >
+              {item.posterPublicId ? (
+                <CldImage
+                  src={item.posterPublicId}
+                  alt={item.alt}
+                  width={600}
+                  height={800}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              ) : (
+                <div class="h-full w-full bg-bg-2 flex items-center justify-center">
+                  <div class="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
+                    <svg class="w-8 h-8 text-accent ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              )}
+              <div class="absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity group-hover:bg-black/20">
+                <div class="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
+                  <svg class="w-5 h-5 text-bg ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          );
+        }
+        return (
+          <a
+            href={`https://res.cloudinary.com/${PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto,w_1600/${item.publicId}`}
+            data-lightbox="about-gallery"
+            data-type="image"
+            class={`block overflow-hidden rounded-xl border border-line group relative w-full h-full ${gridClasses}`}
+          >
+            <CldImage
+              src={item.publicId}
+              alt={item.alt}
+              width={800}
+              height={600}
+              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          </a>
+        );
+      })}
     </div>
-  
+
     <!-- Stats row -->
     <div class="grid grid-cols-3 border-t border-b border-line md:py-6 md:px-4 lg:py-8">
       {stats.map((s, i) => (
         <div
-          class={`py-4.5 px-2.5 text-center ${i < stats.length - 1 ? "border-r border-line" : ""}`}
+          class={`py-4.5 px-2.5 text-center ${i < stats.length - 1 ? 'border-r border-line' : ''}`}
         >
           <div class="font-display text-3xl font-medium text-accent leading-none md:text-4xl lg:text-5xl">
             {s.n}
@@ -46,3 +112,19 @@ const stats = [
     </div>
   </div>
 </section>
+
+<script>
+  import GLightbox from 'glightbox';
+  import 'glightbox/dist/css/glightbox.min.css';
+
+  const lg = GLightbox({
+    selector: '[data-lightbox="about-gallery"]',
+    touchNavigation: true,
+    loop: true,
+    zoomable: true,
+    draggable: true,
+    openEffect: 'fade',
+    closeEffect: 'fade',
+    autoplayVideos: true,
+  });
+</script>

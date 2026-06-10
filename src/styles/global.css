@@ -91,11 +91,6 @@ body {
   padding: 0;
 }
 
-img {
-  max-width: 100%;
-  display: block;
-}
-
 button {
   cursor: pointer;
 }
@@ -151,6 +146,14 @@ button {
 ::-webkit-scrollbar-thumb {
   background: var(--color-line);
   border-radius: 4px;
+}
+
+.glightbox-container {
+  --glightbox-overlay-background: rgba(10, 10, 10, 0.95) !important;
+}
+.glightbox-container .gslide-description {
+  background: rgba(10, 10, 10, 0.8);
+  color: #fff;
 }
 
 input {

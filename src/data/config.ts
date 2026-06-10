@@ -7,6 +7,7 @@ const rawSiteUrl =
 	DEFAULT_SITE_URL;
 
 export const config = {
+	cloudinaryCloudName: "demo", // TODO: reemplazar con el cloud name real de Cloudinary
 	siteName: "La Locura Bar",
 	legalName: "La Locura Bar",
 	googleBusinessCategory: "Bar",
