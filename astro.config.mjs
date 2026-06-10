@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 import tailwindcss from "@tailwindcss/vite";
@@ -14,6 +14,16 @@ const siteUrl = (
 // https://astro.build/config
 export default defineConfig({
   site: siteUrl,
+
+  env: {
+    schema: {
+      PUBLIC_CLOUDINARY_CLOUD_NAME: envField.string({
+        context: "client",
+        access: "public",
+      }),
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },

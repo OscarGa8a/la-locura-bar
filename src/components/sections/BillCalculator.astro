@@ -1,0 +1,135 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import { MENU } from '../../data/content';
+
+const allItems = [
+  ...MENU.beersPersonal,
+  ...MENU.beersShare,
+  ...MENU.liquors,
+];
+
+function formatPrice(price: number): string {
+  return '$' + price.toLocaleString('es-CO');
+}
+---
+
+<section id="calculator" class="py-14 px-5 border-t border-line md:py-20 md:px-8 lg:py-24 lg:px-12">
+  <div class="max-w-7xl mx-auto">
+    <SectionHeader
+      eyebrow="Calcula tu cuenta"
+      title="CUÁNTO SALE"
+      sub="Seleccioná lo que vas a pedir y calculá el total."
+    />
+
+    <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {allItems.map((item, index) => (
+        <div
+          class="flex items-center gap-3 p-3 bg-bg-2 rounded-xl border border-line transition-all hover:border-line-strong"
+          data-bill-item
+          data-index={index}
+          data-price={String(item.price)}
+        >
+          <div class="flex-1 min-w-0">
+            <div class="font-display text-base text-fg">{item.name}</div>
+            <div class="font-body text-xs text-muted">{formatPrice(item.price)}</div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button
+              type="button"
+              class="w-8 h-8 rounded-full border border-line bg-bg flex items-center justify-center font-body text-sm text-fg hover:border-line-strong transition-all"
+              data-decrement
+              aria-label={`Restar una unidad de ${item.name}`}
+            >
+              -
+            </button>
+            <span
+              class="w-8 text-center font-body text-sm text-fg"
+              data-qty
+              aria-live="polite"
+            >
+              0
+            </span>
+            <button
+              type="button"
+              class="w-8 h-8 rounded-full border border-line bg-bg flex items-center justify-center font-body text-sm text-fg hover:border-line-strong transition-all"
+              data-increment
+              aria-label={`Agregar una unidad de ${item.name}`}
+            >
+              +
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-8 sticky bottom-4 bg-bg-2 border border-line rounded-xl p-4 md:p-6 flex justify-between items-center">
+      <div>
+        <div class="font-mono text-xxs uppercase tracking-wide text-muted">Total estimado</div>
+        <div class="font-display text-3xl text-accent" id="bill-total">$0</div>
+      </div>
+      <button
+        type="button"
+        id="bill-reset"
+        class="py-2.5 px-5 rounded-full font-body text-xs font-semibold tracking-[0.04em] border border-line text-fg hover:border-line-strong transition-all"
+      >
+        Limpiar
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const items = document.querySelectorAll<HTMLElement>('[data-bill-item]');
+  const totalEl = document.getElementById('bill-total');
+  const resetBtn = document.getElementById('bill-reset');
+
+  if (totalEl && resetBtn) {
+    const quantities: number[] = new Array(items.length).fill(0);
+
+    function updateTotal() {
+      let total = 0;
+      items.forEach((item, index) => {
+        const price = Number(item.dataset.price ?? '0');
+        total += quantities[index] * price;
+      });
+      if (totalEl) {
+        totalEl.textContent = '$' + total.toLocaleString('es-CO');
+      }
+    }
+
+    function setQty(index: number, qty: number) {
+      quantities[index] = Math.max(0, qty);
+      const item = items[index];
+      if (item) {
+        const qtyEl = item.querySelector('[data-qty]');
+        if (qtyEl) {
+          qtyEl.textContent = String(quantities[index]);
+        }
+      }
+      updateTotal();
+    }
+
+    items.forEach((item, index) => {
+      const decBtn = item.querySelector('[data-decrement]');
+      const incBtn = item.querySelector('[data-increment]');
+
+      if (decBtn) {
+        decBtn.addEventListener('click', () => {
+          setQty(index, quantities[index] - 1);
+        });
+      }
+
+      if (incBtn) {
+        incBtn.addEventListener('click', () => {
+          setQty(index, quantities[index] + 1);
+        });
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      items.forEach((_, index) => {
+        setQty(index, 0);
+      });
+    });
+  }
+</script>

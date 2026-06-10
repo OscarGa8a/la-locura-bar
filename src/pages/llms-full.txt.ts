@@ -10,7 +10,7 @@ const menuLines = Object.values(MENU)
 	.flat()
 	.map(
 		(item) =>
-			`- ${item.name}: ${item.desc}. Price: ${item.price}${item.tag ? `. Note: ${item.tag}` : ""}`,
+			`- ${item.name}: ${item.desc}. Price: $${item.price.toLocaleString('es-CO')}${item.tag ? `. Note: ${item.tag}` : ""}`,
 	)
 	.join("\n");
 
@@ -94,6 +94,7 @@ ${faqLines}
 
 - Home: ${url("/")}
 - Menu: ${url("/#menu")}
+- Calculator: ${url("/#calculator")}
 - FAQ: ${url("/#faq")}
 - Reservations: ${url("/#reserve")}
 - Location: ${url("/#location")}
