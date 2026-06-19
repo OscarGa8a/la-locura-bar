@@ -12,14 +12,14 @@ const stats = [
 
 function getGridClasses(position: number): string {
   const base: Record<number, string> = {
-    0: 'col-span-2 row-span-2 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2',
-    1: 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
-    2: 'col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2',
-    3: 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
-    4: 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-1',
-    5: 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+    0: 'row-span-2 sm:col-span-2 sm:row-span-2 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2',
+    1: 'row-span-2 sm:col-span-1 sm:row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1',
+    2: 'row-span-2 sm:col-span-1 sm:row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2',
+    3: 'row-span-2 sm:col-span-1 sm:row-span-1 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2',
+    4: 'row-span-2 sm:col-span-1 sm:row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-1',
+    5: 'row-span-2 sm:col-span-1 sm:row-span-1 md:col-span-2 md:row-span-1 lg:col-span-1 lg:row-span-1',
   };
-  return base[position] ?? 'col-span-1 row-span-1';
+  return base[position] ?? 'col-span-1 row-span-2';
 }
 ---
 
@@ -33,7 +33,7 @@ function getGridClasses(position: number): string {
     />
 
     <!-- BENTO GRID — 6 items -->
-    <div class="grid grid-cols-2 auto-rows-[120px] gap-2 mt-7 md:grid-cols-3 md:auto-rows-[160px] md:gap-3 lg:grid-cols-4 lg:auto-rows-[180px] lg:gap-4">
+    <div class="grid sm:grid-cols-2 auto-rows-[120px] gap-2 mt-7 md:grid-cols-3 md:auto-rows-[160px] md:gap-3 lg:grid-cols-4 lg:auto-rows-[180px] lg:gap-4">
       {ABOUT_GALLERY.map((item, index) => {
         const gridClasses = getGridClasses(item.gridPosition);
         if (item.type === 'video') {
