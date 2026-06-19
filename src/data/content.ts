@@ -214,7 +214,7 @@ export const MENU: Menu = {
     {
       name: "Cerveza Costeña 750ml",
       desc: "Grande para el parche · ideal para brindar entre amigos",
-      price: 4500,
+      price: 5000,
       image: "costeña-750_wx3epl",
     },
   ],
