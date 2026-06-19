@@ -159,7 +159,7 @@ export const MENU: Menu = {
     {
       name: "Cerveza Corona 210ml",
       desc: "Ligera y refrescante · perfecta con limón y para el parche",
-      price: 5000,
+      price: 4000,
       image: "coronita-210_vtbcjx",
     },
     {
@@ -221,26 +221,20 @@ export const MENU: Menu = {
   liquors: [
     {
       name: "Aguardiente Llanero 1/2 botella",
-      desc: "Aguardiente regional · notas dulces y tradición llanera",
-      price: 28000,
+      desc: "Incluye botella de agua y limón · notas dulces y tradición llanera",
+      price: 35000,
       image: "llanero-media_jnmmbc",
     },
     {
-      name: "Aguardiente Llanero 1 botella",
-      desc: "La botella para celebrar · intensidad y tradición",
-      price: 50000,
-      image: "llanero-botella_pdxrpo",
-    },
-    {
       name: "Aguardiente Amarillo 1/2 botella",
-      desc: "Aguardiente amarillo · cuerpo y sabor tradicional",
-      price: 30000,
+      desc: "Incluye botella de agua y limón · cuerpo y sabor tradicional",
+      price: 45000,
       image: "amarillo-media_kba2ac",
     },
     {
       name: "Aguardiente Antioqueño 1/2 botella",
-      desc: "Clásico antioqueño · fuerte, directo y con carácter",
-      price: 26000,
+      desc: "Incluye botella de agua y limón · fuerte, directo y con carácter",
+      price: 45000,
       image: "antioqueño-media_yiptro",
     },
   ],
@@ -262,39 +256,39 @@ export const COPY_NEON: Copy = {
 export const ABOUT_GALLERY: GalleryItem[] = [
   {
     type: "image",
-    publicId: "img1_dxmf78",
+    publicId: "img1_wfnleb",
     alt: "Ambiente interior del bar",
     gridPosition: 0,
   },
   {
     type: "image",
-    publicId: "img1_dxmf78",
-    alt: "Cerveza bien fría servida",
+    publicId: "img2_k1ikww",
+    alt: "Entrada principal del bar",
     gridPosition: 1,
   },
   {
     type: "video",
-    publicId: "vid1_mljljh",
-    alt: "Parche nocturno en el bar",
-    posterPublicId: "img1_dxmf78",
+    publicId: "vid1_ylu2xr",
+    alt: "Celebrando la victoria del equipo",
+    posterPublicId: "poster-vid-1_pgygmc",
     gridPosition: 2,
   },
   {
     type: "image",
-    publicId: "img2_mt26z2",
+    publicId: "img3_dhrnum",
     alt: "Barra de tragos",
     gridPosition: 3,
   },
   {
     type: "image",
-    publicId: "img1_dxmf78",
-    alt: "Bolirana con amigos",
+    publicId: "img4_zjpdzt",
+    alt: "Entrada secundaria del bar",
     gridPosition: 4,
   },
   {
     type: "image",
-    publicId: "img1_dxmf78",
-    alt: "Karaoke los jueves",
+    publicId: "img5_t884ev",
+    alt: "Ambiente del bar con luces",
     gridPosition: 5,
   },
 ];
