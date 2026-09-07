@@ -264,6 +264,9 @@ const structuredData = [
   content={noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
 />
 <meta name="theme-color" content={config.themeColor} />
+{import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
+  <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
+)}
 
 <!-- Geo Tags (Villavicencio, Meta, Colombia) -->
 <meta name="geo.region" content={config.geoRegion || "CO-MET"} />

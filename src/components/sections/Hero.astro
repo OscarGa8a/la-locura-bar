@@ -61,11 +61,21 @@ import Button from "../ui/Button.astro";
 
         <!-- CTAs -->
         <div class="flex gap-3 md:gap-4 flex-wrap">
-          <Button href="#reserve" variant="primary">
+          <Button
+            href="#reserve"
+            variant="primary"
+            data-event="navigation_click"
+            data-event-location="hero_primary"
+          >
             {COPY_NEON.ctaPrimary} <Icon name="arrow" />
           </Button>
 
-          <Button href="#menu" variant="outline-secondary">
+          <Button
+            href="#menu"
+            variant="outline-secondary"
+            data-event="navigation_click"
+            data-event-location="hero_secondary"
+          >
             {COPY_NEON.ctaSecondary}
           </Button>
         </div>

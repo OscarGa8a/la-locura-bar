@@ -66,6 +66,8 @@ const directionsUrl = config.googleMapsUrl;
             href={`https://wa.me/${whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
+            data-event="whatsapp_click"
+            data-event-location="location_card"
             class="group p-4 rounded-xl border border-line bg-bg-2 flex items-center justify-between gap-3.5 transition-all hover:border-accent hover:shadow-[0_0_20px_rgba(255,45,135,0.15)]"
             data-animate="fade-up"
             data-animate-delay="3"
@@ -87,7 +89,15 @@ const directionsUrl = config.googleMapsUrl;
 
         <!-- Cómo llegar button -->
         <div class="mt-5 md:mt-6" data-animate="fade-up" data-animate-delay="4">
-          <Button variant="outline-secondary" href={directionsUrl} target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto">
+          <Button
+            variant="outline-secondary"
+            href={directionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-event="map_click"
+            data-event-location="location_section"
+            class="w-full sm:w-auto"
+          >
             <span>Abrir en Google Maps</span>
             <Icon name="arrow" />
           </Button>

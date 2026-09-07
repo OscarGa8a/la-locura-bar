@@ -1,0 +1,48 @@
+---
+// Despachador Centralizado de Analítica de Alta Conversión (Fase 7 PLAYBOOK.md)
+// Escucha globalmente eventos de clic marcados con data-event y data-event-location
+---
+
+<script is:inline>
+  (function () {
+    // Declaración segura de dataLayer
+    window.dataLayer = window.dataLayer || [];
+
+    document.addEventListener('click', (event) => {
+      const origin = event.target;
+      if (!(origin instanceof Element)) return;
+
+      const target = origin.closest('[data-event]');
+      if (!target) return;
+
+      const ctaType = target.getAttribute('data-event') || 'unknown_click';
+      const location = target.getAttribute('data-event-location') || 'general';
+      const label = target.textContent?.trim() || target.getAttribute('aria-label') || '';
+      const destination = target instanceof HTMLAnchorElement ? target.href : (target.getAttribute('href') || '');
+
+      const detail = {
+        event: ctaType,
+        location,
+        label,
+        destination,
+      };
+
+      // Disparar evento de ventana para integraciones personalizadas
+      window.dispatchEvent(new CustomEvent('bar:conversion', { detail }));
+
+      // Buffer en dataLayer con nombre de evento unificado para GTM/GA4
+      window.dataLayer.push({
+        event: 'conversion_click',
+        cta_type: ctaType,
+        cta_location: location,
+        cta_label: label,
+        destination_url: destination,
+      });
+
+      // Si GTM aún no se ha cargado por idle, forzar carga inmediata en conversión
+      if (typeof window._loadGTM === 'function') {
+        window._loadGTM();
+      }
+    });
+  })();
+</script>

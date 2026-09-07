@@ -1,5 +1,6 @@
 ---
 import SEOHead from '../components/seo/SEOHead.astro';
+import Analytics from '../components/ui/Analytics.astro';
 
 interface Props {
   title: string;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const { title, description, ogImage, jsonLd } = Astro.props;
+const gtmId = import.meta.env.PUBLIC_GTM_ID;
 ---
 
 <!doctype html>
@@ -34,10 +36,38 @@ const { title, description, ogImage, jsonLd } = Astro.props;
     />
 
     <SEOHead title={title} description={description} ogImage={ogImage} jsonLd={jsonLd} />
+
+    {gtmId && (
+      <!-- Google Tag Manager (High-Performance Deferred Loading - Phase 7 PLAYBOOK) -->
+      <script is:inline define:vars={{ gtmId }}>
+        window.dataLayer = window.dataLayer || [];
+        window._loadGTM = function() {
+          if (window._gtmLoaded) return;
+          window._gtmLoaded = true;
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer',gtmId);
+        };
+
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(function() { setTimeout(window._loadGTM, 2500); });
+        } else {
+          setTimeout(window._loadGTM, 3000);
+        }
+
+        ['pointerdown', 'touchstart', 'scroll', 'keydown', 'click'].forEach(function(evt) {
+          window.addEventListener(evt, window._loadGTM, { once: true, passive: true });
+        });
+      </script>
+      <!-- End Google Tag Manager -->
+    )}
   </head>
   <body class="bg-bg text-fg font-body grain">
     <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <slot />
+    <Analytics />
 
     <script>
       // Scroll Reveal Animation System

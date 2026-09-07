@@ -108,6 +108,8 @@ function formatPrice(price: number): string {
           href={`https://wa.me/${config.whatsapp}`}
           target="_blank"
           rel="noopener noreferrer"
+          data-event="whatsapp_click"
+          data-event-location="calculator_dock"
           class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-display text-sm tracking-wide uppercase bg-accent text-bg hover:bg-accent/90 shadow-[0_0_20px_rgba(255,45,135,0.3)] hover:shadow-[0_0_25px_rgba(255,45,135,0.5)] transition-all active:scale-[0.98] cursor-pointer"
         >
           <span>Pedir por WhatsApp</span>
