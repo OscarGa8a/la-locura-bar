@@ -6,7 +6,11 @@ async function testSeoAndAiSeo() {
   console.log('   VALIDACIÓN TÉCNICA DE SEO Y AI-SEO (Playwright & DOM)');
   console.log('=======================================================\n');
 
-  const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  const chromePath = process.env.PLAYWRIGHT_CHROME_PATH || '/home/oscar/snap/antigravity-cli/common/ms-playwright/chromium-1243/chrome-linux64/chrome';
+  const browser = await chromium.launch({
+    executablePath: chromePath,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu']
+  });
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await context.newPage();
 

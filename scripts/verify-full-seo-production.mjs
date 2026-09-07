@@ -46,11 +46,15 @@ async function verifyAll() {
   console.log('   INSPECCIÓN COMPLETA DE SEO & AI-SEO EN NAVEGADOR REAL');
   console.log('=======================================================\n');
 
-  const PORT = 54321;
-  const server = await startStaticServer(PORT);
+  const server = await startStaticServer(0);
+  const PORT = server.address().port;
   console.log(`⚡ Servidor de producción levantado en http://127.0.0.1:${PORT}`);
 
-  const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  const chromePath = process.env.PLAYWRIGHT_CHROME_PATH || '/home/oscar/snap/antigravity-cli/common/ms-playwright/chromium-1243/chrome-linux64/chrome';
+  const browser = await chromium.launch({
+    executablePath: chromePath,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu']
+  });
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await context.newPage();
 
@@ -75,60 +79,47 @@ async function verifyAll() {
   console.log(`   - Twitter Card: "${esTwitterCard}"`);
   console.log(`   - H1 Principal: "${esH1}"`);
 
-  // Inspect JSON-LD on Spanish page
+  // Inspect JSON-LD Schema.org Array
   const esJsonLdRaw = await page.$eval('script[type="application/ld+json"]', el => el.textContent);
-  const esJsonLd = JSON.parse(esJsonLdRaw);
-  const esEntities = esJsonLd['@graph'].map(e => e['@type']);
-  console.log(`   - Grafo JSON-LD Schema.org (${esEntities.length} entidades): ${esEntities.join(', ')}`);
+  const schemas = JSON.parse(esJsonLdRaw);
+  const schemaTypes = schemas.map(e => e['@type']);
+  console.log(`   - Entidades JSON-LD Schema.org (${schemaTypes.length}): ${schemaTypes.join(', ')}`);
 
-  const esPerson = esJsonLd['@graph'].find(e => e['@type'] === 'Person');
-  const esService = esJsonLd['@graph'].find(e => e['@type'] === 'ProfessionalService');
-  const esFaq = esJsonLd['@graph'].find(e => e['@type'] === 'FAQPage');
+  const org = schemas.find(e => e['@type'] === 'Organization');
+  const localBiz = schemas.find(e => e['@type'] === 'BarOrPub');
+  const menu = schemas.find(e => e['@type'] === 'Menu');
+  const breadcrumbs = schemas.find(e => e['@type'] === 'BreadcrumbList');
+  const faq = schemas.find(e => e['@type'] === 'FAQPage');
 
-  console.log(`     ✓ Person: "${esPerson.name}" (knowsAbout: ${esPerson.knowsAbout?.length} items, sameAs: ${esPerson.sameAs?.join(', ')})`);
-  console.log(`     ✓ ProfessionalService: "${esService.name}" (priceRange: "${esService.priceRange}", areaServed: [${esService.areaServed.join(', ')}])`);
-  console.log(`     ✓ FAQPage: ${esFaq.mainEntity.length} preguntas estructuradas.`);
-  esFaq.mainEntity.forEach((q, i) => console.log(`       ${i + 1}. "${q.name}"`));
+  console.log(`     ✓ Organization: "${org?.name}" (sameAs: ${org?.sameAs?.length} perfiles)`);
+  console.log(`     ✓ LocalBusiness/BarOrPub: "${localBiz?.name}" (Dirección: ${localBiz?.address?.streetAddress}, Amenidades: ${localBiz?.amenityFeature?.map(a => a.name).join(', ')})`);
+  console.log(`     ✓ Menu: "${menu?.name}" (${menu?.hasMenuSection?.length} secciones destacadas con precios en COP)`);
+  console.log(`     ✓ BreadcrumbList: ${breadcrumbs?.itemListElement?.map(b => b.name).join(' > ')}`);
+  console.log(`     ✓ FAQPage: ${faq?.mainEntity?.length} preguntas y respuestas locales en español.`);
 
-  // 2. INSPECT ENGLISH HOMEPAGE (/en/)
-  console.log(`\n🌐 2. Inspeccionando Home Inglés (http://127.0.0.1:${PORT}/en/)...`);
-  await page.goto(`http://127.0.0.1:${PORT}/en/`, { waitUntil: 'domcontentloaded' });
+  // 2. INSPECT GEO TAGS
+  console.log('\n📍 2. Verificando Geo-Tags locales (Villavicencio, Meta, Colombia)...');
+  const geoRegion = await page.$eval('meta[name="geo.region"]', el => el.content);
+  const geoPlacename = await page.$eval('meta[name="geo.placename"]', el => el.content);
+  const geoPosition = await page.$eval('meta[name="geo.position"]', el => el.content);
+  const icbm = await page.$eval('meta[name="ICBM"]', el => el.content);
+  console.log(`   - geo.region: "${geoRegion}"`);
+  console.log(`   - geo.placename: "${geoPlacename}"`);
+  console.log(`   - geo.position / ICBM: "${geoPosition}" / "${icbm}"`);
 
-  const enTitle = await page.title();
-  const enDesc = await page.$eval('meta[name="description"]', el => el.content);
-  const enCanonical = await page.$eval('link[rel="canonical"]', el => el.href);
-  const enH1 = await page.$eval('h1', el => el.innerText.replace(/\s+/g, ' ').trim());
-
-  console.log(`   - EN Title [${enTitle.length} ch]: "${enTitle}"`);
-  console.log(`   - EN Meta Description [${enDesc.length} ch]: "${enDesc}"`);
-  console.log(`   - EN Canonical: ${enCanonical}`);
-  console.log(`   - EN H1 Principal: "${enH1}"`);
-
-  const enJsonLdRaw = await page.$eval('script[type="application/ld+json"]', el => el.textContent);
-  const enJsonLd = JSON.parse(enJsonLdRaw);
-  const enFaq = enJsonLd['@graph'].find(e => e['@type'] === 'FAQPage');
-  console.log(`   - EN FAQPage: ${enFaq.mainEntity.length} preguntas en inglés.`);
-  console.log(`     Ejemplo: "${enFaq.mainEntity[0].name}"`);
-
-  // 3. INSPECT HREFLANG INTEGRITY
-  console.log('\n🔗 3. Verificando Reciprocidad de Hreflang...');
-  await page.goto(`http://127.0.0.1:${PORT}/`);
-  const links = await page.$$eval('link[rel="alternate"][hreflang]', els => els.map(e => `${e.getAttribute('hreflang')} => ${e.getAttribute('href')}`));
-  links.forEach(l => console.log(`   - ${l}`));
-
-  // 4. INSPECT robots.txt
-  console.log(`\n🤖 4. Inspeccionando /robots.txt...`);
+  // 3. INSPECT robots.txt
+  console.log(`\n🤖 3. Inspeccionando /robots.txt...`);
   const robotsRes = await page.goto(`http://127.0.0.1:${PORT}/robots.txt`);
   const robotsContent = await robotsRes.text();
   console.log('--- Contenido de robots.txt ---');
   console.log(robotsContent.trim());
   console.log('------------------------------');
 
-  // 5. INSPECT sitemap.xml
-  console.log(`\n🗺️ 5. Inspeccionando /sitemap.xml...`);
-  const sitemapRes = await page.goto(`http://127.0.0.1:${PORT}/sitemap.xml`);
+  // 4. INSPECT sitemap-index.xml
+  console.log(`\n🗺️ 4. Inspeccionando /sitemap-index.xml...`);
+  const sitemapRes = await page.goto(`http://127.0.0.1:${PORT}/sitemap-index.xml`);
   const sitemapContent = await sitemapRes.text();
-  console.log('--- Contenido de sitemap.xml ---');
+  console.log('--- Contenido de sitemap-index.xml ---');
   console.log(sitemapContent.trim());
   console.log('------------------------------');
 
