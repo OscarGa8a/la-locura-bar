@@ -39,10 +39,10 @@ function formatPrice(price: number): string {
             <div class="font-display text-base tracking-wide text-fg leading-tight truncate">{item.name}</div>
             <div class="font-mono text-xs text-accent-2 mt-0.5">{formatPrice(item.price)}</div>
           </div>
-          <div class="flex items-center gap-1.5 shrink-0 select-none bg-bg/60 p-1 rounded-lg border border-line">
+          <div class="flex items-center gap-1.5 shrink-0 select-none bg-bg/60 p-1 rounded-xl border border-line">
             <button
               type="button"
-              class="w-7 h-7 rounded-md border border-line bg-bg flex items-center justify-center font-mono text-sm text-fg-dim hover:text-fg hover:border-line-strong active:scale-90 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+              class="w-9 h-9 rounded-lg border border-line bg-bg flex items-center justify-center font-mono text-base text-fg-dim hover:text-fg hover:border-line-strong active:scale-90 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
               data-decrement
               aria-label={`Restar una unidad de ${item.name}`}
             >
@@ -57,7 +57,7 @@ function formatPrice(price: number): string {
             </span>
             <button
               type="button"
-              class="w-7 h-7 rounded-md border border-line bg-bg flex items-center justify-center font-mono text-sm text-fg-dim hover:text-fg hover:border-line-strong active:scale-90 transition-all cursor-pointer"
+              class="w-9 h-9 rounded-lg border border-line bg-bg flex items-center justify-center font-mono text-base text-fg-dim hover:text-fg hover:border-line-strong active:scale-90 transition-all cursor-pointer"
               data-increment
               aria-label={`Agregar una unidad de ${item.name}`}
             >
