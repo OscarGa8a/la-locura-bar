@@ -1,5 +1,6 @@
 ---
 import SectionHeader from '../ui/SectionHeader.astro';
+import Icon from '../ui/Icons.astro';
 import { MENU, type MenuTab } from '../../data/content';
 import { CldImage } from 'astro-cloudinary';
 
@@ -78,16 +79,29 @@ function formatPrice(price: number): string {
                   data-animate="scale-in"
                   data-animate-delay={String(Math.min(index + 1, 8))}
                 >
-                  {/* Image placeholder */}
-                  <div class="h-100 lg:h-140 w-full bg-bg-3 border-b border-line flex items-center justify-center text-muted font-mono text-xs uppercase tracking-wide" aria-label={`Imagen de ${item.name}`} role="img">
+                  {/* Visual card header */}
+                  <div class="aspect-16/10 sm:aspect-16/9 w-full bg-gradient-to-br from-bg-3 via-bg-2 to-bg-3 border-b border-line relative overflow-hidden flex items-center justify-center group-hover:border-accent/40 transition-colors" aria-label={`Bebida ${item.name}`} role="img">
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,45,135,0.12),transparent_70%)] pointer-events-none" />
+                    
+                    {/* Stylized Emblem Fallback */}
+                    <div class="flex flex-col items-center justify-center gap-2.5 z-10 text-center p-4 select-none">
+                      <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-bg border border-accent/30 flex items-center justify-center shadow-[0_0_20px_rgba(255,45,135,0.2)] text-accent group-hover:scale-110 group-hover:border-accent transition-all duration-300">
+                        <Icon name={t.id === 'liquors' ? 'liquor' : 'beer'} size="xl" class="text-accent" />
+                      </div>
+                      <span class="font-mono text-xxs tracking-wider uppercase text-fg-dim/80">
+                        {item.tag ?? 'SELECCIÓN DESTACADA'}
+                      </span>
+                    </div>
+
                     <CldImage
                       src={item.image}
                       alt={item.name}
                       width={800}
-                      height={800}
+                      height={500}
                       sizes="(min-width: 640px) 50vw, 100vw"
                       loading="lazy"
-                      class="h-full w-full object-contain"
+                      class="absolute inset-0 h-full w-full object-contain p-4 z-20 transition-opacity duration-300"
+                      onerror="this.style.display='none'"
                     />
                   </div>
                   <div class="p-4 md:p-5">
@@ -116,26 +130,28 @@ function formatPrice(price: number): string {
           {/* List with thumbnails */}
           <div class="flex flex-col">
             {list.map((item, index) => (
-              <div class="py-4 flex gap-3 items-start not-last:border-b not-last:border-line md:py-5 md:gap-4 lg:py-6"
+              <div class="group py-4 flex gap-3 items-center not-last:border-b not-last:border-line md:py-5 md:gap-4 lg:py-6"
                 data-animate="fade-up"
                 data-animate-delay={String(Math.min(index + 1, 8))}
               >
-                {/* Thumbnail */}
-                <div class="shrink-0 w-16 h-16 rounded-lg border border-line flex items-center justify-center md:w-18 md:h-18" aria-label={`Imagen pendiente de ${item.name}`}>
+                {/* Thumbnail Emblem */}
+                <div class="shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-xl bg-bg-3 border border-line flex items-center justify-center text-accent/80 group-hover:text-accent group-hover:border-accent group-hover:shadow-[0_0_15px_rgba(255,45,135,0.25)] transition-all duration-200 relative overflow-hidden" aria-hidden="true">
+                  <Icon name={t.id === 'liquors' ? 'liquor' : 'beer'} size="md" />
                   <CldImage
                     src={item.image}
                     alt={item.name}
                     width={128}
                     height={128}
                     loading="lazy"
-                    sizes="72px"
-                    class="shrink-0 w-full h-full rounded-lg object-contain"
+                    sizes="56px"
+                    class="absolute inset-0 w-full h-full object-contain p-1 z-10"
+                    onerror="this.style.display='none'"
                   />
                 </div>
                 
                 <div class="flex-1 min-w-0">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <h3 class="font-display font-medium text-lg m-0 text-fg md:text-xl lg:text-2xl">
+                    <h3 class="font-display font-medium text-lg m-0 text-fg md:text-xl lg:text-2xl group-hover:text-accent-2 transition-colors">
                       {item.name}
                     </h3>
                     {item.tag && (

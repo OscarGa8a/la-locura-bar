@@ -42,10 +42,28 @@ function getGridClasses(position: number): string {
               href={`https://res.cloudinary.com/${PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/${item.publicId}.mp4`}
               data-lightbox="about-gallery"
               data-type="video"
-              class={`block overflow-hidden rounded-2xl border border-line hover:border-accent-2 transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,229,255,0.2)] group relative w-full h-full ${gridClasses}`}
+              class={`block overflow-hidden rounded-2xl border border-line hover:border-accent-2 transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,229,255,0.2)] group relative w-full h-full bg-gradient-to-br from-bg-2 via-bg-3 to-bg-2 ${gridClasses}`}
               data-animate="scale-in"
               data-animate-delay={String(Math.min(index + 1, 8))}
             >
+              {/* Aesthetic Card Base (Visible if image fails or before load) */}
+              <div class="absolute inset-0 flex flex-col justify-between p-4 sm:p-5 z-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,45,135,0.15),transparent_70%)]">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono text-xxs tracking-wider uppercase text-accent bg-accent/10 border border-accent/30 px-2 py-0.5 rounded-full">
+                    EN VIVO
+                  </span>
+                  <span class="inline-block w-2 h-2 rounded-full bg-accent animate-pulse" />
+                </div>
+                <div>
+                  <span class="font-display font-medium text-base sm:text-lg text-fg tracking-wide block group-hover:text-accent-2 transition-colors">
+                    {item.alt}
+                  </span>
+                  <span class="font-mono text-xxs tracking-widest uppercase text-muted mt-0.5 block">
+                    AMBIENTE NOCTURNO · LA LOCURA
+                  </span>
+                </div>
+              </div>
+
               <CldImage
                 src={item.posterPublicId ?? item.publicId}
                 alt={item.alt}
@@ -54,9 +72,10 @@ function getGridClasses(position: number): string {
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                 loading="lazy"
                 decoding="async"
-                class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 z-10"
+                onerror="this.style.display='none'"
               />
-              <div class="absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity duration-300 group-hover:bg-black/20">
+              <div class="absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-300 group-hover:bg-black/15 z-20 pointer-events-none">
                 <div class="w-12 h-12 rounded-full bg-accent flex items-center justify-center shadow-[0_0_20px_rgba(255,45,135,0.5)] transition-transform duration-200 group-hover:scale-110">
                   <svg class="w-5 h-5 text-bg ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z"/>
@@ -71,10 +90,30 @@ function getGridClasses(position: number): string {
             href={`https://res.cloudinary.com/${PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto,w_1600/${item.publicId}`}
             data-lightbox="about-gallery"
             data-type="image"
-            class={`block overflow-hidden rounded-2xl border border-line hover:border-accent-2 transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,229,255,0.2)] group relative w-full h-full ${gridClasses}`}
+            class={`block overflow-hidden rounded-2xl border border-line hover:border-accent-2 transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,229,255,0.2)] group relative w-full h-full bg-gradient-to-br from-bg-2 via-bg-3 to-bg-2 ${gridClasses}`}
             data-animate="scale-in"
             data-animate-delay={String(Math.min(index + 1, 8))}
           >
+            {/* Aesthetic Card Base (Visible if image fails or before load) */}
+            <div class="absolute inset-0 flex flex-col justify-between p-4 sm:p-5 z-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,229,255,0.12),transparent_70%)]">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xxs tracking-wider uppercase text-accent-2 bg-accent-2/10 border border-accent-2/30 px-2 py-0.5 rounded-full">
+                  ESPACIO #{index + 1}
+                </span>
+                <span class="font-mono text-xxs tracking-wider uppercase text-fg-dim/60">
+                  VILLAVICENCIO
+                </span>
+              </div>
+              <div>
+                <span class="font-display font-medium text-base sm:text-lg text-fg tracking-wide block group-hover:text-accent-2 transition-colors">
+                  {item.alt}
+                </span>
+                <span class="font-mono text-xxs tracking-widest uppercase text-muted mt-0.5 block">
+                  PARCHE DE BARRIO · RUMBA
+                </span>
+              </div>
+            </div>
+
             <CldImage
               src={item.publicId}
               alt={item.alt}
@@ -83,7 +122,8 @@ function getGridClasses(position: number): string {
               sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
               loading="lazy"
               decoding="async"
-              class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 z-10"
+              onerror="this.style.display='none'"
             />
           </a>
         );
@@ -104,7 +144,7 @@ function getGridClasses(position: number): string {
             data-counter-target={s.n}
             data-counter-prefix={s.n.startsWith('+') ? '+' : ''}
           >
-            {s.n.startsWith('+') ? '+' : ''}0
+            {s.n}
           </div>
           <div class="font-mono text-xxs tracking-wider uppercase text-muted mt-2 md:text-xs">
             {s.l}
@@ -135,7 +175,7 @@ function getGridClasses(position: number): string {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (prefersReducedMotion.matches) return;
 
-    const counters = document.querySelectorAll('[data-animate-counter]');
+    const counters = document.querySelectorAll<HTMLElement>('[data-animate-counter]');
     if (!counters.length) return;
 
     const duration = 1500; // 1.5 seconds
@@ -147,20 +187,22 @@ function getGridClasses(position: number): string {
     function animateCounter(el: HTMLElement) {
       const targetValue = parseInt(el.dataset.counterTarget?.replace(/\D/g, '') || '0', 10);
       const prefix = el.dataset.counterPrefix || '';
+      const isYear = targetValue >= 1900 && targetValue <= 2100;
+      const startVal = isYear ? 2000 : 0;
       const startTime = performance.now();
 
       function update(currentTime: number) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const eased = easeOutExpo(progress);
-        const current = Math.round(eased * targetValue);
+        const current = Math.round(startVal + eased * (targetValue - startVal));
         
-        el.textContent = prefix + current.toLocaleString('es-CO');
+        el.textContent = isYear ? String(current) : prefix + current.toLocaleString('es-CO');
 
         if (progress < 1) {
           requestAnimationFrame(update);
         } else {
-          el.textContent = prefix + targetValue.toLocaleString('es-CO');
+          el.textContent = isYear ? String(targetValue) : prefix + targetValue.toLocaleString('es-CO');
         }
       }
 

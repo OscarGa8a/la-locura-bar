@@ -92,6 +92,12 @@ async function runVisualAudit() {
   report.hero.details.push(`H1 text: "${heroH1.replace(/\n/g, ' ')}"`);
   await saveScreenshot(desktopPage.locator('section').first(), '01-desktop-hero.png');
 
+  // Set sticky nav to relative for clean section element screenshots
+  await desktopPage.evaluate(() => {
+    const nav = document.querySelector('nav');
+    if (nav) nav.style.position = 'relative';
+  });
+
   // 1.2 Activities Bento Grid
   const activitiesSection = desktopPage.locator('#activities');
   await activitiesSection.scrollIntoViewIfNeeded();
@@ -99,6 +105,14 @@ async function runVisualAudit() {
   const bentoCardsCount = await activitiesSection.locator('[data-animate="fade-up"]').count();
   report.bentoActivities.details.push(`Tarjetas Bento encontradas: ${bentoCardsCount}`);
   await saveScreenshot(activitiesSection, '02-desktop-bento-activities.png');
+
+  // 1.2b About Gallery Section
+  const aboutSection = desktopPage.locator('#about');
+  if (await aboutSection.count() > 0) {
+    await aboutSection.scrollIntoViewIfNeeded();
+    await desktopPage.waitForTimeout(1600);
+    await saveScreenshot(aboutSection, '02b-desktop-about.png');
+  }
 
   // 1.3 Menu Tabs
   const menuSection = desktopPage.locator('#menu');
