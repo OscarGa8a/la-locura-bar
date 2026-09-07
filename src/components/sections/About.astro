@@ -42,29 +42,20 @@ function getGridClasses(position: number): string {
               href={`https://res.cloudinary.com/${PUBLIC_CLOUDINARY_CLOUD_NAME}/video/upload/${item.publicId}.mp4`}
               data-lightbox="about-gallery"
               data-type="video"
-            class={`block overflow-hidden rounded-xl border border-line group relative w-full h-full ${gridClasses}`}
-            data-animate="scale-in"
-            data-animate-delay={String(Math.min(index + 1, 8))}
-          >
-                <CldImage
-                  src={item.posterPublicId ?? item.publicId}
-                  alt={item.alt}
-                  width={600}
-                  height={800}
-                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                  loading="lazy"
-                  decoding="async"
-                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              ) : (
-                <div class="h-full w-full bg-bg-2 flex items-center justify-center">
-                  <div class="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
-                    <svg class="w-8 h-8 text-accent ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </div>
-                </div>
-              )}
+              class={`block overflow-hidden rounded-xl border border-line group relative w-full h-full ${gridClasses}`}
+              data-animate="scale-in"
+              data-animate-delay={String(Math.min(index + 1, 8))}
+            >
+              <CldImage
+                src={item.posterPublicId ?? item.publicId}
+                alt={item.alt}
+                width={600}
+                height={800}
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
               <div class="absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity group-hover:bg-black/20">
                 <div class="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
                   <svg class="w-5 h-5 text-bg ml-1" fill="currentColor" viewBox="0 0 24 24">

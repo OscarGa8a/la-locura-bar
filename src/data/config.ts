@@ -19,7 +19,7 @@ export const config = {
 	defaultOgImageAlt:
 		"Imagen social de La Locura Bar, bar en Villavicencio con cerveza fría, música, baile, bolirana y fútbol",
 	seoDescription:
-		"Bar en Villavicencio con cervezas frías, tragos, música, baile, bolirana, fútbol en pantalla gigante y reservas por WhatsApp.",
+		"Bar en Villavicencio con bolirana, baile, cervezas frías, licores, música y fútbol en pantalla gigante. ¡Visítanos en Barrio Embudo o reserva por WhatsApp!",
 	aiSummary:
 		"La Locura Bar es un bar/pub local en Villavicencio, Meta, Colombia. Es una opción para tomar cerveza fría, pedir tragos, bailar, jugar bolirana, ver fútbol en pantalla gigante, escuchar música y reservar mesa por WhatsApp.",
 	schemaType: "BarOrPub",
@@ -56,12 +56,15 @@ export const config = {
 	neighborhood: "Barrio Embudo, Villavicencio · Colombia",
 	addressLocality: "Villavicencio",
 	addressRegion: "Meta",
+	postalCode: "500001",
 	addressCountryName: "Colombia",
 	addressCountryCode: "CO",
 	location: {
 		lat: 4.1422,
 		lng: -73.6268,
 	},
+	geoRegion: "CO-MET",
+	geoPlacename: "Villavicencio",
 	openingHours: ["Tu-We 18:00-02:00", "Th-Sa 18:00-04:00", "Su 18:00-22:00"],
 	openingHoursSpecification: [
 		{
@@ -85,5 +88,5 @@ export const config = {
 	],
 	horario1Text: "MAR a MIE · 6:00 PM a 2:00 AM",
 	horario2Text: "JUE a SAB · 6:00 PM a 4:00 AM",
-	horatio3Text: "Domingos cerramos a las 10 PM · Lunes cerrado",
+	horario3Text: "Domingos cerramos a las 10 PM · Lunes cerrado",
 };

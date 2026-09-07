@@ -57,7 +57,7 @@ This file is written for AI assistants, retrieval systems, search engines, and a
 
 - ${config.horario1Text}
 - ${config.horario2Text}
-- ${config.horatio3Text}
+- ${config.horario3Text}
 
 Machine-readable opening hours:
 ${config.openingHours.map((hours) => `- ${hours}`).join("\n")}

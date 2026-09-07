@@ -20,6 +20,8 @@ export default defineConfig({
       PUBLIC_CLOUDINARY_CLOUD_NAME: envField.string({
         context: "client",
         access: "public",
+        optional: true,
+        default: "demo",
       }),
     },
   },
