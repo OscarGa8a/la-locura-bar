@@ -21,7 +21,7 @@ export default defineConfig({
         context: "client",
         access: "public",
         optional: true,
-        default: "demo",
+        default: "dca8ngh11",
       }),
     },
   },

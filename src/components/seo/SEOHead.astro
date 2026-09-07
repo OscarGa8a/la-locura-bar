@@ -274,6 +274,7 @@ const structuredData = [
 <meta name="geo.position" content={`${config.location.lat};${config.location.lng}`} />
 <meta name="ICBM" content={`${config.location.lat}, ${config.location.lng}`} />
 
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
 {canonicalHref && <link rel="canonical" href={canonicalHref} />}
 {sitemapUrl && <link rel="sitemap" href={sitemapUrl} />}
 

@@ -10,7 +10,7 @@ const stats = [
   { n: '2024', l: 'Año de apertura' },
 ];
 
-const hasCloudinary = Boolean(PUBLIC_CLOUDINARY_CLOUD_NAME && PUBLIC_CLOUDINARY_CLOUD_NAME !== 'demo');
+const hasCloudinary = Boolean(PUBLIC_CLOUDINARY_CLOUD_NAME);
 
 function getGridClasses(position: number): string {
   const base: Record<number, string> = {
