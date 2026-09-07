@@ -30,8 +30,8 @@ export function GET() {
   if (config.siteUrl) {
     lines.push(
       `Sitemap: ${new URL("/sitemap-index.xml", config.siteUrl).href}`,
-      `LLMs: ${new URL("/llms.txt", config.siteUrl).href}`,
-      `LLMs-Full: ${new URL("/llms-full.txt", config.siteUrl).href}`,
+      `# LLMs: ${new URL("/llms.txt", config.siteUrl).href}`,
+      `# LLMs-Full: ${new URL("/llms-full.txt", config.siteUrl).href}`,
     );
   }
 

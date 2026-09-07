@@ -1,6 +1,8 @@
 ---
 import SectionHeader from '../ui/SectionHeader.astro';
+import Icon from '../ui/Icons.astro';
 import { MENU } from '../../data/content';
+import { config } from '../../data/config';
 
 const allItems = [
   ...MENU.beersPersonal,
@@ -18,35 +20,36 @@ function formatPrice(price: number): string {
     <SectionHeader
       eyebrow="Calcula tu cuenta"
       title="CUÁNTO SALE"
-      sub="Seleccioná lo que vas a pedir y calculá el total."
+      sub="Selecciona lo que vas a tomar con tu parche y calcula el total antes de llegar."
       data-animate="fade-up"
     />
 
     <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {allItems.map((item, index) => (
         <div
-          class="flex items-center gap-3 p-3 bg-bg-2 rounded-xl border border-line transition-all hover:border-line-strong"
+          class="bill-card flex items-center justify-between gap-3 p-3.5 bg-bg-2 rounded-xl border border-line transition-all duration-200 hover:border-line-strong"
           data-bill-item
           data-animate="fade-up"
           data-animate-delay={String(Math.min(index + 1, 8))}
           data-index={index}
+          data-name={item.name}
           data-price={String(item.price)}
         >
-          <div class="flex-1 min-w-0">
-            <div class="font-display text-base text-fg">{item.name}</div>
-            <div class="font-body text-xs text-muted">{formatPrice(item.price)}</div>
+          <div class="flex-1 min-w-0 pr-2">
+            <div class="font-display text-base tracking-wide text-fg leading-tight truncate">{item.name}</div>
+            <div class="font-mono text-xs text-accent-2 mt-0.5">{formatPrice(item.price)}</div>
           </div>
-          <div class="flex items-center gap-1">
+          <div class="flex items-center gap-1.5 shrink-0 select-none bg-bg/60 p-1 rounded-xl border border-line">
             <button
               type="button"
-              class="w-8 h-8 rounded-full border border-line bg-bg flex items-center justify-center font-body text-sm text-fg hover:border-line-strong transition-all"
+              class="w-9 h-9 rounded-lg border border-line bg-bg flex items-center justify-center font-mono text-base text-fg-dim hover:text-fg hover:border-line-strong active:scale-90 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
               data-decrement
               aria-label={`Restar una unidad de ${item.name}`}
             >
               -
             </button>
             <span
-              class="w-8 text-center font-body text-sm text-fg"
+              class="w-7 text-center font-mono text-sm text-fg transition-colors duration-150"
               data-qty
               aria-live="polite"
             >
@@ -54,7 +57,7 @@ function formatPrice(price: number): string {
             </span>
             <button
               type="button"
-              class="w-8 h-8 rounded-full border border-line bg-bg flex items-center justify-center font-body text-sm text-fg hover:border-line-strong transition-all"
+              class="w-9 h-9 rounded-lg border border-line bg-bg flex items-center justify-center font-mono text-base text-fg-dim hover:text-fg hover:border-line-strong active:scale-90 transition-all cursor-pointer"
               data-increment
               aria-label={`Agregar una unidad de ${item.name}`}
             >
@@ -65,18 +68,54 @@ function formatPrice(price: number): string {
       ))}
     </div>
 
-    <div class="mt-8 sticky bottom-4 bg-bg-2 border border-line rounded-xl p-4 md:p-6 flex justify-between items-center" data-animate="fade-up" data-animate-delay="1">
-      <div>
-        <div class="font-mono text-xxs uppercase tracking-wide text-muted">Total estimado</div>
-        <div class="font-display text-3xl text-accent" id="bill-total">$0</div>
+    <!-- Floating Glassmorphic Summary Dock -->
+    <div
+      class="mt-8 sticky bottom-5 z-30 bg-bg-2/90 backdrop-blur-md border border-line-strong/80 rounded-2xl p-4 md:p-5 shadow-[0_10px_40px_rgba(0,0,0,0.6)] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 transition-all duration-300"
+      data-animate="fade-up"
+      data-animate-delay="1"
+      data-whatsapp-number={config.whatsapp}
+      id="bill-dock"
+    >
+      <div class="flex items-center justify-between sm:justify-start sm:gap-6">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-mono text-xxs uppercase tracking-ultra text-muted">TOTAL ESTIMADO</span>
+            <span id="bill-count" class="font-mono text-xxs px-2 py-0.5 rounded-full bg-line text-muted transition-colors">0 items</span>
+          </div>
+          <div class="font-display text-3xl md:text-4xl text-accent tracking-wider" id="bill-total">$0</div>
+        </div>
+
+        <button
+          type="button"
+          id="bill-reset"
+          class="sm:hidden text-xs font-mono text-muted hover:text-fg uppercase tracking-wider py-1.5 px-3 rounded-lg border border-line hover:border-line-strong transition-all cursor-pointer active:scale-95"
+        >
+          Limpiar
+        </button>
       </div>
-      <button
-        type="button"
-        id="bill-reset"
-        class="py-2.5 px-5 rounded-full font-body text-xs font-semibold tracking-[0.04em] border border-line text-fg hover:border-line-strong transition-all"
-      >
-        Limpiar
-      </button>
+
+      <div class="flex items-center gap-3">
+        <button
+          type="button"
+          id="bill-reset-desktop"
+          class="hidden sm:inline-flex py-2.5 px-4 rounded-xl font-mono text-xs uppercase tracking-wider border border-line text-muted hover:text-fg hover:border-line-strong transition-all cursor-pointer active:scale-95"
+        >
+          Limpiar
+        </button>
+
+        <a
+          id="bill-whatsapp-btn"
+          href={`https://wa.me/${config.whatsapp}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-event="whatsapp_click"
+          data-event-location="calculator_dock"
+          class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl font-display text-sm tracking-wide uppercase bg-accent text-bg hover:bg-accent/90 shadow-[0_0_20px_rgba(255,45,135,0.3)] hover:shadow-[0_0_25px_rgba(255,45,135,0.5)] transition-all active:scale-[0.98] cursor-pointer"
+        >
+          <span>Pedir por WhatsApp</span>
+          <Icon name="whatsapp" size="md" />
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -84,19 +123,56 @@ function formatPrice(price: number): string {
 <script>
   const items = document.querySelectorAll<HTMLElement>('[data-bill-item]');
   const totalEl = document.getElementById('bill-total');
-  const resetBtn = document.getElementById('bill-reset');
+  const countEl = document.getElementById('bill-count');
+  const resetBtnMobile = document.getElementById('bill-reset');
+  const resetBtnDesktop = document.getElementById('bill-reset-desktop');
+  const whatsappBtn = document.getElementById('bill-whatsapp-btn') as HTMLAnchorElement | null;
+  const dock = document.getElementById('bill-dock');
+  const whatsappNumber = dock?.dataset.whatsappNumber ?? '573204961559';
 
-  if (totalEl && resetBtn) {
+  if (totalEl) {
     const quantities: number[] = new Array(items.length).fill(0);
 
     function updateTotal() {
       let total = 0;
+      let totalItems = 0;
+      const orderSummary: string[] = [];
+
       items.forEach((item, index) => {
+        const qty = quantities[index];
         const price = Number(item.dataset.price ?? '0');
-        total += quantities[index] * price;
+        const name = item.dataset.name ?? 'Producto';
+
+        if (qty > 0) {
+          total += qty * price;
+          totalItems += qty;
+          orderSummary.push(`- ${qty}x ${name} ($${(qty * price).toLocaleString('es-CO')})`);
+        }
       });
+
       if (totalEl) {
         totalEl.textContent = '$' + total.toLocaleString('es-CO');
+      }
+
+      if (countEl) {
+        countEl.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
+        if (totalItems > 0) {
+          countEl.classList.remove('bg-line', 'text-muted');
+          countEl.classList.add('bg-accent/20', 'text-accent');
+        } else {
+          countEl.classList.remove('bg-accent/20', 'text-accent');
+          countEl.classList.add('bg-line', 'text-muted');
+        }
+      }
+
+      if (whatsappBtn) {
+        if (totalItems > 0) {
+          const messageText = `¡Hola La Locura Bar! 👋 Estuve armando mi cuenta en la web y me gustaría ordenar:\n\n${orderSummary.join('\n')}\n\nTotal estimado: $${total.toLocaleString('es-CO')}\n¿Tienen disponibilidad de mesa?`;
+          whatsappBtn.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
+          whatsappBtn.classList.remove('opacity-60');
+        } else {
+          whatsappBtn.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('¡Hola La Locura Bar! Quisiera consultar la carta y disponibilidad de mesas.')}`;
+        }
       }
     }
 
@@ -105,18 +181,34 @@ function formatPrice(price: number): string {
       const item = items[index];
       if (item) {
         const qtyEl = item.querySelector('[data-qty]');
+        const decBtn = item.querySelector<HTMLButtonElement>('[data-decrement]');
+
         if (qtyEl) {
           qtyEl.textContent = String(quantities[index]);
+          if (quantities[index] > 0) {
+            qtyEl.classList.add('text-accent', 'font-bold');
+            item.classList.add('border-accent/40', 'bg-bg-3', 'shadow-[0_0_15px_rgba(255,45,135,0.08)]');
+            item.classList.remove('border-line', 'bg-bg-2');
+          } else {
+            qtyEl.classList.remove('text-accent', 'font-bold');
+            item.classList.remove('border-accent/40', 'bg-bg-3', 'shadow-[0_0_15px_rgba(255,45,135,0.08)]');
+            item.classList.add('border-line', 'bg-bg-2');
+          }
+        }
+
+        if (decBtn) {
+          decBtn.disabled = quantities[index] === 0;
         }
       }
       updateTotal();
     }
 
     items.forEach((item, index) => {
-      const decBtn = item.querySelector('[data-decrement]');
-      const incBtn = item.querySelector('[data-increment]');
+      const decBtn = item.querySelector<HTMLButtonElement>('[data-decrement]');
+      const incBtn = item.querySelector<HTMLButtonElement>('[data-increment]');
 
       if (decBtn) {
+        decBtn.disabled = true;
         decBtn.addEventListener('click', () => {
           setQty(index, quantities[index] - 1);
         });
@@ -129,10 +221,14 @@ function formatPrice(price: number): string {
       }
     });
 
-    resetBtn.addEventListener('click', () => {
+    function resetAll() {
       items.forEach((_, index) => {
         setQty(index, 0);
       });
-    });
+    }
+
+    resetBtnMobile?.addEventListener('click', resetAll);
+    resetBtnDesktop?.addEventListener('click', resetAll);
   }
 </script>
+

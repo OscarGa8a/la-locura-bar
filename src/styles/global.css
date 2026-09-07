@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/bebas-neue.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+}
+
 @theme {
   --color-bg: #0a0820;
   --color-bg-2: #120e2e;
@@ -33,10 +57,22 @@
     0 0 40px rgba(255, 45, 135, 0.4);
 }
 
+@utility text-glow-subtle {
+  text-shadow: 0 0 16px rgba(255, 45, 135, 0.45);
+}
+
 @utility text-glow-cyan {
   text-shadow:
     0 0 20px var(--color-accent-2),
     0 0 40px rgba(0, 229, 255, 0.4);
+}
+
+@utility shadow-glow-accent {
+  box-shadow: 0 0 25px rgba(255, 45, 135, 0.3);
+}
+
+@utility shadow-glow-cyan {
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.25);
 }
 
 @utility bg-grid {
@@ -47,15 +83,6 @@
 }
 
 /* Keyframes */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @keyframes pulse-dot {
   0%,
   100% {
@@ -182,7 +209,16 @@ select {
   }
 }
 
-/* Scroll Reveal Animation System */
+/* Tactile micro-interactions (Emil Kowalski) */
+:where(button, a[role="button"], .btn-press) {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease-out, background-color 0.15s ease-out, border-color 0.15s ease-out;
+}
+
+:where(button, a[role="button"], .btn-press):active {
+  transform: scale(0.975);
+}
+
+/* Scroll Reveal Animation System — Emil Kowalski Motion Curves */
 [data-animate] {
   animation-play-state: paused;
 }
@@ -193,48 +229,48 @@ select {
 
 [data-animate="fade-up"] {
   opacity: 0;
-  transform: translateY(24px);
-  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: translateY(16px);
+  animation: fadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-play-state: paused;
 }
 
 [data-animate="fade-left"] {
   opacity: 0;
-  transform: translateX(-24px);
-  animation: fadeLeft 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: translateX(-16px);
+  animation: fadeLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-play-state: paused;
 }
 
 [data-animate="fade-right"] {
   opacity: 0;
-  transform: translateX(24px);
-  animation: fadeRight 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: translateX(16px);
+  animation: fadeRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-play-state: paused;
 }
 
 [data-animate="scale-in"] {
   opacity: 0;
-  transform: scale(0.94);
-  animation: scaleIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: scale(0.96);
+  animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-play-state: paused;
 }
 
 [data-animate="blur-in"] {
   opacity: 0;
-  filter: blur(8px);
-  animation: blurIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  filter: blur(6px);
+  animation: blurIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-play-state: paused;
 }
 
-/* Stagger delays */
-[data-animate-delay="1"] { animation-delay: 0.1s; }
-[data-animate-delay="2"] { animation-delay: 0.2s; }
-[data-animate-delay="3"] { animation-delay: 0.3s; }
-[data-animate-delay="4"] { animation-delay: 0.4s; }
-[data-animate-delay="5"] { animation-delay: 0.5s; }
-[data-animate-delay="6"] { animation-delay: 0.6s; }
-[data-animate-delay="7"] { animation-delay: 0.7s; }
-[data-animate-delay="8"] { animation-delay: 0.8s; }
+/* Choreographed Stagger Delays (50ms increments for responsive feel) */
+[data-animate-delay="1"] { animation-delay: 0.05s; }
+[data-animate-delay="2"] { animation-delay: 0.10s; }
+[data-animate-delay="3"] { animation-delay: 0.15s; }
+[data-animate-delay="4"] { animation-delay: 0.20s; }
+[data-animate-delay="5"] { animation-delay: 0.25s; }
+[data-animate-delay="6"] { animation-delay: 0.30s; }
+[data-animate-delay="7"] { animation-delay: 0.35s; }
+[data-animate-delay="8"] { animation-delay: 0.40s; }
 
 @keyframes fadeUp {
   to { opacity: 1; transform: translateY(0); }

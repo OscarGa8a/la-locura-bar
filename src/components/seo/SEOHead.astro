@@ -1,6 +1,7 @@
 ---
 import { config } from '../../data/config';
 import { socialNetworks } from '../../data/social-networks';
+import { MENU } from '../../data/content';
 
 interface Props {
   title: string;
@@ -78,6 +79,90 @@ const websiteSchema = {
   ...(organizationId ? { publisher: { '@id': organizationId } } : {}),
 };
 
+const menuSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Menu',
+  '@id': menuUrl ? `${menuUrl}-schema` : undefined,
+  name: `Carta de Bebidas y Licores — ${config.siteName}`,
+  description: 'Carta destacada de cervezas personales, cervezas para compartir y licores en La Locura Bar Villavicencio.',
+  inLanguage: 'es-CO',
+  hasMenuSection: [
+    {
+      '@type': 'MenuSection',
+      name: 'Cervezas Personales',
+      description: 'Cervezas frías individuales de 210ml a 330ml',
+      hasMenuItem: MENU.beersPersonal.map((item) => ({
+        '@type': 'MenuItem',
+        name: item.name,
+        description: item.desc,
+        offers: {
+          '@type': 'Offer',
+          price: item.price,
+          priceCurrency: 'COP',
+          availability: 'https://schema.org/InStock',
+        },
+      })),
+    },
+    {
+      '@type': 'MenuSection',
+      name: 'Cervezas para Compartir',
+      description: 'Cervezas en presentaciones grandes de 750ml a 1000ml',
+      hasMenuItem: MENU.beersShare.map((item) => ({
+        '@type': 'MenuItem',
+        name: item.name,
+        description: item.desc,
+        offers: {
+          '@type': 'Offer',
+          price: item.price,
+          priceCurrency: 'COP',
+          availability: 'https://schema.org/InStock',
+        },
+      })),
+    },
+    {
+      '@type': 'MenuSection',
+      name: 'Licores y Aguardientes',
+      description: 'Medias botellas de aguardiente tradicional llanero, amarillo y antioqueño',
+      hasMenuItem: MENU.liquors.map((item) => ({
+        '@type': 'MenuItem',
+        name: item.name,
+        description: item.desc,
+        offers: {
+          '@type': 'Offer',
+          price: item.price,
+          priceCurrency: 'COP',
+          availability: 'https://schema.org/InStock',
+        },
+      })),
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Inicio',
+      item: homeUrl || 'https://lalocurabar.com.co/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Bares en Villavicencio',
+      item: locationUrl || 'https://lalocurabar.com.co/#location',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: config.siteName,
+      item: canonicalHref || 'https://lalocurabar.com.co/',
+    },
+  ],
+};
+
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': config.schemaType,
@@ -95,6 +180,7 @@ const localBusinessSchema = {
   publicAccess: true,
   areaServed: config.areaServed,
   knowsAbout: config.primaryServices,
+  servesCuisine: ['Cervezas', 'Licores', 'Bebidas', 'Bar colombiano'],
   amenityFeature: [
     {
       '@type': 'LocationFeatureSpecification',
@@ -106,14 +192,30 @@ const localBusinessSchema = {
       name: 'Baile',
       value: true,
     },
+    {
+      '@type': 'LocationFeatureSpecification',
+      name: 'Fútbol en pantalla gigante',
+      value: true,
+    },
+    {
+      '@type': 'LocationFeatureSpecification',
+      name: 'Música crossover',
+      value: true,
+    },
+    {
+      '@type': 'LocationFeatureSpecification',
+      name: 'Reservas por WhatsApp',
+      value: true,
+    },
   ],
-  ...(menuUrl ? { hasMenu: menuUrl } : {}),
+  ...(menuUrl ? { hasMenu: `${menuUrl}-schema` } : {}),
   ...(mapsUrl ? { hasMap: mapsUrl } : {}),
   address: {
     '@type': 'PostalAddress',
     streetAddress: config.address,
     addressLocality: config.addressLocality,
     addressRegion: config.addressRegion,
+    postalCode: '500001',
     addressCountry: config.addressCountryCode,
   },
   geo: {
@@ -149,6 +251,8 @@ const structuredData = [
   organizationSchema,
   websiteSchema,
   localBusinessSchema,
+  menuSchema,
+  breadcrumbSchema,
   ...(Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : []),
 ];
 ---
@@ -160,6 +264,17 @@ const structuredData = [
   content={noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
 />
 <meta name="theme-color" content={config.themeColor} />
+{import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
+  <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
+)}
+
+<!-- Geo Tags (Villavicencio, Meta, Colombia) -->
+<meta name="geo.region" content={config.geoRegion || "CO-MET"} />
+<meta name="geo.placename" content={config.geoPlacename || "Villavicencio"} />
+<meta name="geo.position" content={`${config.location.lat};${config.location.lng}`} />
+<meta name="ICBM" content={`${config.location.lat}, ${config.location.lng}`} />
+
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
 {canonicalHref && <link rel="canonical" href={canonicalHref} />}
 {sitemapUrl && <link rel="sitemap" href={sitemapUrl} />}
 

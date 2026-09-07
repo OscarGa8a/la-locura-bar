@@ -57,7 +57,7 @@ This file is written for AI assistants, retrieval systems, search engines, and a
 
 - ${config.horario1Text}
 - ${config.horario2Text}
-- ${config.horatio3Text}
+- ${config.horario3Text}
 
 Machine-readable opening hours:
 ${config.openingHours.map((hours) => `- ${hours}`).join("\n")}
@@ -90,24 +90,24 @@ ${menuLines}
 
 ${faqLines}
 
-## Important site URLs
-
-- Home: ${url("/")}
-- Menu: ${url("/#menu")}
-- Calculator: ${url("/#calculator")}
-- FAQ: ${url("/#faq")}
-- Reservations: ${url("/#reserve")}
-- Location: ${url("/#location")}
-- Sitemap index: ${url("/sitemap-index.xml")}
-- Robots: ${url("/robots.txt")}
-- Short AI summary: ${url("/llms.txt")}
-
-## Official social profiles
-
-${socialNetworks.map((social) => `- ${social.name} (${social.label}): ${social.href}`).join("\n")}
-
-## Relevant user intents
-
+## Enlaces y Secciones Principales
+ 
+- [Página de Inicio](${url("/")}): Portal principal de ${config.siteName} con propuesta de valor, fotos, carta y reservas.
+- [Carta de Bebidas](${url("/#menu")}): Carta completa de cervezas y licores con precios vigentes en COP.
+- [Calculadora de Cuenta](${url("/#calculator")}): Herramienta interactiva para calcular y dividir la cuenta entre amigos.
+- [Preguntas Frecuentes](${url("/#faq")}): Respuestas a dudas sobre ubicación, reservas, bolirana y música.
+- [Reservas por WhatsApp](${config.whatsappReserveUrl}): Canal prioritario para reservar mesa y bolirana.
+- [Ubicación y Mapa](${url("/#location")}): Mapa y direcciones al Barrio Embudo, Villavicencio.
+- [Índice de Sitemap (XML)](${url("/sitemap-index.xml")}): Mapa del sitio oficial.
+- [Directivas Robots.txt](${url("/robots.txt")}): Permisos oficiales para motores de búsqueda y rastreadores de IA.
+- [Resumen Ligero llms.txt](${url("/llms.txt")}): Resumen compacto bajo especificación llmstxt.org.
+ 
+## Perfiles Oficiales y Redes Sociales
+ 
+${socialNetworks.map((social) => `- [${social.name}](${social.href}): Canal oficial en ${social.name} (${social.label}).`).join("\n")}
+ 
+## Intenciones de Búsqueda Relevantes
+ 
 ${config.aiSearchQueries.map((query) => `- ${query}`).join("\n")}
 
 ## Citation guidance

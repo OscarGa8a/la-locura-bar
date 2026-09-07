@@ -1,14 +1,32 @@
 ---
-import Icon from "../ui/Icons.astro";
-import { config } from "../../data/config";
+import Icon from '../ui/Icons.astro';
+import { config } from '../../data/config';
 ---
 
 <a
   href={config.whatsappReserveUrl}
   target="_blank"
   rel="noopener noreferrer"
-  class="fixed bottom-5 right-5 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-accent text-bg shadow-lg shadow-accent/50 hover:bg-accent/80 transition-colors"
-  aria-label="Reservar por WhatsApp"
+  data-event="whatsapp_click"
+  data-event-location="floating_widget"
+  class="group fixed bottom-5 right-5 md:bottom-7 md:right-7 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-accent text-bg shadow-[0_0_25px_rgba(255,45,135,0.45)] hover:shadow-[0_0_35px_rgba(255,45,135,0.7)] hover:scale-105 active:scale-90 transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent select-none"
+  aria-label="Escribir por WhatsApp para reservar en La Locura Bar"
 >
-  <Icon name="whatsapp" size="xl" />
+  <!-- Animated breathing aura ring -->
+  <span class="absolute -inset-1 rounded-full bg-accent/25 animate-pulse pointer-events-none" aria-hidden="true"></span>
+
+  <!-- Icon with subtle hover rotation -->
+  <span class="relative z-10 transition-transform duration-200 group-hover:scale-110">
+    <Icon name="whatsapp" size="xl" />
+  </span>
+
+  <!-- Hover micro-tooltip for desktop -->
+  <span
+    class="pointer-events-none hidden md:inline-flex items-center gap-1.5 absolute right-16 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 py-1.5 px-3 rounded-full bg-bg-2/95 backdrop-blur-sm border border-line-strong text-fg font-mono text-xs uppercase tracking-wider shadow-xl whitespace-nowrap"
+    aria-hidden="true"
+  >
+    <span class="w-1.5 h-1.5 rounded-full bg-accent animate-ping"></span>
+    Reservar por WhatsApp
+  </span>
 </a>
+
