@@ -19,9 +19,9 @@ const directionsUrl = config.googleMapsUrl;
       data-animate="fade-up"
     />
   
-    <div class="flex flex-col lg:flex-row gap-4 md:gap-8 justify-start mt-8">
+    <div class="flex flex-col lg:flex-row gap-6 md:gap-8 justify-start mt-8">
       <!-- Stylized map -->
-      <div class="aspect-4/3 relative overflow-hidden rounded-lg border border-line w-full lg:w-1/2 md:aspect-video" data-animate="fade-left" data-animate-delay="1">
+      <div class="aspect-4/3 relative overflow-hidden rounded-2xl border border-line shadow-[0_0_30px_rgba(0,0,0,0.5)] w-full lg:w-1/2 md:aspect-video" data-animate="fade-left" data-animate-delay="1">
         <iframe
           title="Ubicación de La Locura Bar en Villavicencio"
           src={mapEmbedUrl}
@@ -38,45 +38,60 @@ const directionsUrl = config.googleMapsUrl;
         </p>
       </div>
     
-      <div data-animate="fade-right" data-animate-delay="2">
+      <div class="flex-1 flex flex-col justify-between" data-animate="fade-right" data-animate-delay="2">
         <!-- Info rows -->
-        <div class="flex flex-col gap-3.5 md:gap-5">
-          <div class="flex gap-3.5 items-start" data-animate="fade-up" data-animate-delay="1">
-            <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0 md:w-10 md:h-10">
+        <div class="flex flex-col gap-3">
+          <div class="p-4 rounded-xl border border-line bg-bg-2 flex items-center gap-3.5 transition-all hover:border-line-strong" data-animate="fade-up" data-animate-delay="1">
+            <div class="w-10 h-10 flex items-center justify-center border border-accent/30 bg-accent/10 rounded-xl text-accent shrink-0">
               <Icon name="pin" />
             </div>
             <div>
-              <div class="font-body text-sm font-semibold md:text-base">{address}</div>
-              <div class="font-body text-xs text-muted mt-0.5 md:text-sm">{neighborhood}</div>
+              <div class="font-body text-sm font-semibold text-fg md:text-base">{address}</div>
+              <div class="font-mono text-xs text-muted mt-0.5 uppercase tracking-wider">{neighborhood}</div>
             </div>
           </div>
       
-          <div class="flex gap-3.5 items-start" data-animate="fade-up" data-animate-delay="2">
-            <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0 md:w-10 md:h-10">
+          <div class="p-4 rounded-xl border border-line bg-bg-2 flex items-center gap-3.5 transition-all hover:border-line-strong" data-animate="fade-up" data-animate-delay="2">
+            <div class="w-10 h-10 flex items-center justify-center border border-accent-2/30 bg-accent-2/10 rounded-xl text-accent-2 shrink-0">
               <Icon name="clock" />
             </div>
             <div>
-              <div class="font-body text-sm font-semibold md:text-base">{config.horario1Text}</div>
-              <div class="font-body text-sm font-semibold md:text-base">{config.horario2Text}</div>
-              <div class="font-body text-xs text-muted mt-0.5 md:text-sm">{config.horario3Text}</div>
+              <div class="font-body text-sm font-semibold text-fg md:text-base">{config.horario1Text}</div>
+              <div class="font-body text-sm font-semibold text-fg md:text-base">{config.horario2Text}</div>
+              <div class="font-mono text-xs text-muted mt-0.5 uppercase tracking-wider">{config.horario3Text}</div>
             </div>
           </div>
       
-            <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" class="flex gap-3.5 items-start" data-animate="fade-up" data-animate-delay="3">
-              <div class="w-9 h-9 flex items-center justify-center border border-line-strong rounded-full text-accent shrink-0 md:w-10 md:h-10">
+          <a
+            href={`https://wa.me/${whatsapp}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group p-4 rounded-xl border border-line bg-bg-2 flex items-center justify-between gap-3.5 transition-all hover:border-accent hover:shadow-[0_0_20px_rgba(255,45,135,0.15)]"
+            data-animate="fade-up"
+            data-animate-delay="3"
+          >
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 flex items-center justify-center border border-accent/30 bg-accent/10 rounded-xl text-accent shrink-0 transition-transform group-hover:scale-105">
                 <Icon name="phone" />
               </div>
               <div>
-                <div class="font-body text-sm font-semibold md:text-base">{whatsappNumber}</div>
-                <div class="font-body text-xs text-muted mt-0.5 md:text-sm">WhatsApp para reservas</div>
+                <div class="font-body text-sm font-semibold text-fg md:text-base group-hover:text-accent transition-colors">{whatsappNumber}</div>
+                <div class="font-mono text-xs text-muted mt-0.5 uppercase tracking-wider">WhatsApp para reservas</div>
               </div>
-            </a>
+            </div>
+            <span class="text-accent text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider hidden sm:inline">
+              Chat →
+            </span>
+          </a>
         </div>
 
         <!-- Cómo llegar button -->
-        <Button variant="outline" href={directionsUrl} target="_blank" rel="noopener noreferrer" class="mt-5 w-full flex justify-center items-center rounded-2xl gap-2 md:mt-8 md:w-fit px-18!" data-animate="fade-up" data-animate-delay="4">
-          Cómo llegar <Icon name="arrow" />
-        </Button>
+        <div class="mt-5 md:mt-6" data-animate="fade-up" data-animate-delay="4">
+          <Button variant="outline-secondary" href={directionsUrl} target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto">
+            <span>Abrir en Google Maps</span>
+            <Icon name="arrow" />
+          </Button>
+        </div>
       </div>
     </div>  
   </div>

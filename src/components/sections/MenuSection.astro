@@ -43,10 +43,10 @@ function formatPrice(price: number): string {
             aria-selected={isActive ? 'true' : 'false'}
             aria-controls={`menu-panel-${t.id}`}
             tabindex={isActive ? '0' : '-1'}
-            class={`shrink-0 snap-start py-2.5 px-5 rounded-full font-body text-xs font-semibold tracking-[0.04em] transition-all duration-150 border md:text-sm md:py-3 md:px-6 ${
+            class={`shrink-0 snap-start py-2.5 px-5 rounded-full font-body text-xs font-semibold tracking-[0.04em] transition-all duration-200 border cursor-pointer select-none active:scale-95 md:text-sm md:py-3 md:px-6 ${
               isActive
-                ? 'bg-accent text-bg border-accent'
-                : 'bg-bg-2 text-fg border-line hover:border-line-strong'
+                ? 'bg-accent text-bg border-accent shadow-[0_0_20px_rgba(255,45,135,0.35)]'
+                : 'bg-bg-2 text-fg border-line hover:border-line-strong hover:text-accent-2'
             }`}
           >
             {t.label}
@@ -169,6 +169,7 @@ function formatPrice(price: number): string {
     button.classList.toggle('bg-accent', isActive);
     button.classList.toggle('text-bg', isActive);
     button.classList.toggle('border-accent', isActive);
+    button.classList.toggle('shadow-[0_0_20px_rgba(255,45,135,0.35)]', isActive);
     button.classList.toggle('text-fg', !isActive);
     button.classList.toggle('bg-bg-2', !isActive);
     button.classList.toggle('border-line', !isActive);

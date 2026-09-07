@@ -15,37 +15,205 @@ import { ACTIVITIES } from "../../data/content";
       sub="Bolirana, fútbol, música, baile, cerveza fría y el parche del bueno en Villavicencio. Cada noche tiene su propia locura."
     />
 
+    <!-- ASYMMETRIC BENTO GRID (Impeccable & Taste Skills) -->
     <div
-      class="grid grid-cols-1 gap-4 mt-10 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 lg:gap-5"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 md:gap-5 mt-10"
       data-animate-container
     >
-      {ACTIVITIES.map((event, i) => (
-        <div
-          class="group relative flex flex-col items-center text-center p-6 bg-bg rounded-xl border border-line transition-all duration-300 hover:border-accent hover:shadow-neon lg:p-8"
-          data-animate="fade-up"
-          data-animate-delay={String(Math.min(i + 1, 8))}
-        >
-          {/* Number */}
-          <span class="font-mono text-xxs tracking-ultra uppercase text-muted absolute top-4 right-4 lg:top-5 lg:right-5">
-            {String(i + 1).padStart(2, "0")}
-          </span>
+      <!-- 1. HERO BENTO: Bolirana con amigos (Col 7 / 12 on lg) -->
+      <div
+        class="group relative flex flex-col justify-between p-6 md:p-8 bg-bg rounded-2xl border border-line-strong transition-all duration-300 hover:border-accent hover:shadow-neon lg:col-span-7 md:col-span-2 overflow-hidden"
+        style="background: radial-gradient(ellipse at 0% 0%, rgba(255,45,135,0.12) 0%, transparent 65%), #0a0820;"
+        data-animate="fade-up"
+        data-animate-delay="1"
+      >
+        <div class="absolute -right-6 -bottom-6 text-accent/5 pointer-events-none select-none">
+          <Icon name="target" size="2xl" />
+        </div>
 
-          {/* Icon */}
-          <div class="mb-4 text-accent-2 transition-colors duration-300 group-hover:text-accent">
-            <Icon name={event.icon} size="2xl" />
+        <div>
+          <div class="flex items-center justify-between gap-3 mb-6">
+            <span class="inline-flex items-center gap-2 py-1 px-3 bg-accent/15 border border-accent text-accent font-mono text-xxs tracking-ultra uppercase rounded-full">
+              ★ EL PLAN REY DE LA CASA
+            </span>
+            <span class="font-mono text-xxs tracking-ultra uppercase text-muted">01</span>
           </div>
 
-          {/* Title */}
-          <h3 class="font-display text-xl leading-tight tracking-wider uppercase text-fg mb-2 lg:text-2xl">
-            {event.name}
+          <div class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center text-accent mb-5 transition-transform duration-300 group-hover:scale-110">
+            <Icon name="target" size="xl" />
+          </div>
+
+          <h3 class="font-display text-2xl md:text-3xl lg:text-4xl leading-tight tracking-wider uppercase text-fg mb-3">
+            {ACTIVITIES[0].name}
           </h3>
 
-          {/* Description */}
-          <p class="font-body text-xs text-fg-dim leading-snug max-w-55 md:text-sm">
-            {event.sub}
+          <p class="font-body text-sm md:text-base text-fg-dim leading-relaxed max-w-lg mb-6">
+            {ACTIVITIES[0].sub}
           </p>
         </div>
-      ))}
+
+        <div class="pt-4 border-t border-line flex items-center justify-between text-xs font-mono text-accent tracking-wide uppercase">
+          <span>PISTA LISTA PARA EL PARCHE</span>
+          <span class="text-fg-dim font-body normal-case">Desde las 6 PM</span>
+        </div>
+      </div>
+
+      <!-- 2. Música para el ambiente (Col 5 / 12 on lg) -->
+      <div
+        class="group relative flex flex-col justify-between p-6 md:p-8 bg-bg rounded-2xl border border-line transition-all duration-300 hover:border-accent-2 hover:shadow-[0_0_30px_rgba(0,229,255,0.2)] lg:col-span-5 md:col-span-1"
+        data-animate="fade-up"
+        data-animate-delay="2"
+      >
+        <div>
+          <div class="flex items-center justify-between gap-3 mb-6">
+            <span class="inline-flex items-center gap-1.5 py-1 px-2.5 bg-accent-2/10 border border-accent-2/40 text-accent-2 font-mono text-xxs tracking-ultra uppercase rounded-full">
+              CROSSOVER & SALSA
+            </span>
+            <span class="font-mono text-xxs tracking-ultra uppercase text-muted">02</span>
+          </div>
+
+          <div class="w-12 h-12 rounded-xl bg-accent-2/10 border border-accent-2/30 flex items-center justify-center text-accent-2 mb-5 transition-transform duration-300 group-hover:scale-110">
+            <Icon name="music" size="xl" />
+          </div>
+
+          <h3 class="font-display text-xl md:text-2xl lg:text-3xl leading-tight tracking-wider uppercase text-fg mb-3">
+            {ACTIVITIES[2].name}
+          </h3>
+
+          <p class="font-body text-sm text-fg-dim leading-relaxed">
+            {ACTIVITIES[2].sub}
+          </p>
+        </div>
+
+        <div class="pt-4 mt-6 border-t border-line font-mono text-xxs tracking-wider uppercase text-muted">
+          TU MÚSICA · TU AMBIENTE
+        </div>
+      </div>
+
+      <!-- 3. Cerveza fría y tragos (Col 4 / 12 on lg) -->
+      <div
+        class="group relative flex flex-col justify-between p-6 md:p-8 bg-bg rounded-2xl border border-line transition-all duration-300 hover:border-accent hover:shadow-neon lg:col-span-4 md:col-span-1"
+        data-animate="fade-up"
+        data-animate-delay="3"
+      >
+        <div>
+          <div class="flex items-center justify-between gap-3 mb-6">
+            <span class="font-mono text-xxs tracking-ultra uppercase text-accent">SIEMPRE HELADA</span>
+            <span class="font-mono text-xxs tracking-ultra uppercase text-muted">03</span>
+          </div>
+
+          <div class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center text-accent mb-5 transition-transform duration-300 group-hover:scale-110">
+            <Icon name="beer" size="xl" />
+          </div>
+
+          <h3 class="font-display text-xl md:text-2xl leading-tight tracking-wider uppercase text-fg mb-3">
+            {ACTIVITIES[3].name}
+          </h3>
+
+          <p class="font-body text-sm text-fg-dim leading-relaxed">
+            {ACTIVITIES[3].sub}
+          </p>
+        </div>
+
+        <div class="pt-4 mt-6 border-t border-line font-mono text-xxs tracking-wider uppercase text-muted">
+          POLAS DESDE $3.300 COP
+        </div>
+      </div>
+
+      <!-- 4. HERO BENTO: Fútbol en pantalla gigante (Col 8 / 12 on lg) -->
+      <div
+        class="group relative flex flex-col justify-between p-6 md:p-8 bg-bg rounded-2xl border border-line-strong transition-all duration-300 hover:border-accent-2 hover:shadow-[0_0_35px_rgba(0,229,255,0.25)] lg:col-span-8 md:col-span-2 overflow-hidden"
+        style="background: radial-gradient(ellipse at 100% 0%, rgba(0,229,255,0.12) 0%, transparent 65%), #0a0820;"
+        data-animate="fade-up"
+        data-animate-delay="4"
+      >
+        <div>
+          <div class="flex items-center justify-between gap-3 mb-6">
+            <span class="inline-flex items-center gap-2 py-1 px-3 bg-accent-2/15 border border-accent-2 text-accent-2 font-mono text-xxs tracking-ultra uppercase rounded-full">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent-2 animate-ping"></span>
+              TRANSMISIÓN EN VIVO · PANTALLA GIGANTE
+            </span>
+            <span class="font-mono text-xxs tracking-ultra uppercase text-muted">04</span>
+          </div>
+
+          <div class="w-12 h-12 rounded-xl bg-accent-2/10 border border-accent-2/30 flex items-center justify-center text-accent-2 mb-5 transition-transform duration-300 group-hover:scale-110">
+            <Icon name="ball" size="xl" />
+          </div>
+
+          <h3 class="font-display text-2xl md:text-3xl lg:text-4xl leading-tight tracking-wider uppercase text-fg mb-3">
+            {ACTIVITIES[1].name}
+          </h3>
+
+          <p class="font-body text-sm md:text-base text-fg-dim leading-relaxed max-w-xl mb-6">
+            {ACTIVITIES[1].sub}
+          </p>
+        </div>
+
+        <div class="pt-4 border-t border-line flex items-center justify-between text-xs font-mono text-accent-2 tracking-wide uppercase">
+          <span>LIGA COLOMBIANA, CHAMPIONS Y SELECCIÓN</span>
+          <span class="text-fg-dim font-body normal-case">Sonido en vivo</span>
+        </div>
+      </div>
+
+      <!-- 5. Baile con el parche (Col 6 / 12 on lg) -->
+      <div
+        class="group relative flex flex-col justify-between p-6 md:p-8 bg-bg rounded-2xl border border-line transition-all duration-300 hover:border-accent hover:shadow-neon lg:col-span-6 md:col-span-1"
+        data-animate="fade-up"
+        data-animate-delay="5"
+      >
+        <div>
+          <div class="flex items-center justify-between gap-3 mb-6">
+            <span class="font-mono text-xxs tracking-ultra uppercase text-accent">PISTA DE PARCHE</span>
+            <span class="font-mono text-xxs tracking-ultra uppercase text-muted">05</span>
+          </div>
+
+          <div class="w-12 h-12 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center text-accent mb-5 transition-transform duration-300 group-hover:scale-110">
+            <Icon name="dance" size="xl" />
+          </div>
+
+          <h3 class="font-display text-xl md:text-2xl leading-tight tracking-wider uppercase text-fg mb-3">
+            {ACTIVITIES[4].name}
+          </h3>
+
+          <p class="font-body text-sm text-fg-dim leading-relaxed">
+            {ACTIVITIES[4].sub}
+          </p>
+        </div>
+
+        <div class="pt-4 mt-6 border-t border-line font-mono text-xxs tracking-wider uppercase text-muted">
+          HASTA EL AMANECER (JUE A SÁB 4 AM)
+        </div>
+      </div>
+
+      <!-- 6. Parche de barrio (Col 6 / 12 on lg) -->
+      <div
+        class="group relative flex flex-col justify-between p-6 md:p-8 bg-bg rounded-2xl border border-line transition-all duration-300 hover:border-accent-2 hover:shadow-[0_0_30px_rgba(0,229,255,0.2)] lg:col-span-6 md:col-span-1"
+        data-animate="fade-up"
+        data-animate-delay="6"
+      >
+        <div>
+          <div class="flex items-center justify-between gap-3 mb-6">
+            <span class="font-mono text-xxs tracking-ultra uppercase text-accent-2">BARRIO EMBUDO</span>
+            <span class="font-mono text-xxs tracking-ultra uppercase text-muted">06</span>
+          </div>
+
+          <div class="w-12 h-12 rounded-xl bg-accent-2/10 border border-accent-2/30 flex items-center justify-center text-accent-2 mb-5 transition-transform duration-300 group-hover:scale-110">
+            <Icon name="users" size="xl" />
+          </div>
+
+          <h3 class="font-display text-xl md:text-2xl leading-tight tracking-wider uppercase text-fg mb-3">
+            {ACTIVITIES[5].name}
+          </h3>
+
+          <p class="font-body text-sm text-fg-dim leading-relaxed">
+            {ACTIVITIES[5].sub}
+          </p>
+        </div>
+
+        <div class="pt-4 mt-6 border-t border-line font-mono text-xxs tracking-wider uppercase text-muted">
+          SIN ETIQUETAS · PURA BUENA ENERGÍA
+        </div>
+      </div>
     </div>
   </div>
 </section>

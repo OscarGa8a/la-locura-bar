@@ -6,47 +6,57 @@ import { config } from '../../data/config';
 
 <div
   id="menu-overlay"
-  class="hidden fixed inset-0 z-50 bg-bg flex flex-col py-15 px-7 pb-10 overflow-auto md:py-20 md:px-12 lg:max-w-2xl lg:mx-auto lg:left-1/2 lg:-translate-x-1/2 lg:rounded-2xl lg:border lg:border-line"
+  class="hidden fixed inset-0 z-50 bg-bg/95 backdrop-blur-xl flex flex-col py-12 px-6 pb-10 overflow-auto md:py-16 md:px-12 transition-all"
   role="dialog"
   aria-modal="true"
   aria-labelledby="menu-overlay-title"
   aria-hidden="true"
 >
-  <h2 id="menu-overlay-title" class="visually-hidden">Menú de navegación</h2>
+  <div class="max-w-xl mx-auto w-full flex flex-col h-full">
+    <div class="flex items-center justify-between pb-6 border-b border-line">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+        <span class="font-mono text-xs uppercase tracking-ultra text-accent">MENÚ DE NAVEGACIÓN</span>
+      </div>
 
-  <!-- Close button -->
-  <button
-    type="button"
-    data-menu-close
-    class="absolute top-4.5 right-5 text-fg"
-    aria-label="Cerrar menú de navegación"
-  >
-    <Icon name="close" />
-  </button>
-
-  <!-- Nav links -->
-  <nav class="flex flex-col gap-1 my-5 md:gap-2 md:my-8" aria-label="Navegación móvil">
-    {NAV_LINKS.map((link) => (
-      <a
-        href={link.href}
-        class="py-4 border-b border-line font-display text-[30px] font-normal tracking-[0.04em] uppercase flex justify-between items-center md:text-[36px] md:py-5 lg:text-[40px]"
+      <!-- Close button -->
+      <button
+        type="button"
+        data-menu-close
+        class="w-10 h-10 rounded-full border border-line-strong bg-bg-2 flex items-center justify-center text-fg hover:border-accent hover:text-accent active:scale-90 transition-all cursor-pointer select-none"
+        aria-label="Cerrar menú de navegación"
       >
-        <span>{link.label.toUpperCase()}</span>
-        <Icon name="arrow" class="text-accent" />
-      </a>
-    ))}
-  </nav>
+        <Icon name="close" />
+      </button>
+    </div>
 
-  <!-- WhatsApp CTA -->
-  <div class="mt-auto pt-6">
-    <a
-      href={config.whatsappReserveUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="flex items-center justify-center gap-3 w-full py-4 px-5 bg-accent text-bg rounded-full font-display text-lg tracking-wide uppercase"
-      aria-label="Reservar por WhatsApp de La Locura Bar"
-    >
-      <Icon name="whatsapp" size="lg" /> Reserva por WhatsApp
-    </a>
+    <h2 id="menu-overlay-title" class="visually-hidden">Menú de navegación</h2>
+
+    <!-- Nav links -->
+    <nav class="flex flex-col my-auto py-6" aria-label="Navegación móvil">
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class="group py-4.5 border-b border-line/60 font-display text-3xl md:text-4xl font-normal tracking-wide uppercase flex justify-between items-center text-fg hover:text-accent transition-all duration-200 select-none"
+        >
+          <span class="transition-transform duration-200 group-hover:translate-x-2">{link.label}</span>
+          <Icon name="arrow" class="text-accent transition-transform duration-200 group-hover:translate-x-1" />
+        </a>
+      ))}
+    </nav>
+
+    <!-- WhatsApp CTA -->
+    <div class="mt-auto pt-6 border-t border-line">
+      <a
+        href={config.whatsappReserveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-center gap-3 w-full py-4 px-6 bg-accent text-bg rounded-xl font-display text-base md:text-lg tracking-wider uppercase shadow-[0_0_25px_rgba(255,45,135,0.4)] hover:shadow-[0_0_35px_rgba(255,45,135,0.6)] active:scale-[0.98] transition-all select-none cursor-pointer"
+        aria-label="Reservar por WhatsApp de La Locura Bar"
+      >
+        <Icon name="whatsapp" size="lg" />
+        <span>Reserva por WhatsApp</span>
+      </a>
+    </div>
   </div>
 </div>

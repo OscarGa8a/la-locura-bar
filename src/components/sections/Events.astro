@@ -18,42 +18,63 @@ const adjustedDay = today === 0 ? 6 : today - 1; // Adjust so Monday=0, Sunday=6
       data-animate="fade-up"
     />
   
-    <div class="flex flex-col gap-2 mt-8 md:gap-4 md:grid md:grid-cols-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mt-8">
       {WEEK_EVENTS.map((event, i) => (
         <div data-animate="fade-up" data-animate-delay={String(Math.min(i + 1, 8))}>
           {event.closed ? (
             /* Closed day row */
-            <div class="py-4 px-3.5 bg-bg-2 flex items-start h-full gap-4 opacity-50 md:py-4 md:px-4 md:rounded-lg">
-              <div class="font-mono text-xs tracking-wide w-10 text-muted md:text-sm">
-                {event.day}
+            <div class="py-4 px-4 bg-bg-2/50 border border-dashed border-line rounded-xl flex items-center justify-between gap-4 opacity-50 transition-opacity hover:opacity-75">
+              <div class="flex items-center gap-3">
+                <div class="font-mono text-xs tracking-wider uppercase text-muted w-10">
+                  {event.day}
+                </div>
+                <div class="font-display text-lg text-muted tracking-wide uppercase">
+                  {event.name}
+                </div>
               </div>
-              <div class="font-display text-lg text-muted line-through">
-                {event.name} — {event.sub}
-              </div>
+              <span class="font-mono text-xxs tracking-wider uppercase text-muted py-0.5 px-2 rounded-md bg-line">
+                Cerrado
+              </span>
             </div>
           ) : (
             /* Normal day row */
-            <div class={`py-4 px-3.5 bg-bg-2 flex items-start h-full gap-4 relative rounded-lg ${i === adjustedDay ? 'border border-accent shadow-neon' : ''}`}>
-              <div class={`font-display text-2xl font-normal tracking-wider w-12 shrink-0 ${i === adjustedDay ? 'text-accent' : 'text-fg'} md:text-2xl lg:text-3xl`}>
+            <div
+              class={`group py-4.5 px-4 md:px-5 bg-bg-2 rounded-xl border transition-all duration-200 flex items-start gap-4 relative hover:translate-y-[-2px] ${
+                i === adjustedDay
+                  ? 'border-accent bg-bg-3 shadow-[0_0_25px_rgba(255,45,135,0.22)]'
+                  : 'border-line hover:border-line-strong hover:bg-bg-2/80'
+              }`}
+            >
+              <div
+                class={`font-display text-2xl md:text-3xl font-normal tracking-wider w-12 shrink-0 transition-colors ${
+                  i === adjustedDay ? 'text-accent' : 'text-fg group-hover:text-accent-2'
+                }`}
+              >
                 {event.day}
               </div>
+
               <div class="flex-1 min-w-0">
-                <div class="font-display text-xl leading-tight tracking-wider uppercase text-fg mb-1 md:text-xl lg:text-2xl">
+                <div class="font-display text-xl md:text-2xl leading-tight tracking-wider uppercase text-fg mb-1">
                   {event.name}
                 </div>
-                <div class="font-body text-xs text-fg-dim leading-snug md:text-sm">
+                <p class="font-body text-xs md:text-sm text-fg-dim leading-relaxed">
                   {event.sub}
-                </div>
+                </p>
                 {event.tag && (
-                  <div class="inline-block mt-2 py-1 px-2.5 bg-accent text-bg font-mono text-xxs tracking-wide uppercase font-semibold rounded-sm md:text-xs">
-                    {event.tag}
+                  <div class="inline-flex items-center gap-1.5 mt-2.5 py-1 px-2.5 bg-accent/15 text-accent border border-accent/30 font-mono text-xxs tracking-wide uppercase font-semibold rounded-md">
+                    <span>⚡</span>
+                    <span>{event.tag}</span>
                   </div>
                 )}
               </div>
-              {/* HOY badge — hidden by default, shown by script */}
-              <div class={`font-mono text-xxs tracking-wide text-accent py-0.5 px-1.5 border border-accent rounded-full self-start md:text-xs ${i === adjustedDay ? 'block' : 'hidden'}`}>
-                HOY
-              </div>
+
+              {/* HOY badge */}
+              {i === adjustedDay && (
+                <div class="shrink-0 flex items-center gap-1.5 font-mono text-xxs tracking-wider uppercase text-accent py-1 px-2.5 bg-accent/10 border border-accent/50 rounded-full">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent animate-ping"></span>
+                  <span>HOY</span>
+                </div>
+              )}
             </div>
           )}
         </div>

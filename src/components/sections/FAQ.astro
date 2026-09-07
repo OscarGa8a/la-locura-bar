@@ -17,20 +17,20 @@ import { FAQS } from '../../data/content';
       <div class="space-y-3" data-animate="fade-right" data-animate-delay="1">
         {FAQS.map((item, index) => (
           <details
-            class="faq-item rounded-xl border border-line bg-bg-2/70 px-4 py-3 transition-colors open:border-accent/70 md:px-5 md:py-4"
+            class="faq-item rounded-xl border border-line bg-bg-2/70 px-4 py-3.5 transition-all duration-200 open:border-accent/60 open:bg-bg-3 open:shadow-[0_0_25px_rgba(255,45,135,0.1)] md:px-5 md:py-4.5"
             data-faq-item
             data-animate="fade-up"
             data-animate-delay={String(Math.min(index + 1, 8))}
           >
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-base font-semibold text-fg md:text-lg [&::-webkit-details-marker]:hidden">
-              <span>{item.question}</span>
-              <span class="faq-icon shrink-0 rounded-full border border-line-strong px-2 py-0.5 font-mono text-xs text-accent transition-transform" aria-hidden="true">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-body text-base font-semibold text-fg md:text-lg select-none [&::-webkit-details-marker]:hidden">
+              <span class="leading-snug">{item.question}</span>
+              <span class="faq-icon shrink-0 w-7 h-7 rounded-full border border-line-strong bg-bg flex items-center justify-center font-mono text-sm text-accent transition-transform duration-250 ease-out" aria-hidden="true">
                 +
               </span>
             </summary>
             <div class="faq-answer">
               <div class="faq-answer-inner">
-                <p class="mt-3 border-t border-line pt-3 font-body text-sm leading-relaxed text-fg-dim md:text-base">
+                <p class="mt-3.5 border-t border-line/60 pt-3.5 font-body text-sm leading-relaxed text-fg-dim md:text-base">
                   {item.answer}
                 </p>
               </div>
@@ -48,8 +48,8 @@ import { FAQS } from '../../data/content';
     grid-template-rows: 0fr;
     opacity: 0;
     transition:
-      grid-template-rows 500ms ease,
-      opacity 400ms ease;
+      grid-template-rows 280ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 220ms ease-out;
   }
 
   .faq-answer-inner {
@@ -63,6 +63,9 @@ import { FAQS } from '../../data/content';
 
   .faq-item[open]:not(.is-closing) .faq-icon {
     transform: rotate(45deg);
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -75,7 +78,7 @@ import { FAQS } from '../../data/content';
 
 <script>
   const faqItems = document.querySelectorAll<HTMLDetailsElement>('[data-faq-item]');
-  const closeAnimationMs = 500;
+  const closeAnimationMs = 280;
 
   faqItems.forEach((item) => {
     const summary = item.querySelector('summary');
