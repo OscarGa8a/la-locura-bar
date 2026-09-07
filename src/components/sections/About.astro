@@ -10,6 +10,8 @@ const stats = [
   { n: '2024', l: 'Año de apertura' },
 ];
 
+const hasCloudinary = Boolean(PUBLIC_CLOUDINARY_CLOUD_NAME && PUBLIC_CLOUDINARY_CLOUD_NAME !== 'demo');
+
 function getGridClasses(position: number): string {
   const base: Record<number, string> = {
     0: 'row-span-2 sm:col-span-2 sm:row-span-2 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2',
@@ -64,17 +66,19 @@ function getGridClasses(position: number): string {
                 </div>
               </div>
 
-              <CldImage
-                src={item.posterPublicId ?? item.publicId}
-                alt={item.alt}
-                width={600}
-                height={800}
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                loading="lazy"
-                decoding="async"
-                class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 z-10"
-                onerror="this.style.display='none'"
-              />
+              {hasCloudinary && (
+                <CldImage
+                  src={item.posterPublicId ?? item.publicId}
+                  alt={item.alt}
+                  width={600}
+                  height={800}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                  loading="lazy"
+                  decoding="async"
+                  class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 z-10"
+                  onerror="this.style.display='none'"
+                />
+              )}
               <div class="absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-300 group-hover:bg-black/15 z-20 pointer-events-none">
                 <div class="w-12 h-12 rounded-full bg-accent flex items-center justify-center shadow-[0_0_20px_rgba(255,45,135,0.5)] transition-transform duration-200 group-hover:scale-110">
                   <svg class="w-5 h-5 text-bg ml-0.5" fill="currentColor" viewBox="0 0 24 24">
@@ -114,17 +118,19 @@ function getGridClasses(position: number): string {
               </div>
             </div>
 
-            <CldImage
-              src={item.publicId}
-              alt={item.alt}
-              width={800}
-              height={600}
-              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-              loading="lazy"
-              decoding="async"
-              class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 z-10"
-              onerror="this.style.display='none'"
-            />
+            {hasCloudinary && (
+              <CldImage
+                src={item.publicId}
+                alt={item.alt}
+                width={800}
+                height={600}
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                loading="lazy"
+                decoding="async"
+                class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 z-10"
+                onerror="this.style.display='none'"
+              />
+            )}
           </a>
         );
       })}
@@ -156,19 +162,50 @@ function getGridClasses(position: number): string {
 </section>
 
 <script>
-  import GLightbox from 'glightbox';
-  import 'glightbox/dist/css/glightbox.min.css';
+  // Deferred GLightbox loader — eliminates render-blocking CSS and unused initial JS
+  const galleryLinks = document.querySelectorAll('[data-lightbox="about-gallery"]');
+  if (galleryLinks.length) {
+    let glightboxInstance: any = null;
+    const initLightbox = async () => {
+      if (glightboxInstance) return;
+      if (!document.querySelector('link[href="/css/glightbox.min.css"]')) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/css/glightbox.min.css';
+        document.head.appendChild(link);
+      }
+      const { default: GLightbox } = await import('glightbox');
+      glightboxInstance = GLightbox({
+        selector: '[data-lightbox="about-gallery"]',
+        touchNavigation: true,
+        loop: true,
+        zoomable: true,
+        draggable: true,
+        openEffect: 'fade',
+        closeEffect: 'fade',
+        autoplayVideos: true,
+      });
+    };
 
-  GLightbox({
-    selector: '[data-lightbox="about-gallery"]',
-    touchNavigation: true,
-    loop: true,
-    zoomable: true,
-    draggable: true,
-    openEffect: 'fade',
-    closeEffect: 'fade',
-    autoplayVideos: true,
-  });
+    galleryLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        if (!glightboxInstance) {
+          e.preventDefault();
+          initLightbox().then(() => {
+            (link as HTMLElement).click();
+          });
+        }
+      }, { once: true });
+      link.addEventListener('mouseenter', initLightbox, { once: true, passive: true });
+      link.addEventListener('touchstart', initLightbox, { once: true, passive: true });
+    });
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => setTimeout(initLightbox, 3000));
+    } else {
+      setTimeout(initLightbox, 3500);
+    }
+  }
 
   // Counter animation for stats
   (function() {

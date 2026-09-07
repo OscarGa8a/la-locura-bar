@@ -13,7 +13,8 @@ const mimeTypes = {
   '.svg': 'image/svg+xml',
   '.css': 'text/css',
   '.js': 'text/javascript',
-  '.webp': 'image/webp'
+  '.webp': 'image/webp',
+  '.woff2': 'font/woff2'
 };
 
 async function startStaticServer(port = 54321) {
@@ -48,17 +49,20 @@ async function runLighthouseAudit() {
   console.log('   AUDITORÍA OFICIAL LIGHTHOUSE & CORE WEB VITALS');
   console.log('=======================================================\n');
 
-  const SERVER_PORT = 54321;
-  const server = await startStaticServer(SERVER_PORT);
+  const server = await startStaticServer(0);
+  const SERVER_PORT = server.address().port;
   console.log(`🌐 Servidor de producción en http://127.0.0.1:${SERVER_PORT}`);
 
   const DEBUG_PORT = 9222;
+  const chromePath = process.env.PLAYWRIGHT_CHROME_PATH || '/home/oscar/snap/antigravity-cli/common/ms-playwright/chromium-1243/chrome-linux64/chrome';
   const browser = await chromium.launch({
+    executablePath: chromePath,
     args: [
       `--remote-debugging-port=${DEBUG_PORT}`,
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--disable-gpu'
+      '--disable-gpu',
+      '--disable-dev-shm-usage'
     ]
   });
 
