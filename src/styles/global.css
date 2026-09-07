@@ -1,5 +1,12 @@
 @import "tailwindcss";
-@import "./bebas-inline.css";
+
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/bebas-neue.woff2') format('woff2');
+}
 
 @font-face {
   font-family: 'Space Grotesk';

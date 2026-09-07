@@ -3,6 +3,7 @@ import lighthouse from 'lighthouse';
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
+import zlib from 'zlib';
 
 const mimeTypes = {
   '.html': 'text/html; charset=UTF-8',
@@ -32,8 +33,19 @@ async function startStaticServer(port = 54321) {
 
     if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
       const ext = path.extname(filePath);
-      res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' });
-      fs.createReadStream(filePath).pipe(res);
+      const isCompressible = ['.html', '.css', '.js', '.svg', '.json', '.xml', '.txt'].includes(ext);
+      const acceptEncoding = req.headers['accept-encoding'] || '';
+
+      if (isCompressible && acceptEncoding.includes('gzip')) {
+        res.writeHead(200, {
+          'Content-Type': mimeTypes[ext] || 'application/octet-stream',
+          'Content-Encoding': 'gzip'
+        });
+        fs.createReadStream(filePath).pipe(zlib.createGzip()).pipe(res);
+      } else {
+        res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' });
+        fs.createReadStream(filePath).pipe(res);
+      }
     } else {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('404 Not Found');
