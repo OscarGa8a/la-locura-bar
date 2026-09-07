@@ -7,6 +7,7 @@ const rawSiteUrl =
 	DEFAULT_SITE_URL;
 
 export const config = {
+	gtmId: 'GTM-5XLJ4LCN',
 	cloudinaryCloudName: "dca8ngh11",
 	siteName: "La Locura Bar",
 	legalName: "La Locura Bar",

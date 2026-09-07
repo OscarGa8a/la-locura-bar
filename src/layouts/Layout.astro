@@ -1,6 +1,7 @@
 ---
 import SEOHead from '../components/seo/SEOHead.astro';
 import Analytics from '../components/ui/Analytics.astro';
+import { config } from '../data/config';
 
 interface Props {
   title: string;
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const { title, description, ogImage, jsonLd } = Astro.props;
-const gtmId = import.meta.env.PUBLIC_GTM_ID;
+const gtmId = import.meta.env.PUBLIC_GTM_ID || config.gtmId;
 ---
 
 <!doctype html>
