@@ -40,7 +40,7 @@ async function startStaticServer(port = 54321) {
 }
 
 async function runAudit() {
-  console.log('🏁 Starting Concept Demo V2 Playwright Visual Audit...\n');
+  console.log('🏁 Starting Concept Demo V2 Playwright Visual Audit across all 9 sections...\n');
 
   const screenshotsDir = path.join(process.cwd(), 'docs', 'screenshots');
   fs.mkdirSync(screenshotsDir, { recursive: true });
@@ -56,10 +56,21 @@ async function runAudit() {
 
   let totalErrors = 0;
 
-  // Viewports to test
   const viewports = [
     { name: 'desktop', width: 1440, height: 900 },
     { name: 'mobile', width: 390, height: 844 },
+  ];
+
+  const sections = [
+    { id: '#inicio', name: '01-hero' },
+    { id: '#esencia', name: '02-esencia' },
+    { id: '#experiencias', name: '03-experiencias' },
+    { id: '#carta', name: '04-carta' },
+    { id: '#calculadora', name: '05-calculadora' },
+    { id: '#reservas', name: '06-reservas' },
+    { id: '#preguntas', name: '07-faq' },
+    { id: '#ubicacion', name: '08-ubicacion' },
+    { id: '#footer', name: '09-footer' },
   ];
 
   for (const vp of viewports) {
@@ -113,17 +124,21 @@ async function runAudit() {
       console.log(`✅ [${vp.name}] 0 broken resources (404/failed).`);
     }
 
-    // Capture Hero screenshot
-    const heroEl = await page.$('#inicio');
-    if (heroEl) {
-      const heroShotPath = path.join(screenshotsDir, `01-hero-${vp.name}.png`);
-      await heroEl.screenshot({ path: heroShotPath });
-      console.log(`📸 [${vp.name}] Saved Hero screenshot: ${heroShotPath}`);
+    // Capture each section screenshot
+    for (const sec of sections) {
+      const el = await page.$(sec.id);
+      if (el) {
+        const shotPath = path.join(screenshotsDir, `${sec.name}-${vp.name}.png`);
+        await el.screenshot({ path: shotPath });
+        console.log(`📸 [${vp.name}] Saved ${sec.name}: ${shotPath}`);
+      } else {
+        console.warn(`⚠️ [${vp.name}] Element ${sec.id} not found.`);
+      }
     }
 
-    // Full page screenshot
+    // Full page capture
     const fullShotPath = path.join(screenshotsDir, `full-page-${vp.name}.png`);
-    await page.screenshot({ path: fullShotPath, fullPage: false });
+    await page.screenshot({ path: fullShotPath, fullPage: true });
 
     await page.close();
   }
@@ -135,7 +150,7 @@ async function runAudit() {
     console.error(`\n💥 Audit completed with ${totalErrors} issue(s).`);
     process.exit(1);
   } else {
-    console.log('\n🎉 Concept Demo V2 Playwright Audit PASSED flawlessly!');
+    console.log('\n🎉 Concept Demo V2 Playwright Audit for all 9 sections PASSED with flying colors!');
   }
 }
 

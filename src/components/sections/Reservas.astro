@@ -1,0 +1,220 @@
+---
+import { SITE_CONFIG } from '../../data/siteConfig';
+import { WHATSAPP_PHONE } from '../../utils/whatsapp';
+---
+
+<section
+  id="reservas"
+  class="relative bg-paper text-ink py-20 md:py-28 lg:py-36 px-4 sm:px-6 lg:px-12 border-b border-line-light/50"
+  aria-label="Reservas de mesas"
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <!-- Left Column: Copy & Image Asset -->
+      <div class="lg:col-span-6 space-y-8">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+            <span class="font-body text-xs md:text-sm font-semibold tracking-[0.2em] text-accent uppercase">
+              {SITE_CONFIG.reservas.eyebrow}
+            </span>
+          </div>
+          <h2 class="font-display text-4xl sm:text-5xl md:text-6xl tracking-tight text-ink leading-[0.95] uppercase mb-4 text-balance">
+            {SITE_CONFIG.reservas.title}
+          </h2>
+          <p class="font-body text-base md:text-lg text-ink-muted leading-relaxed text-pretty">
+            {SITE_CONFIG.reservas.description}
+          </p>
+        </div>
+
+        <!-- Atmosphere Photo with Subtle Warm Border -->
+        <div class="relative rounded-sm overflow-hidden border border-line-light/60 shadow-md aspect-video sm:aspect-16/10">
+          <img
+            src={SITE_CONFIG.reservas.image}
+            alt={SITE_CONFIG.reservas.imageAlt}
+            class="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Reservation Form -->
+      <div class="lg:col-span-6">
+        <div class="bg-paper-2 p-6 sm:p-10 rounded-sm border border-line-light/80 shadow-lg">
+          <div class="mb-6">
+            <h3 class="font-display text-2xl sm:text-3xl text-ink uppercase tracking-tight">
+              {SITE_CONFIG.reservas.panelTitle}
+            </h3>
+            <p class="font-body text-xs text-ink-muted mt-1">
+              {SITE_CONFIG.reservas.panelSubtitle}
+            </p>
+          </div>
+
+          <form id="reserve-form" class="space-y-4" novalidate>
+            <!-- Name Input -->
+            <div>
+              <label for="res-name" class="block font-display text-xs tracking-wider uppercase text-ink-muted mb-1.5">
+                Nombre completo
+              </label>
+              <input
+                type="text"
+                id="res-name"
+                name="name"
+                required
+                placeholder="Tu nombre completo"
+                class="w-full bg-paper border border-line-light/80 rounded-xs px-4 py-3 text-ink font-body text-sm focus:outline-none focus:border-ink transition-colors"
+              />
+              <span class="error-msg hidden text-xs text-error font-body mt-1">Escribe tu nombre.</span>
+            </div>
+
+            <!-- People Count -->
+            <div>
+              <label for="res-people" class="block font-display text-xs tracking-wider uppercase text-ink-muted mb-1.5">
+                Número de personas
+              </label>
+              <select
+                id="res-people"
+                name="people"
+                required
+                class="w-full bg-paper border border-line-light/80 rounded-xs px-4 py-3 text-ink font-body text-sm focus:outline-none focus:border-ink transition-colors"
+              >
+                <option value="">Selecciona el número de personas</option>
+                <option value="2">2 personas</option>
+                <option value="4">4 personas</option>
+                <option value="6">6 personas</option>
+                <option value="8">8 personas</option>
+                <option value="10+">10 o más personas</option>
+              </select>
+              <span class="error-msg hidden text-xs text-error font-body mt-1">Selecciona cuántas personas vienen.</span>
+            </div>
+
+            <!-- Date & Time Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Date -->
+              <div>
+                <label for="res-date" class="block font-display text-xs tracking-wider uppercase text-ink-muted mb-1.5">
+                  Fecha
+                </label>
+                <input
+                  type="date"
+                  id="res-date"
+                  name="date"
+                  required
+                  class="w-full bg-paper border border-line-light/80 rounded-xs px-4 py-3 text-ink font-body text-sm focus:outline-none focus:border-ink transition-colors"
+                />
+                <span class="error-msg hidden text-xs text-error font-body mt-1">Selecciona una fecha.</span>
+              </div>
+
+              <!-- Time -->
+              <div>
+                <label for="res-time" class="block font-display text-xs tracking-wider uppercase text-ink-muted mb-1.5">
+                  Hora
+                </label>
+                <select
+                  id="res-time"
+                  name="time"
+                  required
+                  class="w-full bg-paper border border-line-light/80 rounded-xs px-4 py-3 text-ink font-body text-sm focus:outline-none focus:border-ink transition-colors"
+                >
+                  <option value="">Selecciona una hora</option>
+                  <option value="6:00 PM">6:00 PM</option>
+                  <option value="7:00 PM">7:00 PM</option>
+                  <option value="8:00 PM">8:00 PM</option>
+                  <option value="9:00 PM">9:00 PM</option>
+                  <option value="10:00 PM">10:00 PM</option>
+                  <option value="11:00 PM">11:00 PM</option>
+                </select>
+                <span class="error-msg hidden text-xs text-error font-body mt-1">Selecciona una hora.</span>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-4">
+              <button
+                type="submit"
+                class="w-full bg-secondary text-dark font-display text-base uppercase tracking-wider py-4 px-6 rounded-sm font-semibold hover:bg-gold-soft active:scale-95 transition-all text-center shadow-md cursor-pointer"
+              >
+                {SITE_CONFIG.reservas.ctaSubmit}
+              </button>
+            </div>
+
+            <!-- Notice & Help -->
+            <div class="pt-2 text-center space-y-1">
+              <p class="font-body text-xs text-ink font-medium">
+                {SITE_CONFIG.reservas.notice}
+              </p>
+              <p class="font-body text-xxs text-ink-muted">
+                {SITE_CONFIG.reservas.helperNotice}
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ whatsappPhone: WHATSAPP_PHONE }}>
+  const form = document.getElementById('reserve-form');
+  const dateInput = document.getElementById('res-date');
+
+  // Set minimum date to today
+  if (dateInput instanceof HTMLInputElement) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+  }
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const nameInput = document.getElementById('res-name');
+    const peopleInput = document.getElementById('res-people');
+    const dateIn = document.getElementById('res-date');
+    const timeInput = document.getElementById('res-time');
+
+    let isValid = true;
+
+    // Helper validation
+    function validateField(input) {
+      if (!input) return false;
+      const errorMsg = input.parentElement?.querySelector('.error-msg');
+      const val = input.value.trim();
+
+      if (!val) {
+        input.classList.add('border-error');
+        errorMsg?.classList.remove('hidden');
+        return false;
+      } else {
+        input.classList.remove('border-error');
+        errorMsg?.classList.add('hidden');
+        return true;
+      }
+    }
+
+    if (!validateField(nameInput)) isValid = false;
+    if (!validateField(peopleInput)) isValid = false;
+    if (!validateField(dateIn)) isValid = false;
+    if (!validateField(timeInput)) isValid = false;
+
+    if (!isValid) return;
+
+    const name = nameInput?.value.trim();
+    const people = peopleInput?.value;
+    const date = dateIn?.value;
+    const time = timeInput?.value;
+
+    const message = [
+      'Hola, quiero consultar disponibilidad para una mesa en La Locura Bar.',
+      '',
+      `Nombre: ${name}`,
+      `Personas: ${people}`,
+      `Fecha: ${date}`,
+      `Hora: ${time}`,
+      '',
+      'Quedo atento a la confirmación. ¡Gracias!',
+    ].join('\n');
+
+    window.open(`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`, '_blank');
+  });
+</script>

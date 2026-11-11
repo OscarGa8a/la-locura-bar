@@ -1,0 +1,203 @@
+---
+import { SITE_CONFIG, MENU_PRODUCTS } from '../../data/siteConfig';
+import { formatCOP } from '../../utils/whatsapp';
+
+const categories = SITE_CONFIG.carta.categories;
+---
+
+<section
+  id="carta"
+  class="relative bg-paper text-ink py-20 md:py-28 lg:py-36 px-4 sm:px-6 lg:px-12 border-b border-line-light/50"
+  aria-label="Carta de Bebidas"
+>
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-16 gap-6">
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+          <span class="font-body text-xs md:text-sm font-semibold tracking-[0.2em] text-accent uppercase">
+            {SITE_CONFIG.carta.eyebrow}
+          </span>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-ink leading-[0.95] uppercase mb-4 text-balance">
+          {SITE_CONFIG.carta.title}
+        </h2>
+        <p class="font-body text-base md:text-lg text-ink-muted leading-relaxed">
+          {SITE_CONFIG.carta.description}
+        </p>
+      </div>
+
+      <!-- Quick CTA to Calculator -->
+      <a
+        href={SITE_CONFIG.carta.ctaCalculator.href}
+        class="inline-flex items-center justify-center self-start md:self-auto bg-dark text-paper font-display text-base uppercase tracking-wider px-6 py-3 rounded-sm hover:bg-surface-raised active:scale-95 transition-all"
+      >
+        {SITE_CONFIG.carta.ctaCalculator.label} →
+      </a>
+    </div>
+
+    <!-- Category Tabs -->
+    <div
+      class="flex overflow-x-auto pb-2 scrollbar-none gap-2 sm:gap-3 mb-10 border-b border-line-light/40"
+      role="tablist"
+      aria-label="Categorías de bebidas"
+    >
+      {categories.map((cat, idx) => {
+        const isActive = idx === 0;
+        return (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-btn-${cat.id}`}
+            data-category-tab={cat.id}
+            aria-selected={isActive ? 'true' : 'false'}
+            aria-controls={`tab-panel-${cat.id}`}
+            class={`px-5 py-3 rounded-xs font-display text-base md:text-lg uppercase tracking-wider whitespace-nowrap transition-all cursor-pointer border-b-2 ${
+              isActive
+                ? 'border-primary text-ink font-bold bg-paper-2'
+                : 'border-transparent text-ink-muted hover:text-ink hover:bg-paper-2/60'
+            }`}
+          >
+            {cat.label}
+          </button>
+        );
+      })}
+    </div>
+
+    <!-- Tab Panels -->
+    {categories.map((cat, idx) => {
+      const items = MENU_PRODUCTS.filter((p) => p.category === cat.id);
+      const featuredItems = items.filter((p) => p.featured);
+      const otherItems = items.filter((p) => !p.featured);
+      const isActive = idx === 0;
+
+      return (
+        <div
+          id={`tab-panel-${cat.id}`}
+          role="tabpanel"
+          aria-labelledby={`tab-btn-${cat.id}`}
+          class={`${isActive ? 'block' : 'hidden'} tab-content-panel`}
+        >
+          {/* Featured Cards (if any) */}
+          {featuredItems.length > 0 && (
+            <div class="mb-10">
+              <span class="block text-xs font-display tracking-[0.2em] uppercase text-accent mb-4">
+                Destacados
+              </span>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {featuredItems.slice(0, 2).map((item) => (
+                  <div class="bg-paper-2 border border-line-light/60 p-6 rounded-sm flex flex-col justify-between hover:border-line-light transition-all shadow-xs">
+                    <div>
+                      <div class="flex items-start justify-between gap-4 mb-2">
+                        <span class="px-2 py-0.5 text-xxs font-display uppercase tracking-widest bg-primary text-text rounded-xs">
+                          {item.tag || 'Recomendado'}
+                        </span>
+                        <span class="font-display text-2xl text-ink tabular-nums font-bold">
+                          {formatCOP(item.price)}
+                        </span>
+                      </div>
+                      <h3 class="font-display text-2xl md:text-3xl text-ink uppercase leading-none mb-1">
+                        {item.name}
+                      </h3>
+                      <p class="font-body text-xs text-ink-muted mb-3">
+                        Presentación: {item.presentation}
+                      </p>
+                    </div>
+                    {item.desc && (
+                      <p class="font-body text-sm text-ink-muted/90 pt-3 border-t border-line-light/40">
+                        {item.desc}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* All / Other Products Table/List */}
+          <div>
+            {featuredItems.length > 0 && otherItems.length > 0 && (
+              <span class="block text-xs font-display tracking-[0.2em] uppercase text-ink-muted mb-4">
+                Otras opciones
+              </span>
+            )}
+            <div class="bg-paper-2/40 border border-line-light/40 rounded-sm divide-y divide-line-light/30">
+              {items.map((item) => (
+                <div class="flex items-center justify-between p-4 sm:p-5 hover:bg-paper-2 transition-colors">
+                  <div class="pr-4">
+                    <div class="flex items-center gap-2">
+                      <h4 class="font-display text-lg sm:text-xl text-ink uppercase">
+                        {item.name}
+                      </h4>
+                      {item.featured && (
+                        <span class="hidden sm:inline-block px-1.5 py-0.2 text-[10px] font-display uppercase tracking-wider bg-primary/20 text-accent rounded-xs">
+                          Top
+                        </span>
+                      )}
+                    </div>
+                    <p class="font-body text-xs text-ink-muted">
+                      {item.presentation} {item.desc ? `· ${item.desc}` : ''}
+                    </p>
+                  </div>
+                  <div class="font-display text-xl sm:text-2xl text-ink tabular-nums font-bold whitespace-nowrap">
+                    {formatCOP(item.price)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    })}
+
+    <!-- Bottom Action to Calculator -->
+    <div class="mt-12 pt-8 border-t border-line-light/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="font-body text-sm text-ink-muted text-center sm:text-left">
+        ¿Armando plan en grupo? Estima el valor total de la cuenta antes de pedir.
+      </p>
+      <a
+        href="#calculadora"
+        class="inline-flex items-center justify-center bg-secondary text-dark font-display text-base uppercase tracking-wider px-6 py-3 rounded-sm font-semibold hover:bg-gold-soft active:scale-95 transition-all text-center"
+      >
+        Ir a la calculadora de cuenta
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabButtons = document.querySelectorAll<HTMLButtonElement>('[data-category-tab]');
+  const tabPanels = document.querySelectorAll<HTMLElement>('.tab-content-panel');
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-category-tab');
+      if (!targetId) return;
+
+      // Update button states
+      tabButtons.forEach((b) => {
+        const isCurrent = b === btn;
+        b.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+        if (isCurrent) {
+          b.classList.add('border-primary', 'text-ink', 'font-bold', 'bg-paper-2');
+          b.classList.remove('border-transparent', 'text-ink-muted');
+        } else {
+          b.classList.remove('border-primary', 'text-ink', 'font-bold', 'bg-paper-2');
+          b.classList.add('border-transparent', 'text-ink-muted');
+        }
+      });
+
+      // Show matching panel
+      tabPanels.forEach((panel) => {
+        if (panel.id === `tab-panel-${targetId}`) {
+          panel.classList.remove('hidden');
+          panel.classList.add('block');
+        } else {
+          panel.classList.add('hidden');
+          panel.classList.remove('block');
+        }
+      });
+    });
+  });
+</script>

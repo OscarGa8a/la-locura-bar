@@ -23,16 +23,16 @@ Implement the frozen V2 "Street Editorial Nocturno" design system and 9-section 
 | ID | Spec | Route | Commit | Status |
 | --- | --- | --- | --- | --- |
 | T1 | S1, S2, S3 | inline | 0c93419 | completed |
-| T2 | S4 | inline | pending | in-progress |
-| T3 | S5 | inline | pending | pending |
-| T4 | S6 | inline | pending | pending |
-| T5 | S7 | inline | pending | pending |
-| T6 | S8 | inline | pending | pending |
-| T7 | S9 | inline | pending | pending |
-| T8 | S10 | inline | pending | pending |
-| T9 | S11 | inline | pending | pending |
-| T10 | S12 | inline | pending | pending |
-| T11 | S13 | inline | pending | pending |
+| T2 | S4 | inline | 7dfe9a0 | completed |
+| T3 | S5 | inline | pending | completed |
+| T4 | S6 | inline | pending | completed |
+| T5 | S7 | inline | pending | completed |
+| T6 | S8 | inline | pending | completed |
+| T7 | S9 | inline | pending | completed |
+| T8 | S10 | inline | pending | completed |
+| T9 | S11 | inline | pending | completed |
+| T10 | S12 | inline | pending | completed |
+| T11 | S13 | inline | pending | completed |
 
 ## Log
 

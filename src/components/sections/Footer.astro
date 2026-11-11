@@ -1,55 +1,85 @@
 ---
-import Icon from "../ui/Icons.astro";
-import { socialNetworks } from "../../data/social-networks";
+import { SITE_CONFIG } from '../../data/siteConfig';
+
+const currentYear = new Date().getFullYear();
 ---
 
-<footer class="pt-12 px-5 pb-8 border-t border-line-strong md:pt-16 md:px-8 md:pb-10 lg:pt-20 lg:px-12">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between md:items-center gap-4" data-animate-container>
-    <div class="flex flex-col justify-center" data-animate="fade-up">
-      <!-- Brand name -->
-      <div class="font-display text-5xl font-normal tracking-wider uppercase text-accent md:text-6xl lg:text-7xl">
-        LA LOCURA.
-      </div>
-    
-      <!-- Tagline -->
-      <div class="font-body text-sm mt-3 opacity-80 text-wrap-pretty md:text-base md:mt-4">
-        Síguenos y no te pierdas la próxima locura.
-      </div>
-    </div>
-    
-    <!-- Social link cards -->
-    <div class="flex gap-2 mt-5 lg:mt-0 md:gap-3 md:max-w-md lg:max-w-lg">
-      {socialNetworks.map((s, index) => (
-        <a
-          href={s.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-event="social_click"
-          data-event-location="footer_social"
-          class="flex-1 py-3 px-1 border border-line-strong rounded-lg flex flex-col items-center gap-1.5 font-mono text-xxs md:py-4 md:px-2 hover:bg-bg-2 transition-colors md:text-xs"
-          aria-label={`Visitar ${s.name} de La Locura Bar`}
-          data-animate="fade-up"
-          data-animate-delay={String(Math.min(index + 1, 8))}
-        >
-          <Icon name={s.icon} />
-          <span class="text-center">{s.label}</span>
-        </a>
-      ))}
-    </div>
-  </div>
+<footer
+  id="footer"
+  class="relative bg-background text-text pt-20 pb-12 px-4 sm:px-6 lg:px-12 border-t border-line/60"
+  aria-label="Pie de página"
+>
+  <div class="max-w-7xl mx-auto">
+    <!-- Top Row: Editorial Call to Action & Brand -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-line/40 items-start">
+      <!-- Left Column: Slogan -->
+      <div class="lg:col-span-6 space-y-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+          <span class="font-body text-xs md:text-sm font-semibold tracking-[0.2em] text-accent uppercase">
+            {SITE_CONFIG.footer.eyebrow}
+          </span>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl md:text-6xl text-text uppercase leading-none tracking-tight">
+          {SITE_CONFIG.footer.title}
+        </h2>
+        <p class="font-body text-base text-muted max-w-md">
+          {SITE_CONFIG.footer.description}
+        </p>
 
-  <!-- Copyright strip -->
-  <div class="mt-9 pt-5 border-t border-line font-mono text-xxs tracking-neon opacity-60 flex justify-between flex-wrap gap-2 md:mt-12 md:pt-6" data-animate="fade-up" data-animate-delay="2">
-    <span data-year></span>
-    <span>VILLAVICENCIO · CO</span>
+        <!-- Social Media Buttons -->
+        <div class="pt-4 flex flex-wrap gap-3">
+          {SITE_CONFIG.footer.socialNetworks.map((social) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm bg-surface hover:bg-surface-raised border border-line text-sm font-display uppercase tracking-wider text-text transition-all hover:border-secondary"
+              aria-label={`Visitar perfil oficial de ${social.name}`}
+            >
+              <span>{social.name}</span>
+              <span class="text-xs text-secondary font-body">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Column: Navigation Directory -->
+      <div class="lg:col-span-6 lg:pl-12">
+        <span class="font-display text-xs tracking-[0.25em] text-accent uppercase block mb-6">
+          Explora
+        </span>
+        <ul class="grid grid-cols-2 gap-y-3.5 gap-x-8 text-sm font-body">
+          {SITE_CONFIG.footer.exploreLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-muted hover:text-text transition-colors flex items-center gap-2 group py-1"
+              >
+                <span class="text-xs text-primary group-hover:translate-x-1 transition-transform">→</span>
+                <span>{link.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Strip: Big Brand Sign & Legal Note -->
+    <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <span class="font-display text-2xl tracking-wider text-text uppercase">
+          {SITE_CONFIG.footer.brandSign}
+        </span>
+        <span class="text-line">|</span>
+        <span class="font-body text-xs tracking-widest text-muted uppercase">
+          {SITE_CONFIG.footer.locationSign}
+        </span>
+      </div>
+
+      <div class="font-body text-xs text-muted text-center md:text-right">
+        © {currentYear} La Locura Bar · Todos los derechos reservados.
+      </div>
+    </div>
   </div>
 </footer>
-
-<script>
-  const currentYear = new Date().getFullYear();
-
-  const yearElement = document.querySelector('[data-year]');
-  if (yearElement) {
-    yearElement.textContent = `© ${currentYear} LA LOCURA BAR`;
-  }
-</script>

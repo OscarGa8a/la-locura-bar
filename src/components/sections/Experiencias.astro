@@ -1,0 +1,112 @@
+---
+import { SITE_CONFIG } from '../../data/siteConfig';
+---
+
+<section
+  id="experiencias"
+  class="relative bg-background text-text py-20 md:py-28 lg:py-36 px-4 sm:px-6 lg:px-12 border-b border-line/40 overflow-hidden"
+  aria-label="Experiencias en La Locura Bar"
+>
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="max-w-2xl mb-12 md:mb-16">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        <span class="font-body text-xs md:text-sm font-semibold tracking-[0.2em] text-accent uppercase">
+          {SITE_CONFIG.experiencias.eyebrow}
+        </span>
+      </div>
+      <h2 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-text leading-[0.95] uppercase mb-4 text-balance">
+        {SITE_CONFIG.experiencias.title}
+      </h2>
+      <p class="font-body text-base md:text-lg text-muted max-w-xl leading-relaxed text-pretty">
+        {SITE_CONFIG.experiencias.description}
+      </p>
+    </div>
+
+    <!-- Asymmetrical Mosaic Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+      <!-- Dominant Feature: Bolirrana (Left ~60% on desktop) -->
+      {SITE_CONFIG.experiencias.items[0] && (
+        <div class="lg:col-span-7 group relative rounded-sm overflow-hidden bg-surface border border-line/50 min-h-[420px] md:min-h-[520px] flex flex-col justify-end p-6 sm:p-8 lg:p-10 transition-all duration-300 hover:border-line">
+          <img
+            src={SITE_CONFIG.experiencias.items[0].image}
+            alt={SITE_CONFIG.experiencias.items[0].alt}
+            class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+          />
+          <!-- Multi-stop Dark Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+          
+          <div class="relative z-10">
+            <span class="inline-block px-2.5 py-1 mb-3 text-xs font-display tracking-widest uppercase bg-primary text-text rounded-xs">
+              {SITE_CONFIG.experiencias.items[0].category}
+            </span>
+            <h3 class="font-display text-3xl sm:text-4xl lg:text-5xl text-text uppercase leading-none tracking-tight mb-2">
+              {SITE_CONFIG.experiencias.items[0].title}
+            </h3>
+            <p class="font-body text-sm sm:text-base text-muted">
+              {SITE_CONFIG.experiencias.items[0].subtitle}
+            </p>
+          </div>
+        </div>
+      )}
+
+      <!-- Secondary Features: Música + Pantalla (Right ~40% on desktop, stacked) -->
+      <div class="lg:col-span-5 flex flex-col gap-6 lg:gap-8">
+        <!-- Música -->
+        {SITE_CONFIG.experiencias.items[1] && (
+          <div class="group relative rounded-sm overflow-hidden bg-surface border border-line/50 min-h-[220px] sm:min-h-[250px] flex-1 flex flex-col justify-end p-6 sm:p-8 transition-all duration-300 hover:border-line">
+            <img
+              src={SITE_CONFIG.experiencias.items[1].image}
+              alt={SITE_CONFIG.experiencias.items[1].alt}
+              class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/65 to-transparent"></div>
+            
+            <div class="relative z-10">
+              <span class="inline-block px-2 py-0.5 mb-2 text-xs font-display tracking-widest uppercase bg-surface-raised border border-line/60 text-secondary rounded-xs">
+                {SITE_CONFIG.experiencias.items[1].category}
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl text-text uppercase leading-none tracking-tight mb-1.5">
+                {SITE_CONFIG.experiencias.items[1].title}
+              </h3>
+              <p class="font-body text-xs sm:text-sm text-muted">
+                {SITE_CONFIG.experiencias.items[1].subtitle}
+              </p>
+            </div>
+          </div>
+        )}
+
+        <!-- Pantalla / Deportes -->
+        {SITE_CONFIG.experiencias.items[2] && (
+          <div class="group relative rounded-sm overflow-hidden bg-surface border border-line/50 min-h-[220px] sm:min-h-[250px] flex-1 flex flex-col justify-end p-6 sm:p-8 transition-all duration-300 hover:border-line">
+            <img
+              src={SITE_CONFIG.experiencias.items[2].image}
+              alt={SITE_CONFIG.experiencias.items[2].alt}
+              class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/65 to-transparent"></div>
+            
+            <div class="relative z-10">
+              <span class="inline-block px-2 py-0.5 mb-2 text-xs font-display tracking-widest uppercase bg-surface-raised border border-line/60 text-secondary rounded-xs">
+                {SITE_CONFIG.experiencias.items[2].category}
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl text-text uppercase leading-none tracking-tight mb-1.5">
+                {SITE_CONFIG.experiencias.items[2].title}
+              </h3>
+              <p class="font-body text-xs sm:text-sm text-muted">
+                {SITE_CONFIG.experiencias.items[2].subtitle}
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
