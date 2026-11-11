@@ -58,6 +58,7 @@ async function runAudit() {
 
   const viewports = [
     { name: 'desktop', width: 1440, height: 900 },
+    { name: 'tablet-1060', width: 1060, height: 800 },
     { name: 'mobile', width: 390, height: 844 },
   ];
 
