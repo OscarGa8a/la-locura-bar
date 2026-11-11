@@ -125,10 +125,12 @@ async function runAudit() {
       console.log(`✅ [${vp.name}] 0 broken resources (404/failed).`);
     }
 
-    // Capture each section screenshot
+    // Capture each section screenshot with scroll to ensure full paint & decode
     for (const sec of sections) {
       const el = await page.$(sec.id);
       if (el) {
+        await el.scrollIntoViewIfNeeded();
+        await page.waitForTimeout(350);
         const shotPath = path.join(screenshotsDir, `${sec.name}-${vp.name}.png`);
         await el.screenshot({ path: shotPath });
         console.log(`📸 [${vp.name}] Saved ${sec.name}: ${shotPath}`);

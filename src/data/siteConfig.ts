@@ -22,6 +22,8 @@ export interface ExperienceItem {
   id: string;
   category: string;
   title: string;
+  titleLine1?: string;
+  titleLine2?: string;
   subtitle: string;
   image: string;
   alt: string;
@@ -113,27 +115,33 @@ export const SITE_CONFIG = {
     items: [
       {
         id: 'bolirrana',
-        category: 'Bolirrana',
+        category: '01 / EL JUEGO',
         title: 'LA REVANCHA SE JUEGA AQUÍ.',
-        subtitle: 'Bolirrana con amigos.',
+        titleLine1: 'LA REVANCHA',
+        titleLine2: 'SE JUEGA AQUÍ.',
+        subtitle: 'Bolirrana con amigos, tiro, punto y revancha.',
         image: '/images/v2/bolirrana.png',
         alt: 'Mesa de bolirrana de La Locura Bar.',
       },
       {
         id: 'musica',
-        category: 'Música',
+        category: '02 / LA MÚSICA',
         title: 'TÚ PIDES LA CANCIÓN.',
-        subtitle: 'Música para disfrutar el parche a tu ritmo.',
+        titleLine1: 'TÚ PIDES',
+        titleLine2: 'LA CANCIÓN.',
+        subtitle: 'El ambiente lo pones tú.',
         image: '/images/v2/musica.png',
-        alt: 'Zona de mesas de La Locura Bar con iluminación nocturna.',
+        alt: 'Zona de mesas de La Locura Bar con rocola digital y música.',
       },
       {
         id: 'pantalla',
-        category: 'Eventos deportivos',
+        category: '03 / LA PANTALLA',
         title: 'EL DEPORTE SE VIVE EN GRANDE.',
-        subtitle: 'Transmisiones deportivas anunciadas.',
+        titleLine1: 'EL DEPORTE',
+        titleLine2: 'SE VIVE EN GRANDE.',
+        subtitle: 'Los partidos que no te puedes perder.',
         image: '/images/v2/pantalla.png',
-        alt: 'Pantalla del bar durante una transmisión deportiva anunciada.',
+        alt: 'Pantalla de gran formato para partidos y eventos en La Locura Bar.',
       },
     ] as ExperienceItem[],
   },
