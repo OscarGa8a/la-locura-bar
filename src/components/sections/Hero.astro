@@ -6,7 +6,7 @@ import Icon from '../ui/Icon.astro';
 
 <section
   id="inicio"
-  class="relative min-h-[100dvh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-12 overflow-hidden bg-background"
+  class="relative min-h-[100dvh] flex flex-col justify-end md:justify-center pt-24 pb-8 md:py-24 px-4 sm:px-6 lg:px-12 overflow-hidden bg-background"
   aria-label="Inicio"
 >
   <!-- Background Image: Rich photographic warmth matching mockups -->
@@ -27,9 +27,9 @@ import Icon from '../ui/Icon.astro';
       class="hidden md:block absolute inset-y-0 left-0 w-[62%] lg:w-[54%] bg-gradient-to-r from-black via-black/85 to-transparent"
     ></div>
 
-    <!-- Mobile: Gradient overlay balanced for vertical composition -->
+    <!-- Mobile: Gradient overlay concentrated on bottom where text & buttons sit -->
     <div
-      class="md:hidden absolute inset-0 bg-gradient-to-t from-black via-black/65 to-black/40"
+      class="md:hidden absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent"
     ></div>
 
     <!-- Top & Bottom smooth blending shadows -->
@@ -37,11 +37,11 @@ import Icon from '../ui/Icon.astro';
     <div class="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-background to-transparent"></div>
   </div>
 
-  <!-- Content Layer -->
-  <div class="relative z-10 max-w-7xl mx-auto w-full my-auto">
+  <!-- Content Layer: Anchored to the bottom on mobile, centered on desktop -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full mt-auto md:my-auto">
     <div class="max-w-2xl lg:max-w-3xl">
       <!-- Eyebrow Pill Badge -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 mb-5 rounded-full border border-secondary/90 bg-black/50 backdrop-blur-sm select-none">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 mb-4 sm:mb-5 rounded-full border border-secondary/90 bg-black/50 backdrop-blur-sm select-none">
         <Icon name="pin" size="xs" class="text-secondary shrink-0 stroke-2" />
         <span class="font-display text-xs sm:text-sm tracking-[0.18em] text-secondary uppercase font-semibold">
           {SITE_CONFIG.hero.eyebrow}
@@ -49,34 +49,32 @@ import Icon from '../ui/Icon.astro';
       </div>
 
       <!-- Main Headline: H1 with Line 1 Cream + Line 2 Hot Magenta -->
-      <h1 class="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] xl:text-[8.5rem] tracking-tight leading-[0.88] uppercase mb-6 select-none">
+      <h1 class="font-display text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] xl:text-[8.5rem] tracking-tight leading-[0.88] uppercase mb-4 sm:mb-6 select-none">
         <span class="block text-paper">EL PARCHE</span>
         <span class="block text-primary">EMPIEZA AQUÍ.</span>
       </h1>
 
       <!-- Subtitle Paragraph -->
-      <p class="font-body text-base sm:text-lg md:text-xl text-paper/90 leading-relaxed mb-8 sm:mb-10 max-w-xl text-pretty">
+      <p class="font-body text-sm sm:text-lg md:text-xl text-paper/90 leading-relaxed mb-6 sm:mb-10 max-w-xl text-pretty">
         Cerveza fría, bolirrana, música y buena compañía.<br class="hidden sm:inline" />
         Sin tanta vuelta.
       </p>
 
       <!-- Reusable Atomic Button Primitives -->
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-        <!-- Primary Amber Button -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+        <!-- Primary Amber Button: Clean black pin icon without round circle -->
         <Button
           href="#ubicacion"
           variant="primary"
           size="lg"
           class="justify-between sm:justify-center gap-3 shadow-xl shadow-secondary/15"
         >
-          <span class="w-6 h-6 rounded-full bg-dark flex items-center justify-center shrink-0">
-            <Icon name="pin" size="xs" class="text-secondary" />
-          </span>
+          <Icon name="pin" size="sm" class="text-dark shrink-0 stroke-2" />
           <span>CÓMO LLEGAR</span>
-          <Icon name="arrow-right" size="sm" class="shrink-0" />
+          <Icon name="arrow-right" size="sm" class="text-dark shrink-0 stroke-2" />
         </Button>
 
-        <!-- Secondary Outline Button -->
+        <!-- Secondary Outline Button: Detailed beer/liquor bottle icon in hot magenta -->
         <Button
           href="#carta"
           variant="outline"
@@ -89,11 +87,5 @@ import Icon from '../ui/Icon.astro';
         </Button>
       </div>
     </div>
-  </div>
-
-  <!-- Mobile Scroll Down Indicator ("DESLIZA ↓") -->
-  <div class="md:hidden relative z-10 mx-auto pt-6 flex flex-col items-center gap-1 opacity-75 animate-bounce select-none">
-    <span class="font-display text-[10px] tracking-[0.25em] text-paper uppercase">DESLIZA</span>
-    <Icon name="chevron-down" size="xs" class="text-paper stroke-2" />
   </div>
 </section>
