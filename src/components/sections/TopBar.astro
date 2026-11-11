@@ -1,4 +1,7 @@
 ---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+
 const navItems = [
   { label: 'INICIO', href: '#inicio', active: true },
   { label: 'EXPERIENCIAS', href: '#experiencias' },
@@ -53,18 +56,12 @@ const navItems = [
       </ul>
     </nav>
 
-    <!-- Right Action Button (Desktop & Mobile) -->
+    <!-- Right Action Button & Mobile Trigger -->
     <div class="flex items-center gap-3">
-      <a
-        href="#reservas"
-        class="inline-flex items-center gap-2 bg-secondary text-dark font-display text-xs sm:text-sm tracking-wider uppercase px-4 sm:px-5 py-2.5 rounded-lg font-bold hover:bg-gold-soft active:scale-95 transition-all shadow-md select-none"
-      >
-        <!-- Calendar Icon -->
-        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
-        </svg>
+      <Button href="#reservas" variant="primary" size="sm">
+        <Icon name="calendar" size="xs" class="shrink-0" />
         <span>RESERVA TU MESA</span>
-      </a>
+      </Button>
 
       <!-- Mobile Hamburger Button -->
       <button
@@ -75,9 +72,7 @@ const navItems = [
         aria-expanded="false"
         aria-controls="mobile-menu-drawer"
       >
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
+        <Icon name="menu" size="lg" />
       </button>
     </div>
   </div>
@@ -105,9 +100,7 @@ const navItems = [
       class="p-2 text-muted hover:text-text rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary cursor-pointer"
       aria-label="Cerrar menú"
     >
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
+      <Icon name="close" size="lg" />
     </button>
   </div>
 
@@ -124,15 +117,10 @@ const navItems = [
   </nav>
 
   <div class="mt-auto pt-6 border-t border-line/40">
-    <a
-      href="#reservas"
-      class="mobile-nav-link flex items-center justify-center gap-2 w-full py-4 bg-secondary text-dark font-display text-lg uppercase tracking-wider rounded-lg font-bold hover:bg-gold-soft transition-colors shadow-lg"
-    >
-      <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
-      </svg>
+    <Button href="#reservas" variant="primary" size="lg" class="w-full mobile-nav-link">
+      <Icon name="calendar" size="sm" class="shrink-0" />
       <span>RESERVA TU MESA</span>
-    </a>
+    </Button>
   </div>
 </div>
 
