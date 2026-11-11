@@ -4,22 +4,21 @@ import '../styles/global.css';
 
 import TopBar from '../components/sections/TopBar.astro';
 import Hero from '../components/sections/Hero.astro';
+import Activities from '../components/sections/Activities.astro';
 import About from '../components/sections/About.astro';
 import MenuSection from '../components/sections/MenuSection.astro';
 import BillCalculator from '../components/sections/BillCalculator.astro';
-import FAQ from '../components/sections/FAQ.astro';
 import Reserve from '../components/sections/Reserve.astro';
+import FAQ from '../components/sections/FAQ.astro';
 import Location from '../components/sections/Location.astro';
 import Footer from '../components/sections/Footer.astro';
-import MenuOverlay from '../components/sections/MenuOverlay.astro';
-import Activities from '../components/sections/Activities.astro';
 import WhatsAppFab from '../components/ui/WhatsAppFab.astro';
-import { FAQS } from '../data/content';
+import { SITE_CONFIG } from '../data/siteConfig';
 
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: FAQS.map((item) => ({
+  mainEntity: SITE_CONFIG.faq.items.map((item) => ({
     '@type': 'Question',
     name: item.question,
     acceptedAnswer: {
@@ -31,8 +30,9 @@ const faqJsonLd = {
 ---
 
 <Layout
-  title="Bar con bolirana, baile y fútbol en Villavicencio"
-  description="Bar en Villavicencio con bolirana, baile, cervezas frías, licores, música y fútbol en pantalla gigante. ¡Visítanos en Barrio Embudo o reserva por WhatsApp!"
+  title={SITE_CONFIG.seo.title}
+  description={SITE_CONFIG.seo.description}
+  ogImage={SITE_CONFIG.seo.ogImage}
   jsonLd={faqJsonLd}
 >
   <TopBar />
@@ -43,10 +43,9 @@ const faqJsonLd = {
     <MenuSection />
     <BillCalculator />
     <Reserve />
-    <Location />
     <FAQ />
+    <Location />
   </main>
   <Footer />
-  <MenuOverlay />
   <WhatsAppFab />
 </Layout>

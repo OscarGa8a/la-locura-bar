@@ -22,8 +22,8 @@ Implement the frozen V2 "Street Editorial Nocturno" design system and 9-section 
 
 | ID | Spec | Route | Commit | Status |
 | --- | --- | --- | --- | --- |
-| T1 | S1, S2, S3 | inline | pending | in-progress |
-| T2 | S4 | inline | pending | pending |
+| T1 | S1, S2, S3 | inline | 0c93419 | completed |
+| T2 | S4 | inline | pending | in-progress |
 | T3 | S5 | inline | pending | pending |
 | T4 | S6 | inline | pending | pending |
 | T5 | S7 | inline | pending | pending |

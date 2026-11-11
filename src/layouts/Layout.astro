@@ -15,26 +15,11 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || config.gtmId;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es-CO">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
-
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/bebas-neue.woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/space-grotesk.woff2"
-      crossorigin
-    />
 
     <SEOHead title={title} description={description} ogImage={ogImage} jsonLd={jsonLd} />
 
@@ -65,7 +50,7 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || config.gtmId;
       <!-- End Google Tag Manager -->
     )}
   </head>
-  <body class="bg-bg text-fg font-body grain">
+  <body class="bg-background text-text font-body selection:bg-primary selection:text-white">
     {gtmId && (
       <!-- Google Tag Manager (noscript) -->
       <noscript>
