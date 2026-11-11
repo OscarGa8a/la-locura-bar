@@ -24,15 +24,15 @@ Implement the frozen V2 "Street Editorial Nocturno" design system and 9-section 
 | --- | --- | --- | --- | --- |
 | T1 | S1, S2, S3 | inline | 0c93419 | completed |
 | T2 | S4 | inline | 7dfe9a0 | completed |
-| T3 | S5 | inline | pending | completed |
-| T4 | S6 | inline | pending | completed |
-| T5 | S7 | inline | pending | completed |
-| T6 | S8 | inline | pending | completed |
-| T7 | S9 | inline | pending | completed |
-| T8 | S10 | inline | pending | completed |
-| T9 | S11 | inline | pending | completed |
-| T10 | S12 | inline | pending | completed |
-| T11 | S13 | inline | pending | completed |
+| T3 | S5 | inline | 7497e37 | completed |
+| T4 | S6 | inline | 7497e37 | completed |
+| T5 | S7 | inline | 7497e37 | completed |
+| T6 | S8 | inline | 7497e37 | completed |
+| T7 | S9 | inline | 7497e37 | completed |
+| T8 | S10 | inline | 7497e37 | completed |
+| T9 | S11 | inline | 7497e37 | completed |
+| T10 | S12 | inline | 7497e37 | completed |
+| T11 | S13 | inline | 7497e37 | completed |
 
 ## Log
 
