@@ -3,10 +3,11 @@ import { SITE_CONFIG } from '../../data/siteConfig';
 ---
 
 <a
+  id="whatsapp-fab"
   href={SITE_CONFIG.whatsappUrl}
   target="_blank"
   rel="noopener noreferrer"
-  class="group fixed bottom-5 right-5 md:bottom-7 md:right-7 z-40 flex items-center justify-center w-13 h-13 md:w-14 md:h-14 rounded-full bg-[#138A43] text-white shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+  class="group fixed bottom-5 right-5 md:bottom-7 md:right-7 z-40 flex items-center justify-center w-13 h-13 md:w-14 md:h-14 rounded-full bg-[#138A43] text-white shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary opacity-0 pointer-events-none translate-y-4"
   aria-label="Escribir por WhatsApp a La Locura Bar"
 >
   <!-- WhatsApp Icon SVG -->
@@ -22,3 +23,17 @@ import { SITE_CONFIG } from '../../data/siteConfig';
     Consultar por WhatsApp
   </span>
 </a>
+
+<script>
+  const fab = document.getElementById('whatsapp-fab');
+  window.addEventListener('scroll', () => {
+    if (!fab) return;
+    if (window.scrollY > 350) {
+      fab.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+      fab.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+    } else {
+      fab.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+      fab.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+    }
+  });
+</script>

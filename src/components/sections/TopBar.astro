@@ -1,73 +1,82 @@
 ---
-import { SITE_CONFIG } from '../../data/siteConfig';
+const navItems = [
+  { label: 'INICIO', href: '#inicio', active: true },
+  { label: 'EXPERIENCIAS', href: '#experiencias' },
+  { label: 'CARTA', href: '#carta' },
+  { label: 'CALCULADORA', href: '#calculadora' },
+  { label: 'UBICACIÓN', href: '#ubicacion' },
+  { label: 'FAQ', href: '#preguntas' },
+];
 ---
 
 <header
   id="header-global"
-  class="fixed top-0 left-0 right-0 z-40 transition-colors duration-300 bg-background/80 backdrop-blur-md border-b border-line/40 py-3.5 px-4 sm:px-6 lg:px-12"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-gradient-to-b from-black/90 via-black/60 to-transparent py-4 px-4 sm:px-6 lg:px-10"
 >
   <div class="max-w-7xl mx-auto flex items-center justify-between">
-    <!-- Logo -->
+    <!-- Official Logo Graphic -->
     <a
       href="#inicio"
-      class="flex items-center gap-2.5 text-text hover:text-secondary transition-colors group select-none"
+      class="flex items-center select-none group focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm"
       aria-label="La Locura Bar — ir al inicio"
     >
       <img
-        src="/images/logo.png"
-        alt=""
-        width="40"
-        height="40"
-        class="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+        src="/images/logo-transparent.png"
+        alt="La Locura Bar"
+        width="140"
+        height="64"
+        class="h-12 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
         loading="eager"
       />
-      <span class="font-display text-2xl sm:text-3xl tracking-wide uppercase text-text group-hover:text-secondary transition-colors">
-        LA LOCURA
-      </span>
     </a>
 
-    <!-- Desktop Navigation -->
-    <nav class="hidden lg:flex items-center gap-8" aria-label="Navegación principal">
-      <ul class="flex items-center gap-6 text-sm font-body font-medium tracking-wide">
-        {SITE_CONFIG.navigation.desktop.map((item) => (
+    <!-- Desktop Nav Links -->
+    <nav class="hidden lg:flex items-center gap-7 xl:gap-9" aria-label="Navegación principal">
+      <ul class="flex items-center gap-6 xl:gap-8 font-display text-sm xl:text-base tracking-wider uppercase">
+        {navItems.map((item) => (
           <li>
             <a
               href={item.href}
-              class="text-muted hover:text-text transition-colors py-1 inline-block"
+              class={`py-1.5 transition-colors relative ${
+                item.active
+                  ? 'text-text font-bold'
+                  : 'text-muted hover:text-text'
+              }`}
             >
               {item.label}
+              {item.active && (
+                <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"></span>
+              )}
             </a>
           </li>
         ))}
       </ul>
-
-      <!-- Desktop CTA -->
-      <a
-        href={SITE_CONFIG.navigation.cta.href}
-        class="inline-flex items-center justify-center bg-secondary text-dark font-display text-base tracking-wider uppercase px-5 py-2.5 rounded-sm hover:bg-gold-soft active:scale-95 transition-all font-semibold"
-      >
-        {SITE_CONFIG.navigation.cta.label}
-      </a>
     </nav>
 
-    <!-- Mobile Navigation Actions -->
-    <div class="flex items-center gap-2.5 lg:hidden">
+    <!-- Right Action Button (Desktop & Mobile) -->
+    <div class="flex items-center gap-3">
       <a
-        href={SITE_CONFIG.navigation.cta.href}
-        class="inline-flex items-center justify-center bg-secondary text-dark font-display text-sm tracking-wider uppercase px-3.5 py-1.5 rounded-sm font-semibold active:scale-95 transition-all"
+        href="#reservas"
+        class="inline-flex items-center gap-2 bg-secondary text-dark font-display text-xs sm:text-sm tracking-wider uppercase px-4 sm:px-5 py-2.5 rounded-lg font-bold hover:bg-gold-soft active:scale-95 transition-all shadow-md select-none"
       >
-        Reservar
+        <!-- Calendar Icon -->
+        <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
+        </svg>
+        <span>RESERVA TU MESA</span>
       </a>
+
+      <!-- Mobile Hamburger Button -->
       <button
         type="button"
         id="btn-open-menu"
-        class="p-2 text-text hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm"
+        class="p-2 text-text hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm lg:hidden cursor-pointer"
         aria-label="Abrir menú"
         aria-expanded="false"
         aria-controls="mobile-menu-drawer"
       >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </div>
@@ -77,35 +86,38 @@ import { SITE_CONFIG } from '../../data/siteConfig';
 <!-- Mobile Menu Drawer -->
 <div
   id="mobile-menu-drawer"
-  class="fixed inset-0 z-50 bg-background/95 backdrop-blur-xl flex flex-col p-6 transition-all duration-300 opacity-0 pointer-events-none -translate-y-4"
+  class="fixed inset-0 z-50 bg-background/98 backdrop-blur-2xl flex flex-col p-6 transition-all duration-300 opacity-0 pointer-events-none -translate-y-4"
   role="dialog"
   aria-modal="true"
   aria-label="Explora La Locura"
 >
-  <div class="flex items-center justify-between pb-6 border-b border-line/40">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-      <span class="font-display text-xl tracking-wider text-text uppercase">Explora La Locura</span>
+  <div class="flex items-center justify-between pb-5 border-b border-line/40">
+    <div class="flex items-center gap-3">
+      <img
+        src="/images/logo-transparent.png"
+        alt="La Locura Bar"
+        class="h-10 w-auto object-contain"
+      />
     </div>
     <button
       type="button"
       id="btn-close-menu"
-      class="p-2 text-muted hover:text-text rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+      class="p-2 text-muted hover:text-text rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary cursor-pointer"
       aria-label="Cerrar menú"
     >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
   </div>
 
-  <nav class="flex flex-col py-8 gap-4 overflow-y-auto" aria-label="Navegación móvil">
-    {SITE_CONFIG.navigation.mobile.map((item) => (
+  <nav class="flex flex-col py-6 gap-3 overflow-y-auto" aria-label="Navegación móvil">
+    {navItems.map((item) => (
       <a
         href={item.href}
-        class="mobile-nav-link font-display text-2xl uppercase tracking-wide text-text hover:text-secondary transition-colors py-2 border-b border-line/20 flex items-center justify-between"
+        class="mobile-nav-link font-display text-2xl uppercase tracking-wide text-text hover:text-secondary transition-colors py-2.5 border-b border-line/20 flex items-center justify-between"
       >
-        <span>{item.label}</span>
+        <span class={item.active ? 'text-primary' : ''}>{item.label}</span>
         <span class="text-xs text-muted font-body">→</span>
       </a>
     ))}
@@ -113,10 +125,13 @@ import { SITE_CONFIG } from '../../data/siteConfig';
 
   <div class="mt-auto pt-6 border-t border-line/40">
     <a
-      href={SITE_CONFIG.navigation.cta.href}
-      class="mobile-nav-link flex items-center justify-center w-full py-3.5 bg-secondary text-dark font-display text-lg uppercase tracking-wider rounded-sm font-semibold hover:bg-gold-soft transition-colors"
+      href="#reservas"
+      class="mobile-nav-link flex items-center justify-center gap-2 w-full py-4 bg-secondary text-dark font-display text-lg uppercase tracking-wider rounded-lg font-bold hover:bg-gold-soft transition-colors shadow-lg"
     >
-      {SITE_CONFIG.navigation.cta.label}
+      <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
+      </svg>
+      <span>RESERVA TU MESA</span>
     </a>
   </div>
 </div>
@@ -128,15 +143,15 @@ import { SITE_CONFIG } from '../../data/siteConfig';
   const drawer = document.getElementById('mobile-menu-drawer');
   const navLinks = drawer?.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link');
 
-  // Sticky header background transition
+  // Sticky header transition on scroll
   window.addEventListener('scroll', () => {
     if (!header) return;
-    if (window.scrollY > 30) {
-      header.classList.add('bg-background/95', 'shadow-lg', 'border-line/80');
-      header.classList.remove('bg-background/80', 'border-line/40');
+    if (window.scrollY > 40) {
+      header.classList.add('bg-background/95', 'backdrop-blur-md', 'shadow-xl', 'border-b', 'border-line/40', 'py-3');
+      header.classList.remove('bg-gradient-to-b', 'from-black/90', 'via-black/60', 'to-transparent', 'py-4');
     } else {
-      header.classList.add('bg-background/80', 'border-line/40');
-      header.classList.remove('bg-background/95', 'shadow-lg', 'border-line/80');
+      header.classList.add('bg-gradient-to-b', 'from-black/90', 'via-black/60', 'to-transparent', 'py-4');
+      header.classList.remove('bg-background/95', 'backdrop-blur-md', 'shadow-xl', 'border-b', 'border-line/40', 'py-3');
     }
   });
 
