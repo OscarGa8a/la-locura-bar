@@ -36,8 +36,6 @@ pnpm-debug.log*
 # Playwright MCP artifacts
 .playwright-mcp/
 
-# Reference project
-docs/
 
 # SDD artifacts
 openspec/
