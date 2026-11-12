@@ -156,8 +156,8 @@ export const SITE_CONFIG = {
       href: '#calculadora',
     },
     categories: [
-      { id: 'personal', label: 'Cervezas personales', sublabel: 'Personales y para compartir', icon: 'beer', description: 'Presentaciones individuales' },
-      { id: 'compartir', label: 'Para compartir', sublabel: 'Litros y cubetas', icon: 'bucket', description: 'Presentaciones para el parche' },
+      { id: 'personal', label: 'Cervezas personales', sublabel: 'Individuales', icon: 'beer', description: 'Presentaciones individuales' },
+      { id: 'compartir', label: 'Para compartir', sublabel: 'Balde y torres', icon: 'bucket', description: 'Presentaciones para el parche' },
       { id: 'licores', label: 'Licores', sublabel: 'Tragos y botellas', icon: 'bottle', description: 'Consulta las opciones disponibles' },
       { id: 'otras', label: 'Otras bebidas', sublabel: 'Sin alcohol y mixers', icon: 'martini', description: 'Bebidas no alcohólicas y mixers' },
     ] as const,
