@@ -71,7 +71,7 @@ const item3 = SITE_CONFIG.experiencias.items[2];
     </div>
 
     <!-- Asymmetrical Mosaic Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 lg:gap-4 xl:gap-5 items-stretch">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 lg:gap-4 xl:gap-5 items-stretch lg:h-[540px]">
       <!-- Dominant Feature: Bolirrana (Left ~58% on desktop) -->
       {item1 && (
         <>
@@ -103,18 +103,18 @@ const item3 = SITE_CONFIG.experiencias.items[2];
           </div>
 
           <!-- Desktop (>= lg): Slanted Top, Flat Bottom, Rounded Corners & 1px Stroke -->
-          <div class="hidden lg:flex lg:col-span-7 group relative min-h-[520px] xl:min-h-[550px] lg:h-full flex-col justify-end p-8 lg:p-10 transition-all duration-300">
+          <div class="hidden lg:flex lg:col-span-7 group relative h-full flex-col justify-end p-8 lg:p-10 transition-all duration-300">
             <!-- SVG Masked Background Image, Gradient & Crisp Border -->
-            <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 740 540" preserveAspectRatio="none">
+            <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 737 540" preserveAspectRatio="none">
               <defs>
                 <clipPath id="c1-desktop-clip">
                   <path d="
-                    M 0 36
-                    Q 0 24 12 24
-                    L 728 0
-                    Q 740 0 740 12
-                    L 740 528
-                    Q 740 540 728 540
+                    M 0 58
+                    Q 0 46 12 46
+                    L 725 19.5
+                    Q 737 19.5 737 31.5
+                    L 737 528
+                    Q 737 540 725 540
                     L 12 540
                     Q 0 540 0 528
                     Z
@@ -122,28 +122,28 @@ const item3 = SITE_CONFIG.experiencias.items[2];
                 </clipPath>
                 <linearGradient id="c1-desktop-grad" x1="0" y1="1" x2="0" y2="0">
                   <stop offset="0%" stop-color="#000000" stop-opacity="0.95" />
-                  <stop offset="45%" stop-color="#000000" stop-opacity="0.5" />
+                  <stop offset="45%" stop-color="#000000" stop-opacity="0.45" />
                   <stop offset="100%" stop-color="#000000" stop-opacity="0" />
                 </linearGradient>
               </defs>
               <g clip-path="url(#c1-desktop-clip)">
                 <image
                   href={item1.image}
-                  width="740"
+                  width="737"
                   height="540"
                   preserveAspectRatio="xMidYMid slice"
                   class="transition-transform duration-700 ease-out group-hover:scale-105"
                 />
-                <rect width="740" height="540" fill="url(#c1-desktop-grad)" />
+                <rect width="737" height="540" fill="url(#c1-desktop-grad)" />
               </g>
               <path
                 d="
-                  M 0 36
-                  Q 0 24 12 24
-                  L 728 0
-                  Q 740 0 740 12
-                  L 740 528
-                  Q 740 540 728 540
+                  M 0 58
+                  Q 0 46 12 46
+                  L 725 19.5
+                  Q 737 19.5 737 31.5
+                  L 737 528
+                  Q 737 540 725 540
                   L 12 540
                   Q 0 540 0 528
                   Z
@@ -175,35 +175,107 @@ const item3 = SITE_CONFIG.experiencias.items[2];
         </>
       )}
 
-      <!-- Secondary Features: Música + Pantalla (Right ~42% on desktop, stacked, elevated, tight gap) -->
-      <div class="lg:col-span-5 flex flex-col gap-3.5 sm:gap-4 lg:gap-3.5 xl:gap-4 lg:-mt-7 xl:-mt-8">
-        <!-- Card 02: Música (Parallel skewed rectangle: top & bottom slanted) -->
+      <!-- Secondary Features: Música + Pantalla (Right ~42% on desktop, perfectly continuing the diagonal) -->
+      <div class="lg:col-span-5 flex flex-col gap-3.5 sm:gap-4 lg:gap-3.5 xl:gap-4 h-full">
+        <!-- Card 02: Música (Continuous diagonal top, parallel bottom) -->
         {item2 && (
-          <div class="group relative rounded-xl overflow-hidden bg-surface border border-white/10 min-h-[240px] sm:min-h-[260px] flex-1 flex flex-col justify-end p-6 sm:p-8 transition-all duration-300 hover:border-white/20 lg:transform lg:-skew-y-[1.2deg]">
-            <img
-              src={item2.image}
-              alt={item2.alt}
-              class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-              loading="eager"
-              decoding="async"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent"></div>
-            
-            <div class="relative z-10 lg:transform lg:skew-y-[1.2deg]">
-              <span class="block font-body text-xs sm:text-sm font-bold tracking-[0.22em] text-secondary uppercase mb-2">
-                {item2.category}
-              </span>
-              <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl uppercase leading-[0.88] tracking-tight mb-2">
-                <span class="block text-white">{item2.titleLine1 || 'TÚ PIDES'}</span>
-                <span class="block text-primary">{item2.titleLine2 || 'LA CANCIÓN.'}</span>
-              </h3>
-              <!-- Secondary Divider Line -->
-              <div class="w-10 h-0.5 bg-secondary my-2.5"></div>
-              <p class="font-body text-xs sm:text-sm text-white/80 font-normal">
-                {item2.subtitle}
-              </p>
+          <>
+            <!-- Mobile / Tablet (< lg): Standard Flat Rectangular Card -->
+            <div class="lg:hidden group relative rounded-xl overflow-hidden bg-surface border border-white/10 min-h-[240px] sm:min-h-[260px] flex-1 flex flex-col justify-end p-6 sm:p-8 transition-all duration-300 hover:border-white/20">
+              <img
+                src={item2.image}
+                alt={item2.alt}
+                class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                loading="eager"
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent"></div>
+              
+              <div class="relative z-10">
+                <span class="block font-body text-xs sm:text-sm font-bold tracking-[0.22em] text-secondary uppercase mb-2">
+                  {item2.category}
+                </span>
+                <h3 class="font-display text-2xl sm:text-3xl uppercase leading-[0.88] tracking-tight mb-2">
+                  <span class="block text-white">{item2.titleLine1 || 'TÚ PIDES'}</span>
+                  <span class="block text-primary">{item2.titleLine2 || 'LA CANCIÓN.'}</span>
+                </h3>
+                <!-- Secondary Divider Line -->
+                <div class="w-10 h-0.5 bg-secondary my-2.5"></div>
+                <p class="font-body text-xs sm:text-sm text-white/80 font-normal">
+                  {item2.subtitle}
+                </p>
+              </div>
             </div>
-          </div>
+
+            <!-- Desktop (>= lg): Seamless continuation of Card 1's diagonal -->
+            <div class="hidden lg:flex group relative h-[260px] flex-col justify-end p-6 sm:p-8 transition-all duration-300">
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 527 260" preserveAspectRatio="none">
+                <defs>
+                  <clipPath id="c2-desktop-clip">
+                    <path d="
+                      M 0 30.9
+                      Q 0 18.9 12 18.9
+                      L 515 0
+                      Q 527 0 527 12
+                      L 527 241.1
+                      Q 527 253.1 515 253.1
+                      L 12 272
+                      Q 0 272 0 260
+                      Z
+                    " />
+                  </clipPath>
+                  <linearGradient id="c2-desktop-grad" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%" stop-color="#000000" stop-opacity="0.95" />
+                    <stop offset="50%" stop-color="#000000" stop-opacity="0.5" />
+                    <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <g clip-path="url(#c2-desktop-clip)">
+                  <image
+                    href={item2.image}
+                    width="527"
+                    height="260"
+                    preserveAspectRatio="xMidYMid slice"
+                    class="transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <rect width="527" height="260" fill="url(#c2-desktop-grad)" />
+                </g>
+                <path
+                  d="
+                    M 0 30.9
+                    Q 0 18.9 12 18.9
+                    L 515 0
+                    Q 527 0 527 12
+                    L 527 241.1
+                    Q 527 253.1 515 253.1
+                    L 12 272
+                    Q 0 272 0 260
+                    Z
+                  "
+                  fill="none"
+                  stroke="rgba(255,255,255,0.12)"
+                  stroke-width="1.2"
+                  vector-effect="non-scaling-stroke"
+                  class="transition-colors duration-300 group-hover:stroke-white/20"
+                />
+              </svg>
+
+              <div class="relative z-10">
+                <span class="block font-body text-xs sm:text-sm font-bold tracking-[0.22em] text-secondary uppercase mb-2">
+                  {item2.category}
+                </span>
+                <h3 class="font-display text-2xl sm:text-3xl lg:text-4xl uppercase leading-[0.88] tracking-tight mb-2">
+                  <span class="block text-white">{item2.titleLine1 || 'TÚ PIDES'}</span>
+                  <span class="block text-primary">{item2.titleLine2 || 'LA CANCIÓN.'}</span>
+                </h3>
+                <!-- Secondary Divider Line -->
+                <div class="w-10 h-0.5 bg-secondary my-2.5"></div>
+                <p class="font-body text-xs sm:text-sm text-white/80 font-normal">
+                  {item2.subtitle}
+                </p>
+              </div>
+            </div>
+          </>
         )}
 
         <!-- Card 03: Pantalla / Deportes -->
@@ -237,19 +309,19 @@ const item3 = SITE_CONFIG.experiencias.items[2];
             </div>
 
             <!-- Desktop (>= lg): Slanted Top (parallel to Card 2), Flat Bottom (horizontal), Rounded Corners -->
-            <div class="hidden lg:flex group relative min-h-[240px] sm:min-h-[260px] flex-1 flex-col justify-end p-6 sm:p-8 transition-all duration-300">
-              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 530 260" preserveAspectRatio="none">
+            <div class="hidden lg:flex group relative flex-1 flex-col justify-end p-6 sm:p-8 transition-all duration-300">
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 527 264" preserveAspectRatio="none">
                 <defs>
                   <clipPath id="c3-desktop-clip">
                     <path d="
-                      M 0 24
-                      Q 0 14 12 14
-                      L 518 0
-                      Q 530 0 530 12
-                      L 530 248
-                      Q 530 260 518 260
-                      L 12 260
-                      Q 0 260 0 248
+                      M 0 30.9
+                      Q 0 18.9 12 18.9
+                      L 515 0
+                      Q 527 0 527 12
+                      L 527 252
+                      Q 527 264 515 264
+                      L 12 264
+                      Q 0 264 0 252
                       Z
                     " />
                   </clipPath>
@@ -262,23 +334,23 @@ const item3 = SITE_CONFIG.experiencias.items[2];
                 <g clip-path="url(#c3-desktop-clip)">
                   <image
                     href={item3.image}
-                    width="530"
-                    height="260"
+                    width="527"
+                    height="264"
                     preserveAspectRatio="xMidYMid slice"
                     class="transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <rect width="530" height="260" fill="url(#c3-desktop-grad)" />
+                  <rect width="527" height="264" fill="url(#c3-desktop-grad)" />
                 </g>
                 <path
                   d="
-                    M 0 24
-                    Q 0 14 12 14
-                    L 518 0
-                    Q 530 0 530 12
-                    L 530 248
-                    Q 530 260 518 260
-                    L 12 260
-                    Q 0 260 0 248
+                    M 0 30.9
+                    Q 0 18.9 12 18.9
+                    L 515 0
+                    Q 527 0 527 12
+                    L 527 252
+                    Q 527 264 515 264
+                    L 12 264
+                    Q 0 264 0 252
                     Z
                   "
                   fill="none"
