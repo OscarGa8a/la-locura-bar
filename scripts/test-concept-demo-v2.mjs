@@ -131,9 +131,32 @@ async function runAudit() {
       if (el) {
         await el.scrollIntoViewIfNeeded();
         await page.waitForTimeout(350);
+
+        // Hide fixed header for non-hero section element screenshots so it doesn't overlap the section content
+        if (sec.id !== '#inicio') {
+          await page.evaluate(() => {
+            const h = document.getElementById('header-global');
+            if (h) {
+              h.style.display = 'none';
+              h.style.visibility = 'hidden';
+            }
+          });
+        }
+
         const shotPath = path.join(screenshotsDir, `${sec.name}-${vp.name}.png`);
         await el.screenshot({ path: shotPath });
         console.log(`📸 [${vp.name}] Saved ${sec.name}: ${shotPath}`);
+
+        // Restore fixed header
+        if (sec.id !== '#inicio') {
+          await page.evaluate(() => {
+            const h = document.getElementById('header-global');
+            if (h) {
+              h.style.display = '';
+              h.style.visibility = '';
+            }
+          });
+        }
       } else {
         console.warn(`⚠️ [${vp.name}] Element ${sec.id} not found.`);
       }

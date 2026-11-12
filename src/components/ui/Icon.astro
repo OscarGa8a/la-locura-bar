@@ -5,6 +5,7 @@ import {
   ArrowRight,
   ArrowDown,
   ChevronDown,
+  ChevronRight,
   Menu,
   X,
   Wine,
@@ -15,6 +16,8 @@ import {
   Sparkles,
   Clock,
   Phone,
+  Calculator,
+  Martini,
 } from 'lucide-astro';
 
 interface Props {
@@ -57,6 +60,7 @@ const lucideComponents: Record<string, any> = {
   'arrow-right': ArrowRight,
   'arrow-down': ArrowDown,
   'chevron-down': ChevronDown,
+  'chevron-right': ChevronRight,
   menu: Menu,
   close: X,
   x: X,
@@ -68,6 +72,9 @@ const lucideComponents: Record<string, any> = {
   sparkle: Sparkles,
   clock: Clock,
   phone: Phone,
+  calculator: Calculator,
+  martini: Martini,
+  cocktail: Martini,
 };
 
 const LucideComponent = lucideComponents[name.toLowerCase()];
@@ -96,6 +103,24 @@ const LucideComponent = lucideComponents[name.toLowerCase()];
         <path d="M10 2h4" />
         <path d="M10 2v4a3 3 0 0 1-.88 2.12L8 9.24V20a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V9.24l-1.12-1.12A3 3 0 0 1 14 6V2" />
         <path d="M8 14h8" />
+      </svg>
+    )}
+
+    {name === 'bucket' && (
+      <svg
+        {...a11yAttrs}
+        class={`${sizes[size]} ${className}`}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 9l1.5 11a2 2 0 0 0 2 1.8h7a2 2 0 0 0 2-1.8L19 9" />
+        <path d="M3 9h18" />
+        <path d="M9 9V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v3" />
+        <path d="M14 9V4a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v5" />
       </svg>
     )}
 
