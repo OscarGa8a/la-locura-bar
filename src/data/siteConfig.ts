@@ -15,6 +15,7 @@ export interface MenuItemV2 {
   featured?: boolean;
   tag?: string;
   image?: string;
+  bottleImage?: string;
   desc?: string;
 }
 
@@ -279,6 +280,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     featured: true,
     tag: 'DESTACADA',
     image: '/images/v2/menu-cervezas.png',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: 'Cerveza 330 ml.',
   },
   {
@@ -290,6 +292,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     featured: true,
     tag: 'DESTACADA',
     image: '/images/v2/menu-licores.png',
+    bottleImage: '/images/v2/bottles/heineken.png',
     desc: 'Cerveza 330 ml.',
   },
   {
@@ -298,6 +301,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 6000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/aguila-light.png',
     desc: 'Ligera, refrescante y suave',
   },
   {
@@ -306,6 +310,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 7000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/club-dorada.png',
     desc: 'Dorada tradicional colombiana',
   },
   {
@@ -314,6 +319,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 5000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: 'El amigo que une al parche',
   },
   {
@@ -322,6 +328,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 5000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: 'Sabor costeño refrescante',
   },
   {
@@ -330,6 +337,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 8000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/corona.png',
     desc: 'Bien fría con limón',
   },
   {
@@ -338,6 +346,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 9000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/heineken.png',
     desc: 'Premium lager europea',
   },
   {
@@ -346,6 +355,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 7000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: 'Clásica lager americana',
   },
   {
@@ -354,6 +364,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 7000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/corona.png',
     desc: 'Triple filtrada, ligera',
   },
   {
@@ -362,6 +373,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 6000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: 'Cerveza colombiana refrescante',
   },
   {
@@ -370,6 +382,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 8000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: 'Artesanal bogotana',
   },
   {
@@ -378,6 +391,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 7000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/club-roja.png',
     desc: 'Maltas tostadas especiales',
   },
   {
@@ -386,6 +400,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 8000,
     category: 'personal',
+    bottleImage: '/images/v2/bottles/aguila-light.png',
     desc: 'Baja en calorías y carbohidratos',
   },
 
@@ -399,6 +414,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     featured: true,
     tag: 'DESTACADA',
     image: '/images/v2/menu-cervezas.png',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: '5 cervezas bien frías en cubeta de hielo',
   },
   {
@@ -410,6 +426,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     featured: true,
     tag: 'DESTACADA',
     image: '/images/v2/menu-licores.png',
+    bottleImage: '/images/v2/bottles/corona.png',
     desc: 'Balde de Coronitas con limón',
   },
   {
@@ -418,6 +435,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '1000 ml.',
     price: 10000,
     category: 'compartir',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: 'Litro para compartir con los amigos',
   },
   {
@@ -426,6 +444,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '1000 ml.',
     price: 10000,
     category: 'compartir',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: 'Litro generoso para el parche',
   },
   {
@@ -434,6 +453,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '850 ml.',
     price: 11000,
     category: 'compartir',
+    bottleImage: '/images/v2/bottles/club-dorada.png',
     desc: 'Botella grande para compartir',
   },
   {
@@ -442,6 +462,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '750 ml.',
     price: 8000,
     category: 'compartir',
+    bottleImage: '/images/v2/bottles/aguila.png',
     desc: 'Ideal para la ronda',
   },
 
