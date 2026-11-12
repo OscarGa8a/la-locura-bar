@@ -1,6 +1,7 @@
 ---
 import { SITE_CONFIG, MENU_PRODUCTS } from '../../data/siteConfig';
 import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
 import { formatCOP } from '../../utils/whatsapp';
 
 const categories = SITE_CONFIG.carta.categories;
@@ -269,16 +270,18 @@ const categories = SITE_CONFIG.carta.categories;
       );
     })}
 
-    <!-- Bottom Action to Calculator (Amber Pill Button) -->
+    <!-- Bottom Action to Calculator (Amber Pill Button using Button primitive) -->
     <div class="mt-8 sm:mt-12 flex justify-end">
-      <a
+      <Button
         href="#calculadora"
-        class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-secondary hover:bg-gold-soft active:scale-95 text-dark font-display text-base sm:text-lg uppercase tracking-wider px-8 py-3.5 sm:py-4 rounded-xl shadow-md transition-all font-bold group"
+        variant="primary"
+        size="lg"
+        class="w-full sm:w-auto rounded-xl px-8 py-3.5 sm:py-4 group"
       >
         <Icon name="calculator" size="md" class="text-dark group-hover:scale-110 transition-transform" />
         <span>CALCULA TU CUENTA</span>
         <Icon name="arrow-right" size="sm" class="text-dark group-hover:translate-x-1 transition-transform" />
-      </a>
+      </Button>
     </div>
   </div>
 </section>
