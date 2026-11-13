@@ -1,5 +1,6 @@
 ---
 import { SITE_CONFIG, MENU_PRODUCTS } from '../../data/siteConfig';
+import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import { formatCOP, WHATSAPP_PHONE } from '../../utils/whatsapp';
 
@@ -18,33 +19,42 @@ const categories = SITE_CONFIG.carta.categories;
   <!-- Top-Right Graffiti Stamp "LA NOCHE ES DEL BARRIO" with Crown -->
   <div class="absolute top-4 sm:top-8 right-3 sm:right-8 lg:right-16 z-0 pointer-events-none select-none opacity-85 lg:opacity-95">
     <img
-      src="/images/v2/calc_graffiti.png"
+      src="/images/v2/calc_graffiti.webp"
       alt=""
+      width="350"
+      height="155"
       class="w-36 sm:w-48 md:w-60 lg:w-72 xl:w-80 h-auto object-contain transform rotate-1"
       aria-hidden="true"
       loading="lazy"
+      decoding="async"
     />
   </div>
 
   <!-- Left Side Ambient Metal Cup with Graffiti -->
   <div class="hidden xl:block absolute left-0 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-30">
     <img
-      src="/images/v2/calc_left_cup.png"
+      src="/images/v2/calc_left_cup.webp"
       alt=""
+      width="100"
+      height="450"
       class="w-20 lg:w-28 h-auto object-contain"
       aria-hidden="true"
       loading="lazy"
+      decoding="async"
     />
   </div>
 
   <!-- Right Side Ambient Bottle with Water Droplets -->
   <div class="hidden xl:block absolute -right-2 top-1/3 z-0 pointer-events-none select-none opacity-35">
     <img
-      src="/images/v2/calc_aguila_ambient.png"
+      src="/images/v2/calc_aguila_ambient.webp"
       alt=""
+      width="286"
+      height="1024"
       class="w-40 lg:w-48 h-auto object-contain"
       aria-hidden="true"
       loading="lazy"
+      decoding="async"
     />
   </div>
 
@@ -62,10 +72,14 @@ const categories = SITE_CONFIG.carta.categories;
         <span class="text-primary inline-block relative whitespace-nowrap">
           EL PARCHE?
           <img
-            src="/images/v2/esencia_underline.png"
+            src="/images/v2/esencia_underline.webp"
             alt=""
-            class="absolute -bottom-1 sm:-bottom-2 left-0 w-full h-2.5 sm:h-3.5 object-fill pointer-events-none select-none"
+            width="480"
+            height="53"
+            class="absolute -bottom-1 sm:-bottom-2 left-0 w-full h-auto object-contain pointer-events-none select-none"
             aria-hidden="true"
+            loading="lazy"
+            decoding="async"
           />
         </span>
       </h2>
@@ -89,30 +103,31 @@ const categories = SITE_CONFIG.carta.categories;
           {categories.map((cat, idx) => {
             const isActive = idx === 0;
             return (
-              <button
+              <Button
                 type="button"
+                variant="calc-tab"
                 role="tab"
                 id={`calc-tab-btn-${cat.id}`}
                 data-calc-filter={cat.id}
                 aria-selected={isActive ? 'true' : 'false'}
-                class={`flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl border transition-all cursor-pointer text-left ${
-                  isActive
-                    ? 'bg-secondary text-dark border-secondary shadow-md font-bold'
-                    : 'bg-[#161616] text-white/85 border-white/10 hover:border-white/20 hover:bg-[#1C1C1C]'
-                }`}
+                tabindex={isActive ? 0 : -1}
               >
-                <div class={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0 ${isActive ? 'bg-dark/10 text-dark' : 'bg-white/5 text-secondary'}`}>
-                  <Icon name={cat.icon || 'beer'} size="sm" class={isActive ? 'text-dark' : 'text-secondary'} />
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors bg-white/5 text-secondary group-hover:bg-white/10 group-aria-selected:bg-dark/15 group-aria-selected:text-dark group-aria-selected:group-hover:bg-dark/15">
+                  <Icon
+                    name={cat.icon || 'beer'}
+                    size="sm"
+                    class="transition-colors text-secondary group-aria-selected:text-dark"
+                  />
                 </div>
                 <div class="min-w-0">
                   <span class="block font-display text-xs sm:text-sm uppercase tracking-wider leading-tight truncate">
                     {cat.label}
                   </span>
-                  <span class={`block font-body text-[10px] sm:text-[11px] truncate ${isActive ? 'text-dark/80 font-medium' : 'text-white/50'}`}>
+                  <span class="block font-body text-[10px] sm:text-[11px] truncate transition-colors text-white/60 group-hover:text-white/85 group-aria-selected:text-dark/80 group-aria-selected:font-medium">
                     {cat.sublabel}
                   </span>
                 </div>
-              </button>
+              </Button>
             );
           })}
         </div>
@@ -136,15 +151,21 @@ const categories = SITE_CONFIG.carta.categories;
                     <img
                       src={prod.image}
                       alt={prod.name}
+                      width="480"
+                      height="480"
                       class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform"
                       loading="lazy"
+                      decoding="async"
                     />
                   ) : prod.bottleImage ? (
                     <img
                       src={prod.bottleImage}
                       alt=""
+                      width="30"
+                      height="64"
                       class="max-h-full max-w-full object-contain filter drop-shadow-xs"
                       loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <Icon name="bottle" size="sm" class="text-white/60" />
@@ -156,7 +177,7 @@ const categories = SITE_CONFIG.carta.categories;
                   <h3 class="font-display text-base sm:text-lg text-white uppercase tracking-tight truncate leading-tight">
                     {prod.name}
                   </h3>
-                  <span class="font-body text-xs text-white/50 block">
+                  <span class="font-body text-xs text-white/75 block">
                     {prod.presentation}
                   </span>
                 </div>
@@ -169,32 +190,36 @@ const categories = SITE_CONFIG.carta.categories;
                 </div>
 
                 {/* Stepper Controls */}
-                <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                  <button
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <Button
                     type="button"
+                    variant="stepper"
+                    size="none"
                     data-action="decrement"
-                    class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center font-display text-lg text-white/60 hover:text-white bg-[#222222] hover:bg-[#2A2A2A] border border-white/15 rounded-lg disabled:opacity-20 disabled:pointer-events-none cursor-pointer transition-all active:scale-90"
+                    class="w-8 h-8 sm:w-9 sm:h-9 disabled:opacity-45 disabled:pointer-events-none"
                     aria-label={`Quitar uno de ${prod.name}`}
                     disabled
                   >
-                    −
-                  </button>
+                    <Icon name="minus" size="sm" class="text-white stroke-[2.5] shrink-0" />
+                  </Button>
                   <span
                     data-qty-display
-                    class="w-6 sm:w-7 text-center font-display text-base sm:text-lg text-white tabular-nums font-bold"
+                    class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#0A0809] border border-white/15 flex items-center justify-center font-body font-extrabold text-sm sm:text-base text-white tabular-nums"
                     aria-live="polite"
                     aria-label={`Cantidad de ${prod.name}: 0`}
                   >
                     0
                   </span>
-                  <button
+                  <Button
                     type="button"
+                    variant="primary"
+                    size="none"
                     data-action="increment"
-                    class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center font-display text-lg text-dark bg-secondary hover:bg-gold-soft rounded-lg font-bold cursor-pointer transition-all active:scale-90 shadow-xs"
+                    class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg justify-center shadow-xs"
                     aria-label={`Agregar uno de ${prod.name}`}
                   >
-                    +
-                  </button>
+                    <Icon name="plus" size="sm" class="text-dark stroke-[2.75] shrink-0" />
+                  </Button>
                 </div>
               </div>
             );
@@ -209,28 +234,32 @@ const categories = SITE_CONFIG.carta.categories;
             {/* Ticket Brand & Header */}
             <div class="text-center pb-4">
               <img
-                src="/images/logo.png"
+                src="/images/logo-transparent.webp"
                 alt="La Locura Bar"
-                class="h-10 sm:h-12 w-auto mx-auto object-contain mb-2 select-none"
+                width="220"
+                height="170"
+                class="h-14 sm:h-16 w-auto mx-auto object-contain mb-2 select-none drop-shadow-[0_1px_3px_rgba(23,19,21,0.45)]"
+                loading="lazy"
+                decoding="async"
               />
               <h3 class="font-display text-3xl sm:text-4xl text-[#121212] uppercase tracking-tight leading-none mb-0.5">
                 TU CUENTA
               </h3>
-              <span class="font-body text-xs font-bold tracking-[0.2em] text-[#7A6F62] uppercase block">
+              <span class="font-body text-xs font-bold tracking-[0.2em] text-[#5F554A] uppercase block">
                 RESUMEN ESTIMADO
               </span>
             </div>
 
             {/* Table Column Headers */}
-            <div class="flex items-center justify-between text-[11px] font-bold text-[#8C8275] uppercase tracking-wider py-2 border-b border-dashed border-[#C5BBAE]/80">
+            <div class="flex items-center justify-between text-[11px] font-bold text-[#5F554A] uppercase tracking-wider py-2 border-b border-dashed border-[#C5BBAE]/80">
               <span class="flex-1">PRODUCTO</span>
               <span class="w-14 text-center">CANT.</span>
               <span class="w-24 text-right">SUBTOTAL</span>
             </div>
 
             {/* Empty state notice */}
-            <div id="ticket-empty-msg" class="py-10 text-center text-[#8C8275] font-body text-sm">
-              <Icon name="calculator" size="md" class="mx-auto mb-2 opacity-40 text-[#8C8275]" />
+            <div id="ticket-empty-msg" class="py-10 text-center text-[#5F554A] font-body text-sm">
+              <Icon name="calculator" size="md" class="mx-auto mb-2 opacity-50 text-[#5F554A]" />
               Agrega bebidas para ver tu cuenta.
             </div>
 
@@ -245,7 +274,7 @@ const categories = SITE_CONFIG.carta.categories;
                 <span class="font-display text-base sm:text-lg tracking-wider uppercase text-[#1C1815] font-bold">
                   TOTAL ESTIMADO
                 </span>
-                <span id="ticket-total-display" class="font-display text-3xl sm:text-4xl lg:text-5xl text-primary tabular-nums font-black leading-none drop-shadow-xs">
+                <span id="ticket-total-display" class="font-display text-3xl sm:text-4xl lg:text-5xl text-accent tabular-nums font-black leading-none drop-shadow-xs">
                   $0
                 </span>
               </div>
@@ -255,40 +284,43 @@ const categories = SITE_CONFIG.carta.categories;
                 <!-- WhatsApp Share Button -->
                 <a
                   id="btn-whatsapp-share"
-                  href="#"
+                  aria-disabled="true"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BD5A] text-white font-display text-sm sm:text-base uppercase tracking-wider py-3.5 px-4 rounded-xl font-bold shadow-md hover:shadow-lg active:scale-95 transition-all text-center pointer-events-none opacity-40"
+                  class="w-full inline-flex items-center justify-center gap-2.5 bg-[#15803D] hover:bg-[#166534] text-white font-display text-sm sm:text-base uppercase tracking-wider py-3.5 px-4 rounded-xl font-bold shadow-md hover:shadow-lg active:scale-95 transition-all text-center pointer-events-none opacity-45"
                 >
-                  <Icon name="whatsapp" size="sm" class="text-white shrink-0" />
+                  <Icon name="whatsapp" size="md" class="text-white shrink-0" />
                   <span>COMPARTIR ESTIMADO POR WHATSAPP</span>
-                  <Icon name="arrow-right" size="xs" class="text-white shrink-0" />
+                  <Icon name="arrow-right" size="sm" class="text-white shrink-0" />
                 </a>
 
                 <!-- Clear Account Button -->
-                <button
+                <Button
                   type="button"
+                  variant="ghost-light"
+                  size="none"
                   id="btn-clear-calc"
-                  class="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-[#D5CABE] text-[#7A6F62] hover:text-[#1C1815] hover:bg-black/5 font-display text-xs sm:text-sm uppercase tracking-wider transition-all disabled:opacity-0 disabled:pointer-events-none cursor-pointer"
+                  class="w-full py-2.5 px-4 text-xs sm:text-sm disabled:opacity-0 disabled:pointer-events-none"
                   disabled
                 >
-                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                  </svg>
-                  <span class="font-bold">LIMPIAR CUENTA</span>
-                </button>
+                  <Icon name="trash" size="sm" class="shrink-0" />
+                  <span>LIMPIAR CUENTA</span>
+                </Button>
               </div>
 
               <!-- Disclaimer note & Crown mark -->
-              <div class="flex items-center justify-between mt-5 pt-3 border-t border-[#D5CABE]/50">
+              <div class="relative flex items-center justify-center mt-5 pt-3 border-t border-[#D5CABE]/50">
                 <img
-                  src="/images/v2/esencia_crown.png"
+                  src="/images/v2/esencia_crown.webp"
                   alt=""
-                  class="w-6 h-auto object-contain opacity-60"
+                  width="127"
+                  height="138"
+                  class="w-6 h-auto object-contain opacity-60 absolute left-0"
                   aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                 />
-                <p class="font-body text-[10px] text-[#8C8275] text-right leading-tight max-w-[85%]">
+                <p class="font-body text-[10px] sm:text-[11px] text-[#5F554A] text-center leading-snug px-8">
                   Valores sujetos a la carta vigente. Esta es una estimación, no un pedido.
                 </p>
               </div>
@@ -341,7 +373,8 @@ const categories = SITE_CONFIG.carta.categories;
         itemsContainer?.classList.add('hidden');
         if (itemsContainer) itemsContainer.innerHTML = '';
         if (shareBtn) {
-          shareBtn.classList.add('pointer-events-none', 'opacity-40');
+          shareBtn.classList.add('pointer-events-none', 'opacity-45');
+          shareBtn.setAttribute('aria-disabled', 'true');
           shareBtn.removeAttribute('href');
         }
         if (clearBtn) {
@@ -361,7 +394,7 @@ const categories = SITE_CONFIG.carta.categories;
               (it) => `
               <div class="flex items-center justify-between text-xs py-1.5 border-b border-[#C5BBAE]/40 font-body">
                 <span class="font-bold text-[#1C1815] truncate flex-1 pr-2">
-                  ${it.name} <span class="text-[#7A6F62] font-normal text-[11px]">(${it.presentation})</span>
+                  ${it.name} <span class="text-[#5F554A] font-normal text-[11px]">(${it.presentation})</span>
                 </span>
                 <span class="w-14 text-center font-bold text-[#1C1815]">
                   ${it.qty}
@@ -377,7 +410,8 @@ const categories = SITE_CONFIG.carta.categories;
 
         // Build authentic Colombian WhatsApp order message
         if (shareBtn) {
-          shareBtn.classList.remove('pointer-events-none', 'opacity-40');
+          shareBtn.classList.remove('pointer-events-none', 'opacity-45');
+          shareBtn.removeAttribute('aria-disabled');
           const lines = activeItems
             .map((it) => `• ${it.qty}x ${it.name} (${it.presentation}) — ${formatCOPClient(it.subtotal)}`)
             .join('\n');
@@ -401,7 +435,7 @@ const categories = SITE_CONFIG.carta.categories;
     // Handle plus and minus clicks
     productsList?.addEventListener('click', (e) => {
       const target = e.target;
-      if (!(target instanceof HTMLElement)) return;
+      if (!(target instanceof Element)) return;
 
       const actionBtn = target.closest('button[data-action]');
       if (!actionBtn) return;
@@ -452,53 +486,47 @@ const categories = SITE_CONFIG.carta.categories;
     });
 
     // Handle category filtering
-    const filterBtns = document.querySelectorAll('[data-calc-filter]');
+    const filterBtns = Array.from(document.querySelectorAll('[data-calc-filter]'));
     const productCards = document.querySelectorAll('.calc-product-item');
 
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-calc-filter');
-        filterBtns.forEach((b) => {
-          const isCurrent = b === btn;
-          b.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
-          const icon = b.querySelector('svg');
-          const texts = b.querySelectorAll('span');
+    function activateFilter(targetBtn) {
+      const filter = targetBtn.getAttribute('data-calc-filter');
+      if (!filter) return;
 
-          if (isCurrent) {
-            b.classList.add('bg-secondary', 'text-dark', 'border-secondary', 'shadow-md', 'font-bold');
-            b.classList.remove('bg-[#161616]', 'text-white/85', 'border-white/10');
-            if (icon) {
-              icon.classList.remove('text-secondary');
-              icon.classList.add('text-dark');
-            }
-            if (texts[1]) {
-              texts[1].classList.remove('text-white/50');
-              texts[1].classList.add('text-dark/80', 'font-medium');
-            }
-          } else {
-            b.classList.remove('bg-secondary', 'text-dark', 'border-secondary', 'shadow-md', 'font-bold');
-            b.classList.add('bg-[#161616]', 'text-white/85', 'border-white/10');
-            if (icon) {
-              icon.classList.remove('text-dark');
-              icon.classList.add('text-secondary');
-            }
-            if (texts[1]) {
-              texts[1].classList.remove('text-dark/80', 'font-medium');
-              texts[1].classList.add('text-white/50');
-            }
-          }
-        });
+      filterBtns.forEach((b) => {
+        const isCurrent = b === targetBtn;
+        b.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+        b.setAttribute('tabindex', isCurrent ? '0' : '-1');
+      });
 
-        productCards.forEach((card) => {
-          const cat = card.getAttribute('data-category');
-          if (cat === filter) {
-            card.classList.remove('hidden');
-            card.classList.add('flex');
-          } else {
-            card.classList.add('hidden');
-            card.classList.remove('flex');
-          }
-        });
+      productCards.forEach((card) => {
+        const cat = card.getAttribute('data-category');
+        if (cat === filter) {
+          card.classList.remove('hidden');
+          card.classList.add('flex');
+        } else {
+          card.classList.add('hidden');
+          card.classList.remove('flex');
+        }
+      });
+    }
+
+    filterBtns.forEach((btn, index) => {
+      btn.addEventListener('click', () => activateFilter(btn));
+
+      btn.addEventListener('keydown', (e) => {
+        let nextIndex = -1;
+        if (e.key === 'ArrowRight') nextIndex = (index + 1) % filterBtns.length;
+        else if (e.key === 'ArrowLeft') nextIndex = (index - 1 + filterBtns.length) % filterBtns.length;
+        else if (e.key === 'Home') nextIndex = 0;
+        else if (e.key === 'End') nextIndex = filterBtns.length - 1;
+
+        if (nextIndex !== -1) {
+          e.preventDefault();
+          const nextBtn = filterBtns[nextIndex];
+          activateFilter(nextBtn);
+          nextBtn.focus();
+        }
       });
     });
   }

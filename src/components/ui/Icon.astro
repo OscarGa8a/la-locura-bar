@@ -5,7 +5,9 @@ import {
   ArrowRight,
   ArrowDown,
   ChevronDown,
+  ChevronLeft,
   ChevronRight,
+  Check,
   Menu,
   X,
   Wine,
@@ -18,6 +20,17 @@ import {
   Phone,
   Calculator,
   Martini,
+  Plus,
+  Minus,
+  Trash2,
+  User,
+  Info,
+  MonitorPlay,
+  Navigation,
+  ExternalLink,
+  ArrowUpRight,
+  ArrowUp,
+  MessageCircleQuestion,
 } from 'lucide-astro';
 
 interface Props {
@@ -60,7 +73,9 @@ const lucideComponents: Record<string, any> = {
   'arrow-right': ArrowRight,
   'arrow-down': ArrowDown,
   'chevron-down': ChevronDown,
+  'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
+  check: Check,
   menu: Menu,
   close: X,
   x: X,
@@ -75,6 +90,17 @@ const lucideComponents: Record<string, any> = {
   calculator: Calculator,
   martini: Martini,
   cocktail: Martini,
+  plus: Plus,
+  minus: Minus,
+  trash: Trash2,
+  user: User,
+  info: Info,
+  tv: MonitorPlay,
+  navigation: Navigation,
+  'external-link': ExternalLink,
+  'arrow-up-right': ArrowUpRight,
+  'arrow-up': ArrowUp,
+  help: MessageCircleQuestion,
 };
 
 const LucideComponent = lucideComponents[name.toLowerCase()];
@@ -128,7 +154,7 @@ const LucideComponent = lucideComponents[name.toLowerCase()];
       <svg
         {...a11yAttrs}
         class={`${sizes[size]} ${className}`}
-        viewBox="0 0 24 24"
+        viewBox="5.2 5.2 13.6 13.6"
         fill="currentColor"
       >
         <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.074-2.121-.518-1.558-.646-2.56-2.222-2.637-2.327-.078-.106-.633-.842-.633-1.606 0-.765.399-1.141.541-1.297.143-.156.312-.195.417-.195.105 0 .209.002.301.007.098.005.228-.037.357.272.13.312.443 1.077.482 1.155.039.078.066.17.013.273-.052.106-.078.172-.156.262-.078.092-.164.205-.235.275-.078.078-.159.163-.068.32.091.156.406.669.871 1.083.599.533 1.104.698 1.26.776.157.078.248.068.34-.037.091-.106.391-.455.495-.611.104-.156.208-.13.35-.078.144.052.912.43 1.069.508.156.078.261.117.299.182.039.065.039.378-.105.783z"/>

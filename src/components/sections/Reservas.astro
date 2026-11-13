@@ -1,151 +1,475 @@
 ---
 import { SITE_CONFIG } from '../../data/siteConfig';
-import { WHATSAPP_PHONE } from '../../utils/whatsapp';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+
+const highlights = [
+  { icon: 'users', line1: 'Tu mesa', line2: 'lista para el parche' },
+  { icon: 'whatsapp', line1: 'Confirmación', line2: 'por WhatsApp' },
+  { icon: 'calendar', line1: 'Sin vueltas', line2: 'ni complicaciones' },
+] as const;
+
+const peopleOptions = [
+  '2 personas',
+  '4 personas',
+  '6 personas',
+  '8 personas',
+  '10 o más personas',
+] as const;
+
+const timeOptions = [
+  '6:00 PM',
+  '7:00 PM',
+  '8:00 PM',
+  '9:00 PM',
+  '10:00 PM',
+  '11:00 PM',
+] as const;
 ---
 
 <section
   id="reservas"
-  class="relative bg-paper text-ink py-20 md:py-28 lg:py-36 px-4 sm:px-6 lg:px-12 border-b border-line-light/50"
+  class="relative bg-[#F4ECE1] text-ink py-16 sm:py-20 lg:pt-24 lg:pb-24 px-5 sm:px-8 lg:px-12 border-b border-[#D8CDC0]/70 overflow-x-clip select-none"
   aria-label="Reservas de mesas"
 >
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-      <!-- Left Column: Copy & Image Asset -->
-      <div class="lg:col-span-6 space-y-8">
-        <div>
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
-            <span class="font-body text-xs md:text-sm font-semibold tracking-[0.2em] text-accent uppercase">
-              {SITE_CONFIG.reservas.eyebrow}
-            </span>
-          </div>
-          <h2 class="font-display text-4xl sm:text-5xl md:text-6xl tracking-tight text-ink leading-[0.95] uppercase mb-4 text-balance">
-            {SITE_CONFIG.reservas.title}
-          </h2>
-          <p class="font-body text-base md:text-lg text-ink-muted leading-relaxed text-pretty">
-            {SITE_CONFIG.reservas.description}
-          </p>
-        </div>
+  <!-- SVG Torn-Paper Clip Paths (Sharp organic ripped edges matching mockup) -->
+  <svg class="absolute w-0 h-0 pointer-events-none" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="reservas-torn-desktop" clipPathUnits="objectBoundingBox">
+        <path
+          d="M 0,0.068 L 0.025,0.052 L 0.048,0.072 L 0.074,0.046 L 0.102,0.064 L 0.128,0.038 L 0.155,0.058 L 0.184,0.034 L 0.212,0.062 L 0.238,0.041 L 0.268,0.066 L 0.295,0.048 L 0.326,0.071 L 0.354,0.045 L 0.382,0.064 L 0.415,0.038 L 0.442,0.059 L 0.474,0.032 L 0.502,0.054 L 0.534,0.036 L 0.562,0.061 L 0.594,0.042 L 0.625,0.068 L 0.654,0.048 L 0.686,0.078 L 0.715,0.058 L 0.746,0.088 L 0.774,0.068 L 0.806,0.105 L 0.822,0.145 L 0.848,0.195 L 0.838,0.255 L 0.865,0.312 L 0.855,0.378 L 0.885,0.445 L 0.878,0.525 L 0.908,0.602 L 0.896,0.688 L 0.928,0.772 L 0.916,0.858 L 0.946,0.935 L 0.958,1 L 0,1 Z"
+        />
+      </clipPath>
+      <clipPath id="reservas-torn-mobile" clipPathUnits="objectBoundingBox">
+        <path
+          d="M 0,0.085 L 0.035,0.052 L 0.072,0.088 L 0.115,0.038 L 0.158,0.074 L 0.205,0.042 L 0.248,0.078 L 0.298,0.034 L 0.342,0.068 L 0.392,0.042 L 0.438,0.072 L 0.485,0.032 L 0.532,0.066 L 0.578,0.038 L 0.625,0.074 L 0.672,0.044 L 0.718,0.078 L 0.768,0.038 L 0.815,0.068 L 0.865,0.042 L 0.912,0.074 L 0.958,0.048 L 1,0.082 L 0.988,0.22 L 1,0.38 L 0.984,0.56 L 1,0.74 L 0.985,0.915 L 0.952,0.948 L 0.905,0.912 L 0.858,0.962 L 0.812,0.924 L 0.762,0.958 L 0.715,0.918 L 0.668,0.955 L 0.618,0.922 L 0.572,0.964 L 0.524,0.926 L 0.476,0.958 L 0.428,0.918 L 0.382,0.954 L 0.334,0.918 L 0.286,0.962 L 0.238,0.922 L 0.192,0.958 L 0.145,0.922 L 0.098,0.958 L 0.048,0.918 L 0.012,0.945 L 0,0.78 L 0.014,0.58 L 0,0.38 L 0.016,0.22 Z"
+        />
+      </clipPath>
+    </defs>
+  </svg>
 
-        <!-- Atmosphere Photo with Subtle Warm Border -->
-        <div class="relative rounded-sm overflow-hidden border border-line-light/60 shadow-md aspect-video sm:aspect-16/10">
-          <img
-            src={SITE_CONFIG.reservas.image}
-            alt={SITE_CONFIG.reservas.imageAlt}
-            class="w-full h-full object-cover"
-            loading="lazy"
-            decoding="async"
-          />
+  <!-- Decorative Pink Spray Splatters (Top-Right, Bottom-Right & Left Seam bleeding off edges) -->
+  <div class="hidden sm:block absolute -top-8 right-0 z-0 pointer-events-none select-none opacity-85">
+    <img
+      src="/images/v2/esencia_spray_desktop.webp"
+      alt=""
+      width="186"
+      height="424"
+      class="w-40 md:w-52 lg:w-64 h-auto object-contain"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="absolute -bottom-8 -right-6 z-0 pointer-events-none select-none opacity-85">
+    <img
+      src="/images/v2/esencia_spray_mobile.webp"
+      alt=""
+      width="254"
+      height="705"
+      class="w-36 sm:w-44 lg:w-56 h-auto object-contain"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Desktop Full-Bleed Torn Bar Table Photo (Bottom-Left bleeding flush off edges) -->
+  <div class="hidden lg:block absolute bottom-0 left-0 w-[62%] xl:w-[59%] h-[360px] xl:h-[395px] z-[5] pointer-events-none select-none">
+    <!-- Subtle Dark Torn Ink Shadow Edge beneath the ripped photo -->
+    <div
+      class="absolute inset-0 -top-1 translate-x-1 bg-[#1C1618]/25"
+      style="clip-path: url(#reservas-torn-desktop);"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="relative w-full h-full overflow-hidden"
+      style="clip-path: url(#reservas-torn-desktop);"
+    >
+      <img
+        src={SITE_CONFIG.reservas.image}
+        alt={SITE_CONFIG.reservas.imageAlt}
+        width="1000"
+        height="750"
+        class="w-full h-full object-cover object-[center_62%]"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <!-- Left-edge pink spray splash matching desktop mockup -->
+    <img
+      src="/images/v2/esencia_spray_mobile.webp"
+      alt=""
+      width="254"
+      height="705"
+      class="absolute bottom-6 -left-6 w-28 xl:w-32 h-auto object-contain opacity-90 -rotate-45 pointer-events-none"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
+      <!-- Left Column: Editorial Header & 3 Value Pillars (Bottom padding keeps copy above torn photo) -->
+      <div class="lg:col-span-6 flex flex-col lg:pb-[305px] xl:pb-[335px]">
+        <div class="relative z-20">
+          <!-- Eyebrow -->
+          <span class="block font-body text-xs sm:text-sm font-bold tracking-[0.22em] text-accent uppercase mb-2 sm:mb-3">
+            {SITE_CONFIG.reservas.eyebrow}
+          </span>
+
+          <!-- Headline with Pink Brush Underline & Tilted Crown -->
+          <h2 class="font-display tracking-tight leading-[0.88] uppercase select-none text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.25rem] text-ink mb-4 sm:mb-5">
+            <span class="block text-ink">¿YA ARMARON</span>
+            <span class="relative inline-flex items-start gap-2 sm:gap-3 text-primary mt-0.5">
+              <span class="relative inline-block">
+                EL PARCHE?
+                <img
+                  src="/images/v2/esencia_underline.webp"
+                  alt=""
+                  width="480"
+                  height="53"
+                  class="absolute -bottom-2.5 sm:-bottom-3 left-0 w-full h-auto object-contain pointer-events-none select-none"
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <img
+                src="/images/v2/esencia_crown.webp"
+                alt=""
+                width="127"
+                height="138"
+                class="w-10 sm:w-12 lg:w-14 h-auto object-contain transform rotate-6 -mt-1 sm:-mt-1.5 shrink-0 pointer-events-none select-none"
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+          </h2>
+
+          <!-- Description -->
+          <p class="font-body text-sm sm:text-base md:text-lg text-[#2D2623] leading-relaxed text-pretty max-w-lg">
+            Dinos cuándo vienen y cuántas personas son.{' '}
+            <strong class="font-bold text-ink">Solicita tu mesa</strong> por WhatsApp y confirma la disponibilidad con nosotros.
+          </p>
+
+          <!-- Mobile Torn-Paper Bar Photo Preview (sharp jagged edges, no box blur) -->
+          <div class="lg:hidden relative mt-5 h-36 sm:h-48">
+            <div
+              class="absolute inset-0 translate-y-1 bg-[#1C1618]/25"
+              style="clip-path: url(#reservas-torn-mobile);"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="relative w-full h-full overflow-hidden"
+              style="clip-path: url(#reservas-torn-mobile);"
+            >
+              <img
+                src={SITE_CONFIG.reservas.image}
+                alt={SITE_CONFIG.reservas.imageAlt}
+                width="1000"
+                height="750"
+                class="w-full h-full object-cover object-[center_64%]"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <!-- 3 Micro-Highlights Row -->
+          <div class="grid grid-cols-1 min-[360px]:grid-cols-3 gap-3 min-[360px]:gap-0 min-[360px]:divide-x divide-[#C8BEB2]/80 border-t border-[#C8BEB2]/50 pt-4 mt-5 sm:mt-6">
+            {highlights.map((item, idx) => (
+              <div class={`flex items-center gap-2 sm:gap-2.5 ${idx > 0 ? 'min-[360px]:pl-2.5 sm:pl-4' : ''} ${idx < highlights.length - 1 ? 'min-[360px]:pr-2.5 sm:pr-4' : ''}`}>
+                <Icon name={item.icon} size="sm" class="text-accent shrink-0 sm:w-5 sm:h-5" />
+                <p class="font-body text-[11px] sm:text-xs leading-tight text-ink font-medium min-w-0">
+                  <span class="block font-bold">{item.line1}</span>
+                  <span class="block text-[#4A413C]">{item.line2}</span>
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <!-- Right Column: Interactive Reservation Form -->
-      <div class="lg:col-span-6">
-        <div class="bg-paper-2 p-6 sm:p-10 rounded-sm border border-line-light/80 shadow-lg">
-          <div class="mb-6">
-            <h3 class="font-display text-2xl sm:text-3xl text-ink uppercase tracking-tight">
-              {SITE_CONFIG.reservas.panelTitle}
-            </h3>
-            <p class="font-body text-xs text-ink-muted mt-1">
-              {SITE_CONFIG.reservas.panelSubtitle}
+      <!-- Right Column: Dark Charcoal Interactive Reservation Card -->
+      <div class="lg:col-span-6 relative z-20">
+        <div class="relative bg-[#141112] text-white p-5 sm:p-8 lg:p-10 rounded-2xl border border-white/15 shadow-[0_24px_60px_rgba(23,19,21,0.38)]">
+          <!-- Backdrop Wrapper clipped cleanly so open popovers never clip outside card -->
+          <div class="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-radial from-white/[0.04] via-transparent to-transparent" />
+            <div class="absolute top-3 right-3 sm:top-4 sm:right-5 opacity-90">
+              <img
+                src="/images/v2/calc_graffiti.webp"
+                alt=""
+                width="350"
+                height="155"
+                class="w-20 sm:w-32 lg:w-36 h-auto object-contain transform rotate-2"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <!-- Panel Header -->
+          <div class="relative z-10 mb-6 sm:mb-7 pr-20 sm:pr-32">
+            <div class="flex items-center gap-2 sm:gap-3 mb-2">
+              <Icon name="calendar" size="md" class="text-secondary shrink-0 sm:w-6 sm:h-6" />
+              <h3 class="font-display text-[1.65rem] sm:text-4xl text-white uppercase tracking-tight leading-none whitespace-nowrap">
+                {SITE_CONFIG.reservas.panelTitle}
+              </h3>
+            </div>
+            <p class="font-body text-xs sm:text-sm text-white/75 leading-relaxed">
+              {SITE_CONFIG.reservas.panelSubtitle} {SITE_CONFIG.reservas.helperNotice}
             </p>
           </div>
 
-          <form id="reserve-form" class="space-y-4" novalidate>
+          <form id="reserve-form" class="relative z-20 space-y-4 sm:space-y-5" novalidate>
             <!-- Name Input -->
             <div>
-              <label for="res-name" class="block font-display text-xs tracking-wider uppercase text-ink-muted mb-1.5">
+              <label for="res-name" class="block font-body text-xs sm:text-sm font-semibold text-white/90 mb-2">
                 Nombre completo
               </label>
-              <input
-                type="text"
-                id="res-name"
-                name="name"
-                required
-                placeholder="Tu nombre completo"
-                class="w-full bg-paper border border-line-light/80 rounded-xs px-4 py-3 text-ink font-body text-sm focus:outline-none focus:border-ink transition-colors"
-              />
-              <span class="error-msg hidden text-xs text-error font-body mt-1">Escribe tu nombre.</span>
+              <div class="res-field-wrap relative flex items-center bg-[#231F1E] border border-white/20 rounded-xl transition-colors hover:border-white/35 focus-within:border-secondary focus-within:ring-1 focus-within:ring-secondary/50">
+                <Icon name="user" size="sm" class="text-secondary shrink-0 ml-3.5 pointer-events-none" />
+                <input
+                  type="text"
+                  id="res-name"
+                  name="name"
+                  required
+                  maxlength="80"
+                  autocomplete="name"
+                  aria-describedby="res-name-error"
+                  placeholder="Tu nombre completo"
+                  class="w-full bg-transparent text-white placeholder:text-white/70 font-body text-sm py-3 pl-3 pr-4 min-h-[48px] focus:outline-none select-text"
+                />
+              </div>
+              <span id="res-name-error" class="error-msg hidden text-xs text-[#FF8A94] font-body mt-1.5" role="alert">
+                Escribe tu nombre.
+              </span>
             </div>
 
-            <!-- People Count -->
-            <div>
-              <label for="res-people" class="block font-display text-xs tracking-wider uppercase text-ink-muted mb-1.5">
+            <!-- People Count (Full-Width Accessible Custom Listbox) -->
+            <div class="relative">
+              <span id="res-people-label-heading" class="block font-body text-xs sm:text-sm font-semibold text-white/90 mb-2">
                 Número de personas
-              </label>
-              <select
-                id="res-people"
-                name="people"
-                required
-                class="w-full bg-paper border border-line-light/80 rounded-xs px-4 py-3 text-ink font-body text-sm focus:outline-none focus:border-ink transition-colors"
+              </span>
+              <input type="hidden" id="res-people" name="people" value="" />
+              <button
+                type="button"
+                id="res-people-trigger"
+                aria-labelledby="res-people-label-heading res-people-display"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="res-people-listbox"
+                aria-describedby="res-people-error"
+                class="res-field-wrap w-full relative flex items-center justify-between gap-3 bg-[#231F1E] border border-white/20 rounded-xl px-3.5 py-3 min-h-[48px] text-left font-body text-sm transition-colors hover:border-white/35 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary/50 cursor-pointer"
               >
-                <option value="">Selecciona el número de personas</option>
-                <option value="2">2 personas</option>
-                <option value="4">4 personas</option>
-                <option value="6">6 personas</option>
-                <option value="8">8 personas</option>
-                <option value="10+">10 o más personas</option>
-              </select>
-              <span class="error-msg hidden text-xs text-error font-body mt-1">Selecciona cuántas personas vienen.</span>
+                <span class="flex items-center gap-3 min-w-0">
+                  <Icon name="users" size="sm" class="text-secondary shrink-0" />
+                  <span id="res-people-display" class="truncate text-white/70">
+                    Selecciona el número de personas
+                  </span>
+                </span>
+                <Icon
+                  name="chevron-down"
+                  size="sm"
+                  class="res-chevron text-white/60 shrink-0 transition-transform duration-200"
+                />
+              </button>
+
+              <ul
+                id="res-people-listbox"
+                role="listbox"
+                aria-labelledby="res-people-label-heading"
+                tabindex="-1"
+                class="hidden absolute left-0 right-0 top-full mt-1.5 z-50 w-full bg-[#1C1819] border border-secondary/45 rounded-xl shadow-[0_18px_44px_rgba(0,0,0,0.75)] p-1.5 space-y-1"
+              >
+                {peopleOptions.map((option) => (
+                  <li
+                    role="option"
+                    data-value={option}
+                    aria-selected="false"
+                    tabindex="-1"
+                    class="res-option w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg font-body text-sm text-white/90 hover:bg-secondary hover:text-dark aria-selected:bg-secondary/20 aria-selected:text-secondary aria-selected:font-semibold cursor-pointer transition-colors"
+                  >
+                    <span>{option}</span>
+                    <Icon name="check" size="xs" class="option-check opacity-0 aria-selected:opacity-100 shrink-0" />
+                  </li>
+                ))}
+              </ul>
+
+              <span id="res-people-error" class="error-msg hidden text-xs text-[#FF8A94] font-body mt-1.5" role="alert">
+                Selecciona cuántas personas vienen.
+              </span>
             </div>
 
             <!-- Date & Time Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <!-- Date -->
-              <div>
-                <label for="res-date" class="block font-display text-xs tracking-wider uppercase text-ink-muted mb-1.5">
+              <!-- Date (Full-Width Accessible Custom Calendar Popover) -->
+              <div class="relative">
+                <span id="res-date-label-heading" class="block font-body text-xs sm:text-sm font-semibold text-white/90 mb-2">
                   Fecha
-                </label>
-                <input
-                  type="date"
-                  id="res-date"
-                  name="date"
-                  required
-                  class="w-full bg-paper border border-line-light/80 rounded-xs px-4 py-3 text-ink font-body text-sm focus:outline-none focus:border-ink transition-colors"
-                />
-                <span class="error-msg hidden text-xs text-error font-body mt-1">Selecciona una fecha.</span>
-              </div>
-
-              <!-- Time -->
-              <div>
-                <label for="res-time" class="block font-display text-xs tracking-wider uppercase text-ink-muted mb-1.5">
-                  Hora
-                </label>
-                <select
-                  id="res-time"
-                  name="time"
-                  required
-                  class="w-full bg-paper border border-line-light/80 rounded-xs px-4 py-3 text-ink font-body text-sm focus:outline-none focus:border-ink transition-colors"
+                </span>
+                <input type="hidden" id="res-date" name="date" value="" />
+                <button
+                  type="button"
+                  id="res-date-trigger"
+                  aria-labelledby="res-date-label-heading res-date-display"
+                  aria-haspopup="dialog"
+                  aria-expanded="false"
+                  aria-controls="res-date-popover"
+                  aria-describedby="res-date-error"
+                  class="res-field-wrap w-full relative flex items-center justify-between gap-2.5 bg-[#231F1E] border border-white/20 rounded-xl px-3.5 py-3 min-h-[48px] text-left font-body text-sm transition-colors hover:border-white/35 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary/50 cursor-pointer"
                 >
-                  <option value="">Selecciona una hora</option>
-                  <option value="6:00 PM">6:00 PM</option>
-                  <option value="7:00 PM">7:00 PM</option>
-                  <option value="8:00 PM">8:00 PM</option>
-                  <option value="9:00 PM">9:00 PM</option>
-                  <option value="10:00 PM">10:00 PM</option>
-                  <option value="11:00 PM">11:00 PM</option>
-                </select>
-                <span class="error-msg hidden text-xs text-error font-body mt-1">Selecciona una hora.</span>
+                  <span class="flex items-center gap-3 min-w-0">
+                    <Icon name="calendar" size="sm" class="text-secondary shrink-0" />
+                    <span id="res-date-display" class="truncate text-white/70">
+                      Selecciona una fecha
+                    </span>
+                  </span>
+                  <Icon
+                    name="chevron-down"
+                    size="sm"
+                    class="res-chevron text-white/60 shrink-0 transition-transform duration-200"
+                  />
+                </button>
+
+                <div
+                  id="res-date-popover"
+                  role="dialog"
+                  aria-modal="false"
+                  aria-labelledby="res-cal-month-label"
+                  class="hidden absolute left-0 right-0 top-full mt-1.5 z-50 w-full bg-[#1C1819] border border-secondary/45 rounded-xl shadow-[0_18px_44px_rgba(0,0,0,0.75)] p-2.5 sm:p-3"
+                >
+                  <!-- Calendar Header -->
+                  <div class="flex items-center justify-between mb-2.5">
+                    <button
+                      type="button"
+                      id="res-cal-prev"
+                      aria-label="Mes anterior"
+                      class="w-7 h-7 rounded-lg flex items-center justify-center text-white/80 hover:bg-white/10 hover:text-white disabled:opacity-25 disabled:pointer-events-none cursor-pointer transition-colors"
+                    >
+                      <Icon name="chevron-left" size="sm" />
+                    </button>
+                    <span
+                      id="res-cal-month-label"
+                      class="font-display text-sm tracking-wider uppercase text-white"
+                    ></span>
+                    <button
+                      type="button"
+                      id="res-cal-next"
+                      aria-label="Mes siguiente"
+                      class="w-7 h-7 rounded-lg flex items-center justify-center text-white/80 hover:bg-white/10 hover:text-white cursor-pointer transition-colors"
+                    >
+                      <Icon name="chevron-right" size="sm" />
+                    </button>
+                  </div>
+
+                  <!-- Weekday Labels (Mon-Sun) -->
+                  <div class="grid grid-cols-7 gap-0.5 mb-1 text-center">
+                    {['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'].map((day) => (
+                      <span class="font-body text-[10px] font-bold uppercase text-white/70 py-1">
+                        {day}
+                      </span>
+                    ))}
+                  </div>
+
+                  <!-- Day Grid rendered dynamically -->
+                  <div id="res-cal-grid" class="grid grid-cols-7 gap-0.5"></div>
+                </div>
+
+                <span id="res-date-error" class="error-msg hidden text-xs text-[#FF8A94] font-body mt-1.5" role="alert">
+                  Selecciona una fecha.
+                </span>
+              </div>
+
+              <!-- Time (Full-Width Accessible Custom Listbox) -->
+              <div class="relative">
+                <span id="res-time-label-heading" class="block font-body text-xs sm:text-sm font-semibold text-white/90 mb-2">
+                  Hora
+                </span>
+                <input type="hidden" id="res-time" name="time" value="" />
+                <button
+                  type="button"
+                  id="res-time-trigger"
+                  aria-labelledby="res-time-label-heading res-time-display"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-controls="res-time-listbox"
+                  aria-describedby="res-time-error"
+                  class="res-field-wrap w-full relative flex items-center justify-between gap-2.5 bg-[#231F1E] border border-white/20 rounded-xl px-3.5 py-3 min-h-[48px] text-left font-body text-sm transition-colors hover:border-white/35 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary/50 cursor-pointer"
+                >
+                  <span class="flex items-center gap-3 min-w-0">
+                    <Icon name="clock" size="sm" class="text-secondary shrink-0" />
+                    <span id="res-time-display" class="truncate text-white/70">
+                      Selecciona una hora
+                    </span>
+                  </span>
+                  <Icon
+                    name="chevron-down"
+                    size="sm"
+                    class="res-chevron text-white/60 shrink-0 transition-transform duration-200"
+                  />
+                </button>
+
+                <ul
+                  id="res-time-listbox"
+                  role="listbox"
+                  aria-labelledby="res-time-label-heading"
+                  tabindex="-1"
+                  class="hidden absolute left-0 right-0 top-full mt-1.5 z-50 w-full bg-[#1C1819] border border-secondary/45 rounded-xl shadow-[0_18px_44px_rgba(0,0,0,0.75)] p-1.5 space-y-1"
+                >
+                  {timeOptions.map((option) => (
+                    <li
+                      role="option"
+                      data-value={option}
+                      aria-selected="false"
+                      tabindex="-1"
+                      class="res-option w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg font-body text-sm text-white/90 hover:bg-secondary hover:text-dark aria-selected:bg-secondary/20 aria-selected:text-secondary aria-selected:font-semibold cursor-pointer transition-colors"
+                    >
+                      <span>{option}</span>
+                      <Icon name="check" size="xs" class="option-check opacity-0 shrink-0" />
+                    </li>
+                  ))}
+                </ul>
+
+                <span id="res-time-error" class="error-msg hidden text-xs text-[#FF8A94] font-body mt-1.5" role="alert">
+                  Selecciona una hora.
+                </span>
               </div>
             </div>
 
-            <!-- Submit Button -->
-            <div class="pt-4">
-              <button
+            <!-- Submit Button (<Button> + <Icon>) -->
+            <div class="pt-2">
+              <Button
                 type="submit"
-                class="w-full bg-secondary text-dark font-display text-base uppercase tracking-wider py-4 px-6 rounded-sm font-semibold hover:bg-gold-soft active:scale-95 transition-all text-center shadow-md cursor-pointer"
+                id="res-submit-btn"
+                variant="primary"
+                size="lg"
+                class="w-full py-4 text-base sm:text-lg tracking-wider shadow-lg shadow-secondary/15"
               >
-                {SITE_CONFIG.reservas.ctaSubmit}
-              </button>
+                <Icon name="whatsapp" size="md" class="text-dark shrink-0" />
+                <span>{SITE_CONFIG.reservas.ctaSubmit}</span>
+                <Icon name="arrow-right" size="sm" class="text-dark shrink-0 stroke-[2.5]" />
+              </Button>
             </div>
 
-            <!-- Notice & Help -->
-            <div class="pt-2 text-center space-y-1">
-              <p class="font-body text-xs text-ink font-medium">
+            <!-- Form Status / Helper Feedback -->
+            <p
+              id="res-feedback"
+              class="hidden text-center font-body text-xs text-secondary/95 bg-secondary/10 border border-secondary/30 rounded-lg px-3 py-2"
+              role="status"
+              aria-live="polite"
+            ></p>
+
+            <!-- Permanent Notice -->
+            <div class="pt-1 flex items-center justify-center gap-2 text-center">
+              <Icon name="info" size="xs" class="text-white/55 shrink-0" />
+              <p class="font-body text-xs text-white/75">
                 {SITE_CONFIG.reservas.notice}
-              </p>
-              <p class="font-body text-xxs text-ink-muted">
-                {SITE_CONFIG.reservas.helperNotice}
               </p>
             </div>
           </form>
@@ -155,66 +479,411 @@ import { WHATSAPP_PHONE } from '../../utils/whatsapp';
   </div>
 </section>
 
-<script is:inline define:vars={{ whatsappPhone: WHATSAPP_PHONE }}>
-  const form = document.getElementById('reserve-form');
-  const dateInput = document.getElementById('res-date');
-
-  // Set minimum date to today
-  if (dateInput instanceof HTMLInputElement) {
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.min = today;
+<style>
+  .res-option[aria-selected='true'] .option-check {
+    opacity: 1;
   }
+
+  button[aria-expanded='true'] .res-chevron {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  import { buildWhatsAppReserveUrl, WHATSAPP_PHONE } from '../../utils/whatsapp';
+
+  const form = document.getElementById('reserve-form') as HTMLFormElement | null;
+  const nameInput = document.getElementById('res-name') as HTMLInputElement | null;
+
+  const peopleInput = document.getElementById('res-people') as HTMLInputElement | null;
+  const peopleTrigger = document.getElementById('res-people-trigger') as HTMLButtonElement | null;
+  const peopleDisplay = document.getElementById('res-people-display');
+  const peopleListbox = document.getElementById('res-people-listbox');
+
+  const dateInput = document.getElementById('res-date') as HTMLInputElement | null;
+  const dateTrigger = document.getElementById('res-date-trigger') as HTMLButtonElement | null;
+  const dateDisplay = document.getElementById('res-date-display');
+  const datePopover = document.getElementById('res-date-popover');
+  const calPrevBtn = document.getElementById('res-cal-prev') as HTMLButtonElement | null;
+  const calNextBtn = document.getElementById('res-cal-next') as HTMLButtonElement | null;
+  const calMonthLabel = document.getElementById('res-cal-month-label');
+  const calGrid = document.getElementById('res-cal-grid');
+
+  const timeInput = document.getElementById('res-time') as HTMLInputElement | null;
+  const timeTrigger = document.getElementById('res-time-trigger') as HTMLButtonElement | null;
+  const timeDisplay = document.getElementById('res-time-display');
+  const timeListbox = document.getElementById('res-time-listbox');
+
+  const feedbackEl = document.getElementById('res-feedback');
+
+  function getTodayBogota(): string {
+    return new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Bogota',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date());
+  }
+
+  const MONTH_NAMES = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ];
+
+  const todayStr = getTodayBogota();
+  const [todayYear, todayMonth] = todayStr.split('-').map(Number);
+  let viewYear = todayYear;
+  let viewMonth = todayMonth - 1; // 0-indexed
+
+  function formatDisplayDate(isoDate: string): string {
+    const [y, m, d] = isoDate.split('-').map(Number);
+    const shortMonth = MONTH_NAMES[m - 1].slice(0, 3).toLowerCase();
+    return `${String(d).padStart(2, '0')} ${shortMonth} ${y}`;
+  }
+
+  function closeAllPopovers(except?: string) {
+    if (except !== 'people' && peopleTrigger && peopleListbox) {
+      peopleTrigger.setAttribute('aria-expanded', 'false');
+      peopleListbox.classList.add('hidden');
+    }
+    if (except !== 'date' && dateTrigger && datePopover) {
+      dateTrigger.setAttribute('aria-expanded', 'false');
+      datePopover.classList.add('hidden');
+    }
+    if (except !== 'time' && timeTrigger && timeListbox) {
+      timeTrigger.setAttribute('aria-expanded', 'false');
+      timeListbox.classList.add('hidden');
+    }
+  }
+
+  function setFieldError(
+    control: HTMLInputElement | HTMLButtonElement | null,
+    errorId: string,
+    message: string | null
+  ) {
+    if (!control) return true;
+    const errorEl = document.getElementById(errorId);
+    const wrap = control.classList.contains('res-field-wrap')
+      ? control
+      : control.closest('.res-field-wrap');
+
+    if (message) {
+      control.setAttribute('aria-invalid', 'true');
+      wrap?.classList.remove('border-white/20');
+      wrap?.classList.add('border-[#FF8A94]');
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+      }
+      return false;
+    }
+
+    control.removeAttribute('aria-invalid');
+    wrap?.classList.remove('border-[#FF8A94]');
+    wrap?.classList.add('border-white/20');
+    if (errorEl) {
+      errorEl.classList.add('hidden');
+    }
+    return true;
+  }
+
+  function validateName(): boolean {
+    const val = nameInput?.value.trim() || '';
+    if (!val) return setFieldError(nameInput, 'res-name-error', 'Escribe tu nombre.');
+    if (val.length > 80) return setFieldError(nameInput, 'res-name-error', 'Revisa el nombre: es demasiado largo.');
+    return setFieldError(nameInput, 'res-name-error', null);
+  }
+
+  function validatePeople(): boolean {
+    const val = peopleInput?.value.trim() || '';
+    if (!val) return setFieldError(peopleTrigger, 'res-people-error', 'Selecciona cuántas personas vienen.');
+    return setFieldError(peopleTrigger, 'res-people-error', null);
+  }
+
+  function validateDate(): boolean {
+    const val = dateInput?.value || '';
+    if (!val) return setFieldError(dateTrigger, 'res-date-error', 'Selecciona una fecha.');
+    if (val < getTodayBogota()) {
+      return setFieldError(dateTrigger, 'res-date-error', 'Elige una fecha de hoy en adelante.');
+    }
+    return setFieldError(dateTrigger, 'res-date-error', null);
+  }
+
+  function validateTime(): boolean {
+    const val = timeInput?.value.trim() || '';
+    if (!val) return setFieldError(timeTrigger, 'res-time-error', 'Selecciona una hora.');
+    return setFieldError(timeTrigger, 'res-time-error', null);
+  }
+
+  function setupListbox(
+    key: 'people' | 'time',
+    trigger: HTMLButtonElement | null,
+    listbox: HTMLElement | null,
+    hiddenInput: HTMLInputElement | null,
+    displayEl: Element | null,
+    validateFn: () => boolean
+  ) {
+    if (!trigger || !listbox || !hiddenInput || !displayEl) return;
+    const options = Array.from(listbox.querySelectorAll<HTMLLIElement>('[role="option"]'));
+
+    const selectOption = (opt: HTMLLIElement) => {
+      const value = opt.dataset.value || '';
+      hiddenInput.value = value;
+      displayEl.textContent = value;
+      displayEl.classList.remove('text-white/70');
+      displayEl.classList.add('text-white');
+
+      options.forEach((o) => o.setAttribute('aria-selected', o === opt ? 'true' : 'false'));
+      closeAllPopovers();
+      validateFn();
+      trigger.focus();
+    };
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      closeAllPopovers(isOpen ? undefined : key);
+      if (!isOpen) {
+        trigger.setAttribute('aria-expanded', 'true');
+        listbox.classList.remove('hidden');
+        const current = options.find((o) => o.getAttribute('aria-selected') === 'true') || options[0];
+        current?.focus();
+      }
+    });
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        closeAllPopovers(key);
+        trigger.setAttribute('aria-expanded', 'true');
+        listbox.classList.remove('hidden');
+        const target =
+          options.find((o) => o.getAttribute('aria-selected') === 'true') ||
+          (e.key === 'ArrowDown' ? options[0] : options[options.length - 1]);
+        target?.focus();
+      }
+    });
+
+    options.forEach((opt, idx) => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectOption(opt);
+      });
+
+      opt.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          options[(idx + 1) % options.length]?.focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          options[(idx - 1 + options.length) % options.length]?.focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          options[0]?.focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          options[options.length - 1]?.focus();
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectOption(opt);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closeAllPopovers();
+          trigger.focus();
+        }
+      });
+    });
+  }
+
+  function renderCalendar() {
+    if (!calGrid || !calMonthLabel || !calPrevBtn) return;
+    calMonthLabel.textContent = `${MONTH_NAMES[viewMonth]} ${viewYear}`;
+
+    const isCurrentMonth = viewYear === todayYear && viewMonth === todayMonth - 1;
+    calPrevBtn.disabled = isCurrentMonth;
+
+    const firstDayOfWeek = (new Date(viewYear, viewMonth, 1).getDay() + 6) % 7; // Mon=0..Sun=6
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+    const selected = dateInput?.value || '';
+    const todayLive = getTodayBogota();
+
+    calGrid.innerHTML = '';
+
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      const spacer = document.createElement('span');
+      spacer.setAttribute('aria-hidden', 'true');
+      calGrid.appendChild(spacer);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const iso = `${viewYear}-${String(viewMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const isPast = iso < todayLive;
+      const isToday = iso === todayLive;
+      const isSelected = iso === selected;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.dataset.date = iso;
+      btn.textContent = String(day);
+      btn.disabled = isPast;
+      btn.setAttribute('aria-label', formatDisplayDate(iso));
+      if (isSelected) btn.setAttribute('aria-pressed', 'true');
+
+      let cls =
+        'w-full h-7 sm:h-8 rounded-lg font-body text-xs flex items-center justify-center transition-colors ';
+      if (isPast) {
+        cls += 'text-white/25 cursor-not-allowed';
+      } else if (isSelected) {
+        cls += 'bg-secondary text-dark font-bold cursor-pointer';
+      } else if (isToday) {
+        cls += 'border border-secondary/60 text-secondary font-semibold hover:bg-secondary hover:text-dark cursor-pointer';
+      } else {
+        cls += 'text-white/90 hover:bg-secondary/20 hover:text-secondary cursor-pointer';
+      }
+      btn.className = cls;
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (dateInput && dateDisplay) {
+          dateInput.value = iso;
+          dateDisplay.textContent = formatDisplayDate(iso);
+          dateDisplay.classList.remove('text-white/70');
+          dateDisplay.classList.add('text-white');
+        }
+        renderCalendar();
+        closeAllPopovers();
+        validateDate();
+        dateTrigger?.focus();
+      });
+
+      calGrid.appendChild(btn);
+    }
+  }
+
+  setupListbox('people', peopleTrigger, peopleListbox, peopleInput, peopleDisplay, validatePeople);
+  setupListbox('time', timeTrigger, timeListbox, timeInput, timeDisplay, validateTime);
+
+  renderCalendar();
+
+  dateTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!datePopover) return;
+    const isOpen = dateTrigger.getAttribute('aria-expanded') === 'true';
+    closeAllPopovers(isOpen ? undefined : 'date');
+    if (!isOpen) {
+      renderCalendar();
+      dateTrigger.setAttribute('aria-expanded', 'true');
+      datePopover.classList.remove('hidden');
+    }
+  });
+
+  calPrevBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (viewMonth === 0) {
+      viewMonth = 11;
+      viewYear -= 1;
+    } else {
+      viewMonth -= 1;
+    }
+    renderCalendar();
+  });
+
+  calNextBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (viewMonth === 11) {
+      viewMonth = 0;
+      viewYear += 1;
+    } else {
+      viewMonth += 1;
+    }
+    renderCalendar();
+  });
+
+  datePopover?.addEventListener('click', (e) => e.stopPropagation());
+
+  document.addEventListener('click', () => closeAllPopovers());
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const openTrigger =
+        peopleTrigger?.getAttribute('aria-expanded') === 'true'
+          ? peopleTrigger
+          : dateTrigger?.getAttribute('aria-expanded') === 'true'
+            ? dateTrigger
+            : timeTrigger?.getAttribute('aria-expanded') === 'true'
+              ? timeTrigger
+              : null;
+      if (openTrigger) {
+        closeAllPopovers();
+        openTrigger.focus();
+      }
+    }
+  });
+
+  nameInput?.addEventListener('input', () => {
+    if (nameInput.hasAttribute('aria-invalid')) validateName();
+  });
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
+    closeAllPopovers();
 
-    const nameInput = document.getElementById('res-name');
-    const peopleInput = document.getElementById('res-people');
-    const dateIn = document.getElementById('res-date');
-    const timeInput = document.getElementById('res-time');
-
-    let isValid = true;
-
-    // Helper validation
-    function validateField(input) {
-      if (!input) return false;
-      const errorMsg = input.parentElement?.querySelector('.error-msg');
-      const val = input.value.trim();
-
-      if (!val) {
-        input.classList.add('border-error');
-        errorMsg?.classList.remove('hidden');
-        return false;
-      } else {
-        input.classList.remove('border-error');
-        errorMsg?.classList.add('hidden');
-        return true;
-      }
+    if (feedbackEl) {
+      feedbackEl.classList.add('hidden');
+      feedbackEl.textContent = '';
     }
 
-    if (!validateField(nameInput)) isValid = false;
-    if (!validateField(peopleInput)) isValid = false;
-    if (!validateField(dateIn)) isValid = false;
-    if (!validateField(timeInput)) isValid = false;
+    const okName = validateName();
+    const okPeople = validatePeople();
+    const okDate = validateDate();
+    const okTime = validateTime();
 
-    if (!isValid) return;
+    if (!okName) {
+      nameInput?.focus();
+      return;
+    }
+    if (!okPeople) {
+      peopleTrigger?.focus();
+      return;
+    }
+    if (!okDate) {
+      dateTrigger?.focus();
+      return;
+    }
+    if (!okTime) {
+      timeTrigger?.focus();
+      return;
+    }
 
-    const name = nameInput?.value.trim();
-    const people = peopleInput?.value;
-    const date = dateIn?.value;
-    const time = timeInput?.value;
+    if (!WHATSAPP_PHONE) {
+      if (feedbackEl) {
+        feedbackEl.textContent = 'No podemos abrir WhatsApp en este momento. Inténtalo más tarde.';
+        feedbackEl.classList.remove('hidden');
+      }
+      return;
+    }
 
-    const message = [
-      'Hola, quiero consultar disponibilidad para una mesa en La Locura Bar.',
-      '',
-      `Nombre: ${name}`,
-      `Personas: ${people}`,
-      `Fecha: ${date}`,
-      `Hora: ${time}`,
-      '',
-      'Quedo atento a la confirmación. ¡Gracias!',
-    ].join('\n');
+    const url = buildWhatsAppReserveUrl({
+      name: nameInput?.value.trim() || '',
+      people: peopleInput?.value || '',
+      date: dateInput?.value || '',
+      time: timeInput?.value || '',
+    });
 
-    window.open(`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
+
+    if (feedbackEl) {
+      feedbackEl.textContent = 'Revisa el mensaje en WhatsApp y envíalo para completar tu solicitud.';
+      feedbackEl.classList.remove('hidden');
+    }
   });
 </script>

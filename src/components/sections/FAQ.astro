@@ -1,71 +1,307 @@
 ---
 import { SITE_CONFIG } from '../../data/siteConfig';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+
+const faqIconMap: Record<string, string> = {
+  'faq-1': 'clock',
+  'faq-2': 'calendar',
+  'faq-3': 'ball',
+  'faq-4': 'tv',
+  'faq-5': 'music',
+  'faq-6': 'beer',
+};
 ---
 
 <section
   id="preguntas"
-  class="relative bg-paper text-ink py-20 md:py-28 lg:py-36 px-4 sm:px-6 lg:px-12 border-b border-line-light/50"
+  class="relative bg-[#F4ECE1] text-ink py-16 sm:py-20 lg:py-28 px-5 sm:px-8 lg:px-12 border-b border-[#D8CDC0]/70 overflow-x-clip select-none"
   aria-label="Preguntas frecuentes"
 >
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-      <!-- Left Column: Header & WhatsApp Help CTA -->
-      <div class="lg:col-span-5 space-y-8">
-        <div>
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
-            <span class="font-body text-xs md:text-sm font-semibold tracking-[0.2em] text-accent uppercase">
-              {SITE_CONFIG.faq.eyebrow}
-            </span>
-          </div>
-          <h2 class="font-display text-4xl sm:text-5xl md:text-6xl tracking-tight text-ink leading-[0.95] uppercase mb-4 text-balance">
-            {SITE_CONFIG.faq.title}
-          </h2>
-          <p class="font-body text-base md:text-lg text-ink-muted leading-relaxed text-pretty">
-            {SITE_CONFIG.faq.description}
-          </p>
-        </div>
+  <!-- Decorative Sprays & Watermarks matching mockup -->
+  <!-- Top-Left Pink Spray (tucked in corner clear of copy) -->
+  <div class="hidden sm:block absolute -top-10 -left-14 lg:-left-10 z-0 pointer-events-none select-none opacity-70">
+    <img
+      src="/images/v2/esencia_spray_mobile.webp"
+      alt=""
+      width="254"
+      height="705"
+      class="w-32 lg:w-40 h-auto object-contain rotate-180"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <div class="sm:hidden absolute -top-8 -left-12 z-0 pointer-events-none select-none opacity-65">
+    <img
+      src="/images/v2/esencia_spray_mobile.webp"
+      alt=""
+      width="254"
+      height="705"
+      class="w-28 h-auto object-contain rotate-180"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
 
-        <!-- Extra Help Card -->
-        <div class="bg-paper-2 p-6 rounded-sm border border-line-light/60 space-y-3">
-          <span class="font-display text-xs tracking-wider uppercase text-primary block">
-            {SITE_CONFIG.faq.extraHelp.title}
+  <!-- Bottom-Right Pink Spray (tucked in lower corner) -->
+  <div class="absolute -bottom-10 -right-10 sm:-bottom-12 sm:-right-8 z-0 pointer-events-none select-none opacity-70">
+    <img
+      src="/images/v2/esencia_spray_mobile.webp"
+      alt=""
+      width="254"
+      height="705"
+      class="w-32 sm:w-40 lg:w-44 h-auto object-contain -rotate-6"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Bottom-Left Subtle Amber Crown Watermark -->
+  <div class="absolute -bottom-2 -left-4 z-0 pointer-events-none select-none opacity-25">
+    <img
+      src="/images/v2/experiencias_crown.webp"
+      alt=""
+      width="58"
+      height="63"
+      class="w-24 sm:w-32 lg:w-36 h-auto object-contain -rotate-12"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <!-- Asymmetric Grid: Header (top-left desktop / top mobile), Accordions (right desktop / middle mobile), Brush CTA (bottom-left desktop / bottom mobile) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-x-12 lg:gap-y-8 items-start">
+      <!-- 1. Editorial Header -->
+      <div class="lg:col-span-5 lg:col-start-1 lg:row-start-1 text-center lg:text-left relative">
+        <!-- Mobile Top-Right Amber Burst -->
+        <svg
+          class="lg:hidden absolute -top-1 right-2 w-10 h-10 text-secondary pointer-events-none"
+          viewBox="0 0 48 48"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M12 24 L26 8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+          <path d="M18 30 L38 20" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+          <path d="M22 36 L40 33" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+        </svg>
+
+        <span class="block font-body text-xs sm:text-sm font-bold tracking-[0.22em] text-accent uppercase mb-2 sm:mb-3">
+          {SITE_CONFIG.faq.eyebrow}
+        </span>
+
+        <h2 class="font-display tracking-tight leading-[0.88] uppercase select-none text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.25rem] text-ink">
+          <span class="block text-ink">ANTES DE</span>
+          <span class="relative inline-flex items-start justify-center lg:justify-start gap-2 sm:gap-3 text-primary mt-0.5">
+            <span class="relative inline-block">
+              CAER.
+              <img
+                src="/images/v2/esencia_underline.webp"
+                alt=""
+                width="480"
+                height="53"
+                class="absolute -bottom-2.5 sm:-bottom-3 left-0 w-full h-auto object-contain pointer-events-none select-none"
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+            <img
+              src="/images/v2/esencia_crown.webp"
+              alt=""
+              width="127"
+              height="138"
+              class="w-10 sm:w-12 lg:w-14 h-auto object-contain transform rotate-6 -mt-1 sm:-mt-1.5 shrink-0 pointer-events-none select-none"
+              aria-hidden="true"
+            />
           </span>
-          <p class="font-body text-sm text-ink-muted">
-            {SITE_CONFIG.faq.extraHelp.text}
-          </p>
-          <a
+        </h2>
+
+        <p class="font-body text-sm sm:text-base md:text-lg text-[#2D2623] leading-relaxed text-pretty max-w-md mx-auto lg:mx-0 mt-5 sm:mt-6">
+          {SITE_CONFIG.faq.description}
+        </p>
+      </div>
+
+      <!-- 2. Interactive Accordions (All closed initially per PAGE_BLUEPRINT, one open at a time) -->
+      <div
+        id="faq-accordion-list"
+        class="lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:row-span-2 relative space-y-3"
+        role="region"
+        aria-label="Preguntas frecuentes de La Locura Bar"
+      >
+        <!-- Desktop Top-Right Amber Burst Accent -->
+        <svg
+          class="hidden lg:block absolute -top-9 -right-7 w-12 h-12 text-secondary pointer-events-none"
+          viewBox="0 0 48 48"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M10 26 L22 7" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+          <path d="M17 31 L36 16" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+          <path d="M22 36 L41 30" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+        </svg>
+
+        {SITE_CONFIG.faq.items.map((item) => {
+          const iconName = faqIconMap[item.id] || 'info';
+          const triggerId = `${item.id}-trigger`;
+          const panelId = `${item.id}-panel`;
+          return (
+            <div
+              class="faq-item rounded-xl border border-[#C8BEB2] bg-[#F4ECE1]/95 transition-colors duration-200 overflow-hidden data-[open=true]:border-[#141112] data-[open=true]:bg-[#EFE5D7] data-[open=true]:shadow-md"
+              data-faq-item
+              data-open="false"
+            >
+              <h3 class="m-0">
+                <Button
+                  type="button"
+                  id={triggerId}
+                  variant="accordion"
+                  aria-expanded="false"
+                  aria-controls={panelId}
+                  data-faq-trigger
+                >
+                  <span class="flex items-center gap-3 sm:gap-4 min-w-0">
+                    <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors text-accent group-aria-expanded:text-secondary">
+                      <Icon name={iconName} size="md" />
+                    </span>
+                    <span class="font-body font-bold text-sm sm:text-base md:text-[17px] leading-snug text-ink group-aria-expanded:text-white text-pretty">
+                      {item.question}
+                    </span>
+                  </span>
+                  <span class="shrink-0 w-7 h-7 flex items-center justify-center text-accent group-aria-expanded:text-secondary transition-colors" aria-hidden="true">
+                    <Icon name="plus" size="md" class="faq-icon-plus block group-aria-expanded:hidden" />
+                    <Icon name="minus" size="md" class="faq-icon-minus hidden group-aria-expanded:block" />
+                  </span>
+                </Button>
+              </h3>
+
+              <div
+                id={panelId}
+                role="region"
+                aria-labelledby={triggerId}
+                class="faq-panel grid grid-rows-[0fr] transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none"
+              >
+                <div class="overflow-hidden">
+                  <div class="px-5 sm:px-6 py-4 text-[#2D2623] font-body text-sm sm:text-base leading-relaxed border-t border-[#C8BEB2]/50 select-text">
+                    <p>{item.answer}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- 3. Painted Black Brush-Stroke WhatsApp Help CTA -->
+      <div class="lg:col-span-5 lg:col-start-1 lg:row-start-2 flex flex-col items-center lg:items-start pt-1">
+        <div class="relative w-full max-w-md lg:max-w-none">
+          <!-- Dark Hand-Painted Brush Silhouette Backdrop -->
+          <svg
+            class="absolute inset-0 w-full h-full pointer-events-none drop-shadow-[0_12px_26px_rgba(23,19,21,0.26)]"
+            viewBox="0 0 460 120"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M14,18 L34,11 L78,15 L128,8 L184,13 L252,7 L315,12 L386,9 L438,16 L450,28 L443,42 L456,56 L445,74 L453,94 L436,108 L374,104 L305,112 L236,106 L165,113 L98,107 L32,111 L11,98 L17,80 L5,62 L15,44 L6,28 Z"
+              fill="#141112"
+            />
+          </svg>
+
+          <Button
             href={SITE_CONFIG.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center justify-center bg-dark text-paper font-display text-sm uppercase tracking-wider px-5 py-2.5 rounded-sm hover:bg-surface-raised active:scale-95 transition-all"
+            variant="cta-dark"
+            aria-label={`${SITE_CONFIG.faq.extraHelp.title} — ${SITE_CONFIG.faq.extraHelp.cta}`}
           >
-            {SITE_CONFIG.faq.extraHelp.cta} →
-          </a>
+            <span class="flex items-center gap-3.5 sm:gap-4 min-w-0 relative z-10">
+              <Icon name="whatsapp" size="xl" class="text-secondary shrink-0" />
+              <span class="min-w-0">
+                <span class="block font-display text-xl sm:text-2xl text-white uppercase tracking-wide leading-none">
+                  {SITE_CONFIG.faq.extraHelp.title}
+                </span>
+                <span class="block font-body text-xs sm:text-sm text-white/80 mt-1 leading-snug">
+                  {SITE_CONFIG.faq.extraHelp.text}
+                </span>
+              </span>
+            </span>
+            <Icon
+              name="arrow-right"
+              size="lg"
+              class="text-secondary shrink-0 relative z-10 transition-transform duration-200 group-hover:translate-x-1"
+            />
+          </Button>
         </div>
-      </div>
 
-      <!-- Right Column: Accessible FAQ Accordions -->
-      <div class="lg:col-span-7 space-y-3" role="region" aria-label="Preguntas frecuentes de La Locura Bar">
-        {SITE_CONFIG.faq.items.map((item, index) => (
-          <details
-            class="group bg-paper-2/60 border border-line-light/60 rounded-sm transition-all duration-200 open:bg-paper-2 open:border-line-light overflow-hidden"
-          >
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-display text-lg sm:text-xl text-ink uppercase tracking-wide select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary [&::-webkit-details-marker]:hidden">
-              <span class="flex items-center gap-3">
-                <span class="text-xs text-accent font-body font-semibold">0{index + 1}.</span>
-                <span>{item.question}</span>
-              </span>
-              <span class="shrink-0 w-6 h-6 flex items-center justify-center text-ink-muted group-open:rotate-45 transition-transform duration-200 font-display text-xl" aria-hidden="true">
-                +
-              </span>
-            </summary>
-            <div class="px-5 pb-5 pt-1 text-ink-muted font-body text-sm sm:text-base leading-relaxed border-t border-line-light/30">
-              <p>{item.answer}</p>
-            </div>
-          </details>
-        ))}
+        <!-- Playful Pink Hand-Drawn Arrow Doodle underneath CTA -->
+        <svg
+          class="mt-3 mx-auto lg:ml-28 w-16 h-8 text-primary pointer-events-none"
+          viewBox="0 0 80 36"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M6 12 C26 24, 48 22, 69 9 M56 6 L71 8 L63 22"
+            stroke="currentColor"
+            stroke-width="3.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const accordionRoot = document.getElementById('faq-accordion-list');
+
+  if (accordionRoot) {
+    const items = Array.from(accordionRoot.querySelectorAll<HTMLElement>('[data-faq-item]'));
+    const triggers = Array.from(accordionRoot.querySelectorAll<HTMLButtonElement>('[data-faq-trigger]'));
+
+    const setItemOpen = (item: HTMLElement, open: boolean) => {
+      const trigger = item.querySelector<HTMLButtonElement>('[data-faq-trigger]');
+      const panel = item.querySelector<HTMLElement>('.faq-panel');
+      if (!trigger || !panel) return;
+
+      item.setAttribute('data-open', open ? 'true' : 'false');
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      panel.classList.toggle('grid-rows-[1fr]', open);
+      panel.classList.toggle('grid-rows-[0fr]', !open);
+    };
+
+    triggers.forEach((trigger, index) => {
+      trigger.addEventListener('click', () => {
+        const currentItem = trigger.closest<HTMLElement>('[data-faq-item]');
+        if (!currentItem) return;
+        const willOpen = trigger.getAttribute('aria-expanded') !== 'true';
+
+        items.forEach((item) => {
+          setItemOpen(item, item === currentItem ? willOpen : false);
+        });
+      });
+
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          triggers[(index + 1) % triggers.length]?.focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          triggers[(index - 1 + triggers.length) % triggers.length]?.focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          triggers[0]?.focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          triggers[triggers.length - 1]?.focus();
+        }
+      });
+    });
+  }
+</script>
