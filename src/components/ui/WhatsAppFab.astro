@@ -1,32 +1,39 @@
 ---
-import Icon from '../ui/Icons.astro';
-import { config } from '../../data/config';
+import { SITE_CONFIG } from '../../data/siteConfig';
 ---
 
 <a
-  href={config.whatsappReserveUrl}
+  id="whatsapp-fab"
+  href={SITE_CONFIG.whatsappUrl}
   target="_blank"
   rel="noopener noreferrer"
-  data-event="whatsapp_click"
-  data-event-location="floating_widget"
-  class="group fixed bottom-5 right-5 md:bottom-7 md:right-7 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-accent text-bg shadow-[0_0_25px_rgba(255,45,135,0.45)] hover:shadow-[0_0_35px_rgba(255,45,135,0.7)] hover:scale-105 active:scale-90 transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent select-none"
-  aria-label="Escribir por WhatsApp para reservar en La Locura Bar"
+  class="group fixed bottom-5 right-5 md:bottom-7 md:right-7 z-40 flex items-center justify-center w-13 h-13 md:w-14 md:h-14 rounded-full bg-[#138A43] text-white shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary opacity-0 pointer-events-none translate-y-4"
+  aria-label="Escribir por WhatsApp a La Locura Bar"
 >
-  <!-- Animated breathing aura ring -->
-  <span class="absolute -inset-1 rounded-full bg-accent/25 animate-pulse pointer-events-none" aria-hidden="true"></span>
+  <!-- WhatsApp Icon SVG -->
+  <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.074-2.121-.518-1.558-.646-2.56-2.222-2.637-2.327-.078-.106-.633-.842-.633-1.606 0-.765.399-1.141.541-1.297.143-.156.312-.195.417-.195.105 0 .209.002.301.007.098.005.228-.037.357.272.13.312.443 1.077.482 1.155.039.078.066.17.013.273-.052.106-.078.172-.156.262-.078.092-.164.205-.235.275-.078.078-.159.163-.068.32.091.156.406.669.871 1.083.599.533 1.104.698 1.26.776.157.078.248.068.34-.037.091-.106.391-.455.495-.611.104-.156.208-.13.35-.078.144.052.912.43 1.069.508.156.078.261.117.299.182.039.065.039.378-.105.783z"/>
+  </svg>
 
-  <!-- Icon with subtle hover rotation -->
-  <span class="relative z-10 transition-transform duration-200 group-hover:scale-110">
-    <Icon name="whatsapp" size="xl" />
-  </span>
-
-  <!-- Hover micro-tooltip for desktop -->
+  <!-- Desktop Tooltip -->
   <span
-    class="pointer-events-none hidden md:inline-flex items-center gap-1.5 absolute right-16 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 py-1.5 px-3 rounded-full bg-bg-2/95 backdrop-blur-sm border border-line-strong text-fg font-mono text-xs uppercase tracking-wider shadow-xl whitespace-nowrap"
+    class="pointer-events-none hidden md:inline-flex items-center gap-1.5 absolute right-16 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 py-1.5 px-3 rounded-xs bg-dark text-paper border border-line font-display text-xs uppercase tracking-wider shadow-lg whitespace-nowrap"
     aria-hidden="true"
   >
-    <span class="w-1.5 h-1.5 rounded-full bg-accent animate-ping"></span>
-    Reservar por WhatsApp
+    Consultar por WhatsApp
   </span>
 </a>
 
+<script>
+  const fab = document.getElementById('whatsapp-fab');
+  window.addEventListener('scroll', () => {
+    if (!fab) return;
+    if (window.scrollY > 350) {
+      fab.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+      fab.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+    } else {
+      fab.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+      fab.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+    }
+  });
+</script>

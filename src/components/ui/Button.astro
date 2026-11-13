@@ -1,34 +1,77 @@
 ---
 interface Props {
-  variant?: 'primary' | 'outline' | 'secondary' | 'outline-secondary';
+  variant?: 'primary' | 'outline' | 'secondary' | 'ghost' | 'ghost-light' | 'stepper' | 'tab' | 'calc-tab' | 'accordion' | 'cta-dark';
+  size?: 'sm' | 'md' | 'lg' | 'none';
   href?: string;
-  type?: 'submit' | 'link';
+  type?: 'button' | 'submit' | 'link';
   class?: string;
   target?: string;
   rel?: string;
-  [key: `data-${string}`]: string | undefined;
+  disabled?: boolean;
+  id?: string;
+  role?: astroHTML.JSX.AriaRole;
+  tabindex?: number;
   'aria-label'?: string;
+  'aria-selected'?: 'true' | 'false' | boolean;
+  'aria-controls'?: string;
+  [key: `data-${string}`]: string | undefined;
 }
 
-const { variant = 'primary', href, type = 'link', class: className = '', target, rel, ...rest } = Astro.props;
+const {
+  variant = 'primary',
+  size = variant === 'calc-tab' || variant === 'accordion' || variant === 'cta-dark' ? 'none' : 'md',
+  href,
+  type = href ? 'link' : 'button',
+  class: className = '',
+  target,
+  rel,
+  disabled = false,
+  ...rest
+} = Astro.props;
 
-const base = 'py-3 px-5 rounded-lg font-display text-base tracking-wide uppercase inline-flex items-center justify-center gap-2 select-none cursor-pointer transition-all duration-200 ease-out active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 md:py-3.5 md:px-6 md:text-sm';
+const baseClasses =
+  'inline-flex items-center gap-2.5 select-none transition-all duration-200 cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-40 disabled:pointer-events-none';
 
-const variants = {
-  primary: 'bg-accent text-bg hover:bg-accent/90 shadow-[0_0_20px_rgba(255,45,135,0.25)] hover:shadow-[0_0_30px_rgba(255,45,135,0.45)] active:shadow-none',
-  outline: 'border border-accent text-accent hover:bg-accent/10 hover:border-accent hover:shadow-[0_0_20px_rgba(255,45,135,0.2)]',
-  secondary: 'bg-accent-2 text-bg hover:bg-accent-2/90 shadow-[0_0_20px_rgba(0,229,255,0.2)] hover:shadow-[0_0_30px_rgba(0,229,255,0.4)] active:shadow-none',
-  'outline-secondary': 'border border-accent-2 text-accent-2 hover:bg-accent-2/10 hover:border-accent-2 hover:shadow-[0_0_20px_rgba(0,229,255,0.2)]',
+const sizeClasses = {
+  sm: 'py-2 px-4 text-xs sm:text-sm rounded-lg',
+  md: 'py-3 px-5 text-base rounded-lg',
+  lg: 'py-3.5 px-7 text-lg rounded-lg',
+  none: '',
 };
+
+const variantClasses = {
+  primary:
+    'font-display tracking-wider uppercase font-bold justify-center bg-secondary hover:bg-gold-soft text-dark shadow-md shadow-secondary/10',
+  outline:
+    'font-display tracking-wider uppercase font-bold justify-center bg-black/45 hover:bg-black/70 border border-white/60 hover:border-white text-white backdrop-blur-xs',
+  secondary:
+    'font-display tracking-wider uppercase font-bold justify-center bg-surface hover:bg-surface-raised border border-line text-text shadow-xs',
+  ghost:
+    'font-display tracking-wider uppercase font-bold justify-center bg-transparent hover:bg-surface text-muted hover:text-text',
+  'ghost-light':
+    'font-display tracking-wider uppercase font-bold justify-center bg-transparent hover:bg-black/5 border border-[#D5CABE] text-[#6B615A] hover:text-[#1C1815] rounded-xl',
+  stepper:
+    'justify-center bg-[#24201F] hover:bg-[#342C29] text-white border border-white/30 hover:border-white/60 rounded-lg',
+  tab:
+    'font-display tracking-wider uppercase font-normal justify-center bg-[#F4ECE1] text-ink border border-[#C8BEB2] [&[aria-selected="false"]]:hover:bg-secondary/25 [&[aria-selected="false"]]:hover:border-[#211C1A] [&[aria-selected="false"]]:hover:text-ink [&[aria-selected="false"]]:hover:shadow-xs aria-selected:bg-[#171315] aria-selected:text-paper aria-selected:border-[#171315] aria-selected:shadow-sm [&[aria-selected="true"]]:hover:bg-[#2E2629] [&[aria-selected="true"]]:hover:border-secondary [&[aria-selected="true"]]:hover:text-paper',
+  'calc-tab':
+    'group justify-start text-left p-2.5 sm:p-3 rounded-xl border bg-[#161616] text-white/90 border-white/15 [&[aria-selected="false"]]:hover:bg-[#2A2326] [&[aria-selected="false"]]:hover:border-secondary/75 [&[aria-selected="false"]]:hover:text-white [&[aria-selected="false"]]:hover:shadow-sm aria-selected:bg-secondary aria-selected:text-dark aria-selected:border-secondary aria-selected:shadow-md [&[aria-selected="true"]]:hover:bg-[#FFC95C] [&[aria-selected="true"]]:hover:border-[#FFD98A] [&[aria-selected="true"]]:hover:text-dark [&[aria-selected="true"]]:hover:shadow-lg',
+  accordion:
+    'group w-full justify-between text-left px-4 sm:px-5 py-3.5 sm:py-4 rounded-xl bg-transparent text-ink hover:bg-[#EAE0D2]/80 aria-expanded:bg-[#141112] aria-expanded:text-white aria-expanded:rounded-b-none aria-expanded:hover:bg-[#1E191B] active:scale-100 focus-visible:ring-inset',
+  'cta-dark':
+    'group relative w-full justify-between text-left px-6 sm:px-7 py-5 text-white bg-transparent rounded-xl focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4ECE1]',
+};
+
+const fullClass = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`.trim();
 ---
 
 {
-  type === 'link' ? (
-    <a href={href} target={target} rel={rel} class={`${base} ${variants[variant]} ${className}`} {...rest}>
+  type === 'link' || href ? (
+    <a href={href} target={target} rel={rel} class={fullClass} {...rest}>
       <slot />
     </a>
   ) : (
-    <button type="submit" class={`${base} ${variants[variant]} ${className}`} {...rest}>
+    <button type={type === 'submit' ? 'submit' : 'button'} disabled={disabled} class={fullClass} {...rest}>
       <slot />
     </button>
   )

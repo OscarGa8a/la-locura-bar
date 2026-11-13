@@ -1,0 +1,228 @@
+---
+import {
+  Calendar,
+  MapPin,
+  ArrowRight,
+  ArrowDown,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Check,
+  Menu,
+  X,
+  Wine,
+  Beer,
+  Music,
+  Users,
+  Star,
+  Sparkles,
+  Clock,
+  Phone,
+  Calculator,
+  Martini,
+  Plus,
+  Minus,
+  Trash2,
+  User,
+  Info,
+  MonitorPlay,
+  Navigation,
+  ExternalLink,
+  ArrowUpRight,
+  ArrowUp,
+  MessageCircleQuestion,
+} from 'lucide-astro';
+
+interface Props {
+  name: string;
+  class?: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  label?: string;
+}
+
+const { name, class: className = '', size = 'md', label } = Astro.props;
+
+const sizes = {
+  xs: 'w-3.5 h-3.5',
+  sm: 'w-4 h-4',
+  md: 'w-5 h-5',
+  lg: 'w-6 h-6',
+  xl: 'w-8 h-8',
+  '2xl': 'w-10 h-10',
+};
+
+const lucideSizeMap = {
+  xs: 14,
+  sm: 16,
+  md: 20,
+  lg: 24,
+  xl: 32,
+  '2xl': 40,
+};
+
+const a11yAttrs = label
+  ? { role: 'img' as const, 'aria-label': label, focusable: 'false' as const }
+  : { 'aria-hidden': 'true' as const, focusable: 'false' as const };
+
+// Mapping to Lucide components if available
+const lucideComponents: Record<string, any> = {
+  calendar: Calendar,
+  pin: MapPin,
+  'map-pin': MapPin,
+  arrow: ArrowRight,
+  'arrow-right': ArrowRight,
+  'arrow-down': ArrowDown,
+  'chevron-down': ChevronDown,
+  'chevron-left': ChevronLeft,
+  'chevron-right': ChevronRight,
+  check: Check,
+  menu: Menu,
+  close: X,
+  x: X,
+  wine: Wine,
+  beer: Beer,
+  music: Music,
+  users: Users,
+  star: Star,
+  sparkle: Sparkles,
+  clock: Clock,
+  phone: Phone,
+  calculator: Calculator,
+  martini: Martini,
+  cocktail: Martini,
+  plus: Plus,
+  minus: Minus,
+  trash: Trash2,
+  user: User,
+  info: Info,
+  tv: MonitorPlay,
+  navigation: Navigation,
+  'external-link': ExternalLink,
+  'arrow-up-right': ArrowUpRight,
+  'arrow-up': ArrowUp,
+  help: MessageCircleQuestion,
+};
+
+const LucideComponent = lucideComponents[name.toLowerCase()];
+---
+
+{LucideComponent ? (
+  <LucideComponent
+    size={lucideSizeMap[size]}
+    class={`${sizes[size]} ${className}`}
+    {...a11yAttrs}
+  />
+) : (
+  <>
+    {/* Custom SVGs for brand icons or specific custom assets */}
+    {name === 'bottle' && (
+      <svg
+        {...a11yAttrs}
+        class={`${sizes[size]} ${className}`}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M10 2h4" />
+        <path d="M10 2v4a3 3 0 0 1-.88 2.12L8 9.24V20a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V9.24l-1.12-1.12A3 3 0 0 1 14 6V2" />
+        <path d="M8 14h8" />
+      </svg>
+    )}
+
+    {name === 'bucket' && (
+      <svg
+        {...a11yAttrs}
+        class={`${sizes[size]} ${className}`}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 9l1.5 11a2 2 0 0 0 2 1.8h7a2 2 0 0 0 2-1.8L19 9" />
+        <path d="M3 9h18" />
+        <path d="M9 9V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v3" />
+        <path d="M14 9V4a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v5" />
+      </svg>
+    )}
+
+    {name === 'whatsapp' && (
+      <svg
+        {...a11yAttrs}
+        class={`${sizes[size]} ${className}`}
+        viewBox="5.2 5.2 13.6 13.6"
+        fill="currentColor"
+      >
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.074-2.121-.518-1.558-.646-2.56-2.222-2.637-2.327-.078-.106-.633-.842-.633-1.606 0-.765.399-1.141.541-1.297.143-.156.312-.195.417-.195.105 0 .209.002.301.007.098.005.228-.037.357.272.13.312.443 1.077.482 1.155.039.078.066.17.013.273-.052.106-.078.172-.156.262-.078.092-.164.205-.235.275-.078.078-.159.163-.068.32.091.156.406.669.871 1.083.599.533 1.104.698 1.26.776.157.078.248.068.34-.037.091-.106.391-.455.495-.611.104-.156.208-.13.35-.078.144.052.912.43 1.069.508.156.078.261.117.299.182.039.065.039.378-.105.783z"/>
+      </svg>
+    )}
+
+    {name === 'instagram' && (
+      <svg
+        {...a11yAttrs}
+        class={`${sizes[size]} ${className}`}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" />
+      </svg>
+    )}
+
+    {name === 'tiktok' && (
+      <svg
+        {...a11yAttrs}
+        class={`${sizes[size]} ${className}`}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+      >
+        <path d="M14 4v9.5a3.5 3.5 0 1 1-3.5-3.5" />
+        <path d="M14 4c.5 2.5 2 4 4.5 4.5" />
+      </svg>
+    )}
+
+    {name === 'facebook' && (
+      <svg
+        {...a11yAttrs}
+        class={`${sizes[size]} ${className}`}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+      >
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+      </svg>
+    )}
+
+    {name === 'ball' && (
+      <svg
+        {...a11yAttrs}
+        class={`${sizes[size]} ${className}`}
+        fill="currentColor"
+        viewBox="0 0 256 256"
+      >
+        <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm76.52,147.42H170.9l-9.26-12.76,12.63-36.78,15-4.89,26.24,20.13A87.38,87.38,0,0,1,204.52,171.42Zm-164-34.3L66.71,117l15,4.89,12.63,36.78L85.1,171.42H51.48A87.38,87.38,0,0,1,40.47,137.12Zm10-50.64,5.51,18.6L40.71,116.77A87.33,87.33,0,0,1,50.43,86.48ZM109,152,97.54,118.65,128,97.71l30.46,20.94L147,152Zm91.07-46.92,5.51-18.6a87.33,87.33,0,0,1,9.72,30.29Zm-6.2-35.38-9.51,32.08-15.07,4.89L136,83.79V68.21l29.09-20A88.58,88.58,0,0,1,193.86,69.7ZM146.07,41.87,128,54.29,109.93,41.87a88.24,88.24,0,0,1,36.14,0ZM90.91,48.21l29.09,20V83.79L86.72,106.67l-15.07-4.89L62.14,69.7A88.58,88.58,0,0,1,90.91,48.21ZM63.15,187.42H83.52l7.17,20.27A88.4,88.4,0,0,1,63.15,187.42ZM110,214.13,98.12,180.71,107.35,168h41.3l9.23,12.71-11.83,33.42a88,88,0,0,1-36.1,0Zm55.36-6.44,7.17-20.27h20.37A88.4,88.4,0,0,1,165.31,207.69Z" />
+      </svg>
+    )}
+
+    {name === 'dance' && (
+      <svg
+        {...a11yAttrs}
+        class={`${sizes[size]} ${className}`}
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path d="M14 3.5c0 .83-.67 1.5-1.5 1.5S11 4.33 11 3.5S11.67 2 12.5 2s1.5.67 1.5 1.5M8.5 5C7.67 5 7 5.67 7 6.5S7.67 8 8.5 8S10 7.33 10 6.5S9.33 5 8.5 5m5.5 7l-.78-2.25h2.96l2.16-1.08c.37-.17.52-.63.33-1a.737.737 0 0 0-1-.34l-.82.41l-.49-.84c-.29-.65-1-1.02-1.7-.86l-2.47.53c-.69.15-1.19.78-1.19 1.5v.7l-2.43 1.62h.01c-.08.07-.19.16-.25.28l-.89 1.77l-1.78.89c-.37.17-.52.64-.33 1.01a.753.753 0 0 0 1.01.33l2.22-1.11L9.6 11.5L11 13c-1 3-8 7-8 7s4 2 9 2s9-2 9-2s-5-4-7-8m2.85-.91l-.32.16h-1.2l.06.16c.52 1.03 1.28 2.09 2.11 3.03l-.53-3.41z" />
+      </svg>
+    )}
+  </>
+)}

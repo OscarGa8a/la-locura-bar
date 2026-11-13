@@ -1,112 +1,93 @@
 ---
-import Icon from "../ui/Icons.astro";
-import { COPY_NEON } from "../../data/content";
-import Button from "../ui/Button.astro";
+import { SITE_CONFIG } from '../../data/siteConfig';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
 ---
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- UNIFIED RESPONSIVE HERO (Single H1)        -->
-<!-- ═══════════════════════════════════════════ -->
 <section
-  class="relative py-8 px-5 pb-15 md:pt-16 md:pb-20 md:px-8 lg:px-12 lg:pt-20 lg:pb-24 md:min-h-[calc(100dvh-105px)] overflow-hidden"
-  style="background: radial-gradient(ellipse at 20% 0%, rgba(255,45,135,0.3) 0%, transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(0,229,255,0.25) 0%, transparent 60%)"
+  id="inicio"
+  class="relative min-h-[100dvh] flex flex-col justify-end md:justify-center pt-24 pb-8 md:py-24 px-4 sm:px-6 lg:px-12 overflow-hidden bg-background"
+  aria-label="Inicio"
 >
-  <!-- Grid overlay -->
-  <div class="absolute inset-0 opacity-15 bg-grid" />
+  <!-- Background Image: Rich photographic warmth matching mockups -->
+  <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+    <picture>
+      <source media="(max-width: 768px)" srcset="/images/v2/hero-mobile.webp" width="640" height="1137" />
+      <img
+        src="/images/v2/hero-desktop.webp"
+        alt="Interior de La Locura Bar en Villavicencio durante la noche"
+        width="1280"
+        height="720"
+        class="w-full h-full object-cover object-center md:object-right"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+      />
+    </picture>
 
-  <!-- Logo watermark (desktop only) -->
-  <img
-    src="/images/logo-transparent.webp"
-    alt=""
-    aria-hidden="true"
-    width="400"
-    height="308"
-    loading="lazy"
-    decoding="async"
-    class="hidden md:block absolute right-2 top-2 w-80 opacity-30 pointer-events-none select-none lg:w-100"
-  />
-
-  <!-- Inner container centered, max-width constrained -->
-  <div class="relative w-full max-w-7xl mx-auto">
-    <div class="flex flex-col">
-      <!-- LIVE ticker -->
-      <div
-        class="inline-flex gap-1.5 items-center py-1 px-2.5 md:px-3 w-fit border border-accent text-accent font-mono text-xxs md:text-xs tracking-ultra uppercase mb-6 md:mb-8"
-      >
-        <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-accent animate-pulse" />
-        EN VIVO · ABIERTO HOY
-      </div>
-
-      <!-- Single SEO H1 — responsive font scale and layout -->
-      <h1
-        class="font-display font-normal uppercase m-0 leading-none text-fg text-glow flex flex-col md:inline-flex md:flex-row md:items-baseline md:flex-nowrap gap-x-2 md:gap-x-3 lg:gap-x-4"
-      >
-        <span class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl">LA</span>
-        <span class="text-7xl sm:text-7xl md:text-8xl lg:text-9xl text-accent-2 text-glow-cyan">LOCURA</span>
-        <span class="text-base sm:text-xl md:text-base lg:text-lg text-fg-dim tracking-ultra mt-2 md:mt-0 md:self-end pb-1 text-shadow-none">
-          // BAR EN VILLAVICENCIO
-        </span>
-      </h1>
-    </div>
-
-    <!-- Main content area: subtitle + CTAs left, featured card right on lg -->
+    <!-- Desktop: Left-side directional dark vignette so text contrasts while right side stays vibrant -->
     <div
-      class="flex flex-col lg:flex-row lg:items-start lg:gap-16 mt-6 md:mt-8 lg:mt-10"
-    >
-      <!-- Left column: subtitle + CTAs -->
-      <div class="flex-1 min-w-0">
-        <p class="font-body text-base md:text-lg leading-relaxed text-fg-dim mb-6 md:mb-8 max-w-xl text-wrap-pretty lg:text-xl lg:mb-10">
-          {COPY_NEON.heroSub}
-        </p>
+      class="hidden md:block absolute inset-y-0 left-0 w-[62%] lg:w-[54%] bg-gradient-to-r from-black via-black/85 to-transparent"
+    ></div>
 
-        <!-- CTAs -->
-        <div class="flex gap-3 md:gap-4 flex-wrap">
-          <Button
-            href="#reserve"
-            variant="primary"
-            data-event="navigation_click"
-            data-event-location="hero_primary"
-          >
-            {COPY_NEON.ctaPrimary} <Icon name="arrow" />
-          </Button>
+    <!-- Mobile: Gradient overlay concentrated on bottom where text & buttons sit -->
+    <div
+      class="md:hidden absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent"
+    ></div>
 
-          <Button
-            href="#menu"
-            variant="outline-secondary"
-            data-event="navigation_click"
-            data-event-location="hero_secondary"
-          >
-            {COPY_NEON.ctaSecondary}
-          </Button>
-        </div>
+    <!-- Top & Bottom smooth blending shadows -->
+    <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/90 to-transparent"></div>
+    <div class="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-background to-transparent"></div>
+  </div>
 
-        <!-- Mobile tonight chip -->
-        <div
-          class="mt-10 py-3 px-3.5 border border-dashed border-line-strong flex items-center gap-3 font-mono text-xs tracking-wider md:hidden"
-        >
-          <span class="text-accent">◉</span> BOLIRANA, FÚTBOL Y PARCHE
-        </div>
+  <!-- Content Layer: Anchored to the bottom on mobile, centered on desktop -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full mt-auto md:my-auto">
+    <div class="max-w-2xl lg:max-w-3xl">
+      <!-- Eyebrow Pill Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 mb-4 sm:mb-5 rounded-full border border-secondary/90 bg-black/50 backdrop-blur-sm select-none">
+        <Icon name="pin" size="xs" class="text-secondary shrink-0 stroke-2" />
+        <span class="font-display text-xs sm:text-sm tracking-[0.18em] text-secondary uppercase font-semibold">
+          {SITE_CONFIG.hero.eyebrow}
+        </span>
       </div>
 
-      <!-- Right column: static featured card (desktop & tablet) -->
-      <div class="hidden md:block mt-8 lg:mt-0 lg:w-80 lg:shrink-0 max-w-xl">
-        <div class="py-5 px-5 border border-dashed border-line-strong rounded-xl bg-bg-2 backdrop-blur-sm">
-          <div class="font-mono text-xxs tracking-ultra uppercase text-fg-dim mb-3">
-            BOLIRANA, FÚTBOL Y PARCHE
-          </div>
-          <div class="font-display text-3xl leading-none tracking-wider uppercase text-fg mb-2">
-            Vení al parche
-          </div>
-          <div class="font-body text-sm text-fg-dim mb-3">
-            Cerveza fría, bolirana con amigos, música y ambiente de barrio sin complicarse.
-          </div>
-          <div class="inline-block py-1 px-2.5 bg-accent text-bg font-mono text-xs tracking-wide uppercase font-semibold rounded-sm">
-            ARMA LA PARTIDA
-          </div>
-          <div class="mt-4 font-mono text-xs text-accent tracking-wide">
-            MARTES A DOMINGO DESDE LAS 6 PM
-          </div>
-        </div>
+      <!-- Main Headline: H1 with Line 1 Cream + Line 2 Hot Magenta -->
+      <h1 class="font-display text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] xl:text-[8.5rem] tracking-tight leading-[0.88] uppercase mb-4 sm:mb-6 select-none">
+        <span class="block text-paper">EL PARCHE</span>
+        <span class="block text-primary">EMPIEZA AQUÍ.</span>
+      </h1>
+
+      <!-- Subtitle Paragraph -->
+      <p class="font-body text-sm sm:text-lg md:text-xl text-paper/90 leading-relaxed mb-6 sm:mb-10 max-w-xl text-pretty">
+        Cerveza fría, bolirrana, música y buena compañía.<br class="hidden sm:inline" />
+        Sin tanta vuelta.
+      </p>
+
+      <!-- Reusable Atomic Button Primitives -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+        <!-- Primary Amber Button: Clean black pin icon without round circle -->
+        <Button
+          href="#ubicacion"
+          variant="primary"
+          size="lg"
+          class="justify-between sm:justify-center gap-3 shadow-xl shadow-secondary/15"
+        >
+          <Icon name="pin" size="sm" class="text-dark shrink-0 stroke-2" />
+          <span>CÓMO LLEGAR</span>
+          <Icon name="arrow-right" size="sm" class="text-dark shrink-0 stroke-2" />
+        </Button>
+
+        <!-- Secondary Outline Button: Detailed beer/liquor bottle icon in hot magenta -->
+        <Button
+          href="#carta"
+          variant="outline"
+          size="lg"
+          class="justify-between sm:justify-center gap-3"
+        >
+          <Icon name="bottle" size="sm" class="text-primary shrink-0" />
+          <span>VER LA CARTA</span>
+          <Icon name="arrow-right" size="sm" class="text-white/80 shrink-0" />
+        </Button>
       </div>
     </div>
   </div>

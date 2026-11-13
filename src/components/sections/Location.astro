@@ -1,108 +1,150 @@
 ---
-import SectionHeader from "../ui/SectionHeader.astro";
-import { config } from "../../data/config";
-import Icon from "../ui/Icons.astro";
-import Button from "../ui/Button.astro";
-
-const { address, neighborhood, location, whatsappNumber, whatsapp } = config;
-
-const coordinates = `${location.lat},${location.lng}`;
-const mapEmbedUrl = `https://www.google.com/maps?q=${coordinates}&z=15&output=embed`;
-const directionsUrl = config.googleMapsUrl;
+import { SITE_CONFIG } from '../../data/siteConfig';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
 ---
 
-<section id="location" class="py-14 px-5 md:py-20 md:px-8 lg:py-24 lg:px-12">
-  <div class="max-w-7xl mx-auto" data-animate-container>
-    <SectionHeader
-      eyebrow="Dónde estamos"
-      title="UBICACIÓN"
-      data-animate="fade-up"
+<section
+  id="ubicacion"
+  class="relative bg-[#0D0B0C] text-white py-16 sm:py-20 lg:py-28 px-5 sm:px-8 lg:px-12 border-b border-white/10 overflow-x-clip select-none"
+  aria-label="Ubicación de La Locura Bar"
+>
+  <!-- Ambient Radial Lighting & Graffiti Watermark -->
+  <div class="absolute inset-0 bg-radial from-primary/[0.06] via-transparent to-transparent pointer-events-none" />
+  <div class="hidden lg:block absolute top-8 right-12 z-0 pointer-events-none select-none opacity-25">
+    <img
+      src="/images/v2/calc_graffiti.webp"
+      alt=""
+      width="350"
+      height="155"
+      class="w-44 xl:w-52 h-auto object-contain rotate-2"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
     />
-  
-    <div class="flex flex-col lg:flex-row gap-6 md:gap-8 justify-start mt-8">
-      <!-- Stylized map -->
-      <div class="aspect-4/3 relative overflow-hidden rounded-2xl border border-line shadow-[0_0_30px_rgba(0,0,0,0.5)] w-full lg:w-1/2 md:aspect-video" data-animate="fade-left" data-animate-delay="1">
-        <iframe
-          title="Ubicación de La Locura Bar en Villavicencio"
-          src={mapEmbedUrl}
-          width="100%"
-          height="100%"
-          style="border:0;"
-          allowfullscreen
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          aria-describedby="service-map-help"
-        ></iframe>
-        <p id="service-map-help" class="visually-hidden">
-          Mapa embebido con la ubicación de La Locura Bar. También puedes usar el botón Cómo llegar para abrir la ficha oficial en Google Maps.
-        </p>
-      </div>
-    
-      <div class="flex-1 flex flex-col justify-between" data-animate="fade-right" data-animate-delay="2">
-        <!-- Info rows -->
-        <div class="flex flex-col gap-3">
-          <div class="p-4 rounded-xl border border-line bg-bg-2 flex items-center gap-3.5 transition-all hover:border-line-strong" data-animate="fade-up" data-animate-delay="1">
-            <div class="w-10 h-10 flex items-center justify-center border border-accent/30 bg-accent/10 rounded-xl text-accent shrink-0">
-              <Icon name="pin" />
-            </div>
-            <div>
-              <div class="font-body text-sm font-semibold text-fg md:text-base">{address}</div>
-              <div class="font-mono text-xs text-muted mt-0.5 uppercase tracking-wider">{neighborhood}</div>
-            </div>
-          </div>
-      
-          <div class="p-4 rounded-xl border border-line bg-bg-2 flex items-center gap-3.5 transition-all hover:border-line-strong" data-animate="fade-up" data-animate-delay="2">
-            <div class="w-10 h-10 flex items-center justify-center border border-accent-2/30 bg-accent-2/10 rounded-xl text-accent-2 shrink-0">
-              <Icon name="clock" />
-            </div>
-            <div>
-              <div class="font-body text-sm font-semibold text-fg md:text-base">{config.horario1Text}</div>
-              <div class="font-body text-sm font-semibold text-fg md:text-base">{config.horario2Text}</div>
-              <div class="font-mono text-xs text-muted mt-0.5 uppercase tracking-wider">{config.horario3Text}</div>
-            </div>
-          </div>
-      
-          <a
-            href={`https://wa.me/${whatsapp}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-event="whatsapp_click"
-            data-event-location="location_card"
-            class="group p-4 rounded-xl border border-line bg-bg-2 flex items-center justify-between gap-3.5 transition-all hover:border-accent hover:shadow-[0_0_20px_rgba(255,45,135,0.15)]"
-            data-animate="fade-up"
-            data-animate-delay="3"
-          >
-            <div class="flex items-center gap-3.5">
-              <div class="w-10 h-10 flex items-center justify-center border border-accent/30 bg-accent/10 rounded-xl text-accent shrink-0 transition-transform group-hover:scale-105">
-                <Icon name="phone" />
-              </div>
-              <div>
-                <div class="font-body text-sm font-semibold text-fg md:text-base group-hover:text-accent transition-colors">{whatsappNumber}</div>
-                <div class="font-mono text-xs text-muted mt-0.5 uppercase tracking-wider">WhatsApp para reservas</div>
-              </div>
-            </div>
-            <span class="text-accent text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider hidden sm:inline">
-              Chat →
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <!-- Responsive Asymmetric Grid:
+         Mobile:  [1] Header + Address + Maps CTA  ->  [2] Clickable Map Image  ->  [3] WhatsApp CTA
+         Desktop: Left 5 cols (Top + Bottom CTA)   |   Right 7 cols (Clickable Map Image) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-x-12 lg:gap-y-4 items-center">
+      <!-- 1. Left Top: Editorial Eyebrow, Headline, Address Card & Primary Maps CTA -->
+      <div class="lg:col-span-5 lg:col-start-1 lg:row-start-1 space-y-6">
+        <div>
+          <span class="block font-body text-xs sm:text-sm font-bold tracking-[0.22em] text-secondary uppercase mb-2 sm:mb-3">
+            {SITE_CONFIG.ubicacion.eyebrow}
+          </span>
+
+          <h2 class="font-display tracking-tight leading-[0.88] uppercase select-none text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.25rem] text-white">
+            <span class="block text-white">AQUÍ NOS</span>
+            <span class="relative inline-flex items-start gap-2 sm:gap-3 text-primary mt-0.5">
+              <span>VEMOS.</span>
+              <img
+                src="/images/v2/experiencias_crown.webp"
+                alt=""
+                width="58"
+                height="63"
+                class="w-9 sm:w-11 lg:w-12 h-auto object-contain transform rotate-6 mt-1 shrink-0 pointer-events-none select-none"
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+              />
             </span>
-          </a>
+          </h2>
+
+          <p class="font-body text-sm sm:text-base md:text-lg text-white/80 leading-relaxed text-pretty max-w-md mt-4">
+            {SITE_CONFIG.ubicacion.description}
+          </p>
         </div>
 
-        <!-- Cómo llegar button -->
-        <div class="mt-5 md:mt-6" data-animate="fade-up" data-animate-delay="4">
+        <!-- Address Card (DIRECCIÓN) -->
+        <div class="flex items-start gap-4 bg-[#171315]/90 border border-white/15 rounded-2xl p-4 sm:p-5 shadow-lg">
+          <div class="w-11 h-11 rounded-xl bg-secondary/15 border border-secondary/35 flex items-center justify-center text-secondary shrink-0">
+            <Icon name="pin" size="md" />
+          </div>
+          <div class="min-w-0 border-l border-white/10 pl-4">
+            <span class="block font-body text-[11px] font-bold tracking-[0.2em] text-white/60 uppercase mb-1">
+              {SITE_CONFIG.ubicacion.addressLabel}
+            </span>
+            <p class="font-display text-2xl sm:text-[1.65rem] text-white uppercase tracking-tight leading-none select-text">
+              Cra. 30A #10B-81
+            </p>
+            <p class="font-body text-xs sm:text-sm text-white/75 mt-1.5 select-text">
+              Barrio Embudo, Villavicencio, Meta.
+            </p>
+          </div>
+        </div>
+
+        <!-- Primary CTA: Google Maps -->
+        <div>
           <Button
-            variant="outline-secondary"
-            href={directionsUrl}
+            href={SITE_CONFIG.googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            data-event="map_click"
-            data-event-location="location_section"
-            class="w-full sm:w-auto"
+            variant="primary"
+            size="lg"
+            class="w-full px-5 sm:px-6 py-4 text-base sm:text-lg tracking-wider shadow-lg shadow-secondary/15"
           >
-            <span>Abrir en Google Maps</span>
-            <Icon name="arrow" />
+            <span class="w-full flex items-center justify-between gap-3">
+              <span class="flex items-center gap-3">
+                <Icon name="navigation" size="md" class="text-dark shrink-0" />
+                <span>{SITE_CONFIG.ubicacion.ctaMaps}</span>
+              </span>
+              <Icon name="arrow-right" size="sm" class="text-dark shrink-0 stroke-[2.5]" />
+            </span>
           </Button>
         </div>
       </div>
-    </div>  
+
+      <!-- 2. Clickable Static Map Card (Zero third-party JS/iframe overhead for max Core Web Vitals) -->
+      <div class="lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:row-span-2">
+        <a
+          id="ubicacion-map-link"
+          href={SITE_CONFIG.googleMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Abrir mapa interactivo de La Locura Bar en Google Maps"
+          class="group relative block rounded-2xl overflow-hidden border border-white/15 hover:border-secondary/60 bg-[#191516] shadow-[0_24px_60px_rgba(0,0,0,0.45)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+        >
+          <img
+            src="/images/v2/mapa-ubicacion.webp"
+            alt={SITE_CONFIG.ubicacion.mapTitle}
+            width="1000"
+            height="767"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-auto block object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none"
+          />
+
+          <!-- Floating Action Pill prompting click to interactive Google Maps -->
+          <span class="absolute bottom-3.5 right-3.5 sm:bottom-5 sm:right-5 inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#141112]/90 border border-secondary/70 text-white font-display text-xs sm:text-sm tracking-wider uppercase shadow-xl backdrop-blur-xs transition-colors group-hover:bg-secondary group-hover:text-dark">
+            <Icon name="pin" size="xs" class="text-secondary group-hover:text-dark shrink-0 transition-colors" />
+            <span>Ver mapa en Google Maps</span>
+            <Icon name="external-link" size="xs" class="shrink-0" />
+          </span>
+        </a>
+      </div>
+
+      <!-- 3. Secondary CTA: Consultar por WhatsApp -->
+      <div class="lg:col-span-5 lg:col-start-1 lg:row-start-2">
+        <Button
+          href={SITE_CONFIG.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="outline"
+          size="lg"
+          class="w-full px-5 sm:px-6 py-4 text-base sm:text-lg bg-[#171315]/90 hover:bg-[#221C1E] border-white/20 hover:border-primary/70 text-white"
+        >
+          <span class="w-full flex items-center justify-between gap-3">
+            <span class="flex items-center gap-3">
+              <Icon name="whatsapp" size="md" class="text-primary shrink-0" />
+              <span>{SITE_CONFIG.ubicacion.ctaWhatsApp}</span>
+            </span>
+            <Icon name="arrow-right" size="sm" class="text-white/75 shrink-0" />
+          </span>
+        </Button>
+      </div>
+    </div>
   </div>
 </section>

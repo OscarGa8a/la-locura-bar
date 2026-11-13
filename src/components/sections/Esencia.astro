@@ -1,0 +1,160 @@
+---
+import { SITE_CONFIG } from '../../data/siteConfig';
+---
+
+<section
+  id="esencia"
+  class="relative bg-[#F4ECE1] text-ink py-16 sm:py-24 lg:py-28 xl:py-32 px-5 sm:px-8 lg:px-12 border-b border-[#D8CDC0]/70 overflow-hidden select-none"
+  aria-label="La Esencia del Parche"
+>
+  <!-- Background Chalk Watermark "48" (Bottom-Left) -->
+  <div class="absolute -bottom-8 -left-8 sm:bottom-0 sm:left-0 z-0 pointer-events-none select-none opacity-30 lg:opacity-40">
+    <img
+      src="/images/v2/esencia_chalk48.webp"
+      alt=""
+      width="420"
+      height="211"
+      class="w-56 sm:w-72 md:w-80 lg:w-96 xl:w-[26rem] h-auto object-contain"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Desktop Graffiti Magenta Slash (Top-Right bleeding off edge) -->
+  <div class="hidden sm:block absolute top-0 right-0 translate-x-6 lg:translate-x-10 xl:translate-x-0 z-0 pointer-events-none select-none">
+    <img
+      src="/images/v2/esencia_spray_desktop.webp"
+      alt=""
+      width="186"
+      height="424"
+      class="w-36 md:w-44 lg:w-48 xl:w-72 2xl:w-80 h-auto object-contain"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Mobile Graffiti Magenta Slash (Bottom-Right matching mobile mockup) -->
+  <div class="sm:hidden absolute -bottom-8 -right-6 z-0 pointer-events-none select-none">
+    <img
+      src="/images/v2/esencia_spray_mobile.webp"
+      alt=""
+      width="254"
+      height="705"
+      class="w-36 h-auto object-contain"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <!-- Editorial Two-Column Asymmetrical Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
+      <!-- Left Column: Dominant Headline & Crown (Desktop ~58%, Mobile 1 col) -->
+      <div class="lg:col-span-7 xl:col-span-7">
+        <!-- Eyebrow (Accessible magenta on cream) -->
+        <span class="block font-body text-xs sm:text-sm font-bold tracking-[0.22em] text-accent uppercase mb-4 sm:mb-6">
+          {SITE_CONFIG.esencia.eyebrow}
+        </span>
+
+        <!-- Headline Container -->
+        <div class="relative w-fit max-w-full">
+          <!-- Desktop H2 (Strictly 2 lines matching desktop mockup) -->
+          <div class="hidden sm:block relative">
+            <h2 class="font-display tracking-tight leading-[0.84] uppercase select-none text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[6.25rem] 2xl:text-[7.25rem]">
+              <span class="block text-ink whitespace-nowrap relative w-fit">
+                EL PLAN NO
+                <!-- Desktop Crown anchored organically next to NO -->
+                <img
+                  src="/images/v2/esencia_crown.webp"
+                  alt=""
+                  width="127"
+                  height="138"
+                  class="absolute -top-4 sm:-top-5 md:-top-6 lg:-top-7 -right-12 sm:-right-14 md:-right-16 lg:-right-20 w-12 sm:w-14 md:w-16 lg:w-20 xl:w-24 h-auto object-contain transform rotate-12 pointer-events-none select-none"
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="block text-primary whitespace-nowrap">NECESITA EXCUSA.</span>
+            </h2>
+
+            <!-- Desktop Brush Underline (Strictly bound to headline width without crossing divider) -->
+            <div class="mt-2 sm:mt-3 w-[88%] sm:w-[90%] xl:w-[94%] pointer-events-none select-none">
+              <img
+                src="/images/v2/esencia_underline.webp"
+                alt=""
+                width="480"
+                height="53"
+                class="w-full h-auto object-contain"
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <!-- Mobile H2 (3 lines matching mobile mockup) -->
+          <div class="sm:hidden relative">
+            <h2 class="font-display text-6xl tracking-tight leading-[0.86] uppercase select-none">
+              <span class="block text-ink">EL PLAN NO</span>
+              <span class="flex items-center gap-3 text-primary">
+                NECESITA
+                <img
+                  src="/images/v2/esencia_crown.webp"
+                  alt=""
+                  width="127"
+                  height="138"
+                  class="w-12 h-auto object-contain transform rotate-12 -mt-2"
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="block text-primary">EXCUSA.</span>
+            </h2>
+
+            <!-- Mobile Brush Underline (Tightly under EXCUSA.) -->
+            <div class="mt-2 w-56 pointer-events-none select-none">
+              <img
+                src="/images/v2/esencia_underline.webp"
+                alt=""
+                width="480"
+                height="53"
+                class="w-full h-auto object-contain"
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Narrative Body & Signature (Desktop ~42%) -->
+      <div class="lg:col-span-5 xl:col-span-5 lg:border-l lg:border-[#C8BEB2]/60 lg:pl-8 xl:pl-12 flex flex-col justify-center relative z-10">
+        <!-- Text Paragraph formatted with authentic line breaks matching mockup -->
+        <p class="font-body text-base sm:text-lg lg:text-lg xl:text-xl text-[#211C1A] leading-relaxed mb-6 sm:mb-8 text-pretty max-w-md">
+          Con amigos, en pareja<br />
+          o por tu cuenta.<br />
+          Aquí puedes llegar<br />
+          sin formalidades,<br />
+          pedir tu música y armar<br />
+          el parche a tu ritmo.
+        </p>
+
+        <!-- Divider line -->
+        <div class="w-12 h-[2px] bg-primary mb-4 sm:mb-5"></div>
+
+        <!-- Official Brand Signature (Accessible magenta on cream) -->
+        <span class="font-display text-xs sm:text-sm tracking-[0.22em] text-accent uppercase font-bold">
+          {SITE_CONFIG.esencia.signature}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+

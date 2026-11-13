@@ -1,55 +1,227 @@
 ---
-import Icon from "../ui/Icons.astro";
-import { socialNetworks } from "../../data/social-networks";
+import { SITE_CONFIG } from '../../data/siteConfig';
+import Icon from '../ui/Icon.astro';
+
+const currentYear = new Date().getFullYear();
+
+const exploreIconMap: Record<string, string> = {
+  '#experiencias': 'martini',
+  '#carta': 'beer',
+  '#calculadora': 'calculator',
+  '#reservas': 'calendar',
+  '#preguntas': 'help',
+  '#ubicacion': 'pin',
+};
 ---
 
-<footer class="pt-12 px-5 pb-8 border-t border-line-strong md:pt-16 md:px-8 md:pb-10 lg:pt-20 lg:px-12">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between md:items-center gap-4" data-animate-container>
-    <div class="flex flex-col justify-center" data-animate="fade-up">
-      <!-- Brand name -->
-      <div class="font-display text-5xl font-normal tracking-wider uppercase text-accent md:text-6xl lg:text-7xl">
-        LA LOCURA.
-      </div>
-    
-      <!-- Tagline -->
-      <div class="font-body text-sm mt-3 opacity-80 text-wrap-pretty md:text-base md:mt-4">
-        Síguenos y no te pierdas la próxima locura.
-      </div>
-    </div>
-    
-    <!-- Social link cards -->
-    <div class="flex gap-2 mt-5 lg:mt-0 md:gap-3 md:max-w-md lg:max-w-lg">
-      {socialNetworks.map((s, index) => (
-        <a
-          href={s.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-event="social_click"
-          data-event-location="footer_social"
-          class="flex-1 py-3 px-1 border border-line-strong rounded-lg flex flex-col items-center gap-1.5 font-mono text-xxs md:py-4 md:px-2 hover:bg-bg-2 transition-colors md:text-xs"
-          aria-label={`Visitar ${s.name} de La Locura Bar`}
-          data-animate="fade-up"
-          data-animate-delay={String(Math.min(index + 1, 8))}
-        >
-          <Icon name={s.icon} />
-          <span class="text-center">{s.label}</span>
-        </a>
-      ))}
-    </div>
+<footer
+  id="footer"
+  class="relative bg-[#070607] text-white pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-12 px-5 sm:px-8 lg:px-12 overflow-x-clip select-none"
+  aria-label="Pie de página"
+>
+  <!-- Ambient Lighting & Corner Street Accents -->
+  <div class="absolute inset-0 bg-radial from-primary/[0.07] via-transparent to-transparent pointer-events-none"></div>
+  <div class="absolute -top-14 -left-16 lg:-top-16 lg:-left-20 z-0 pointer-events-none select-none opacity-45">
+    <img
+      src="/images/v2/esencia_spray_mobile.webp"
+      alt=""
+      width="254"
+      height="705"
+      class="w-32 sm:w-40 lg:w-44 h-auto object-contain rotate-180"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <div class="hidden sm:block absolute bottom-16 -right-8 z-0 pointer-events-none select-none opacity-25">
+    <img
+      src="/images/v2/esencia_crown.webp"
+      alt=""
+      width="127"
+      height="138"
+      class="w-32 sm:w-40 lg:w-48 h-auto object-contain -rotate-12"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
   </div>
 
-  <!-- Copyright strip -->
-  <div class="mt-9 pt-5 border-t border-line font-mono text-xxs tracking-neon opacity-60 flex justify-between flex-wrap gap-2 md:mt-12 md:pt-6" data-animate="fade-up" data-animate-delay="2">
-    <span data-year></span>
-    <span>VILLAVICENCIO · CO</span>
+  <div class="max-w-7xl mx-auto relative z-10">
+    <!-- Band 1: 3-Column Editorial Summary, Social Channels & Explore Directory -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 pb-8 lg:pb-12 items-start">
+      <!-- Column 1: Editorial Message -->
+      <div class="lg:col-span-5 lg:pr-10 text-center lg:text-left">
+        <div class="flex items-center justify-center lg:justify-start gap-3 mb-3">
+          <span class="lg:hidden w-8 h-px bg-secondary/75" aria-hidden="true"></span>
+          <span class="font-body text-xs sm:text-sm font-bold tracking-[0.22em] text-secondary uppercase">
+            {SITE_CONFIG.footer.eyebrow}
+          </span>
+          <span class="w-8 sm:w-12 h-px bg-secondary/75" aria-hidden="true"></span>
+        </div>
+
+        <h2 class="font-display tracking-tight leading-[0.88] uppercase select-none text-[2.6rem] sm:text-6xl lg:text-[3.5rem] xl:text-[4.25rem] text-white">
+          <span class="block text-white">LA NOCHE ES</span>
+          <span class="mt-0.5 inline-flex items-start justify-center lg:justify-start gap-2 sm:gap-2.5">
+            <span class="text-white">DEL</span>
+            <span class="relative inline-block text-primary">
+              BARRIO.
+              <img
+                src="/images/v2/esencia_underline.webp"
+                alt=""
+                width="480"
+                height="53"
+                class="absolute -bottom-2.5 sm:-bottom-3 left-0 w-full h-auto object-contain pointer-events-none select-none"
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+            <img
+              src="/images/v2/experiencias_crown.webp"
+              alt=""
+              width="58"
+              height="63"
+              class="w-8 sm:w-10 lg:w-11 h-auto object-contain rotate-6 -mt-1 shrink-0 pointer-events-none select-none"
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+        </h2>
+
+        <p class="mt-4 sm:mt-5 font-body text-sm sm:text-base text-white/80 max-w-sm mx-auto lg:mx-0 leading-relaxed text-pretty">
+          {SITE_CONFIG.footer.description}
+        </p>
+      </div>
+
+      <!-- Column 2: Official Social Networks (3-card row on mobile, vertical divider list on desktop) -->
+      <div class="lg:col-span-3 lg:px-8 lg:border-l lg:border-white/12">
+        <span class="hidden lg:block font-display text-sm tracking-[0.22em] text-secondary uppercase mb-3">
+          {SITE_CONFIG.footer.socialHeading}
+        </span>
+
+        <ul class="grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-1 lg:gap-0">
+          {SITE_CONFIG.footer.socialNetworks.map((social) => (
+            <li class="lg:border-b lg:border-white/12 lg:last:border-b-0">
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visitar perfil oficial de ${social.name} de La Locura Bar (se abre en una nueva pestaña)`}
+                class="group relative flex flex-col justify-between gap-2.5 lg:flex-row lg:items-center lg:justify-between min-h-[76px] lg:min-h-[52px] rounded-xl lg:rounded-none border border-white/15 lg:border-0 bg-[#120F11]/90 lg:bg-transparent p-3 sm:p-3.5 lg:px-1.5 lg:py-3.5 hover:border-primary/60 hover:bg-[#191518] lg:hover:bg-white/[0.03] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+              >
+                <span class="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-3.5 min-w-0">
+                  <Icon
+                    name={social.icon}
+                    size="lg"
+                    class="text-primary shrink-0 lg:w-5 lg:h-5 transition-transform duration-200 group-hover:scale-110"
+                  />
+                  <span class="font-body text-xs sm:text-sm lg:text-[0.95rem] font-medium text-white group-hover:text-secondary transition-colors truncate">
+                    {social.name}
+                  </span>
+                </span>
+                <Icon
+                  name="arrow-up-right"
+                  size="sm"
+                  class="absolute top-2.5 right-2.5 lg:static text-white/55 group-hover:text-secondary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Column 3: Site Exploration Anchors -->
+      <nav
+        class="lg:col-span-4 lg:pl-10 lg:border-l lg:border-white/12"
+        aria-label="Navegación secundaria del sitio"
+      >
+        <div class="pt-5 border-t border-white/12 lg:pt-0 lg:border-t-0 flex items-center justify-center lg:justify-start gap-3 mb-3 sm:mb-4">
+          <span class="lg:hidden w-10 h-px bg-secondary/70" aria-hidden="true"></span>
+          <span class="font-display text-sm tracking-[0.22em] text-secondary uppercase">
+            {SITE_CONFIG.footer.exploreHeading}
+          </span>
+          <span class="lg:hidden w-10 h-px bg-secondary/70" aria-hidden="true"></span>
+        </div>
+
+        <ul class="flex flex-col">
+          {SITE_CONFIG.footer.exploreLinks.map((link) => (
+            <li class="border-b border-white/10 last:border-b-0 lg:border-b-0">
+              <a
+                href={link.href}
+                class="group flex items-center justify-between gap-3 py-2.5 lg:py-2 px-1 min-h-[44px] lg:min-h-[38px] text-white/85 hover:text-white transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+              >
+                <span class="flex items-center gap-3 min-w-0">
+                  <Icon
+                    name={exploreIconMap[link.href] || 'arrow-right'}
+                    size="sm"
+                    class="text-white/70 group-hover:text-secondary transition-colors shrink-0"
+                  />
+                  <span class="font-body text-sm lg:text-[0.95rem] font-medium truncate">
+                    {link.label}
+                  </span>
+                </span>
+                <Icon
+                  name="chevron-right"
+                  size="sm"
+                  class="text-secondary/90 lg:opacity-0 lg:group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Band 2: Editorial Wordmark Signature & Location -->
+    <div class="py-8 sm:py-12 flex flex-col items-center text-center">
+      <div class="relative inline-flex flex-col items-center">
+        <div class="relative inline-flex items-center gap-2 sm:gap-3 font-display uppercase leading-[0.86] tracking-tight -rotate-2">
+          <span class="text-5xl sm:text-7xl md:text-8xl text-white">LA</span>
+          <span class="text-5xl sm:text-7xl md:text-8xl text-primary">LOCURA</span>
+          <img
+            src="/images/v2/experiencias_crown.webp"
+            alt=""
+            width="58"
+            height="63"
+            class="w-7 sm:w-11 md:w-12 h-auto object-contain -mt-6 sm:-mt-10 -ml-1 rotate-12 pointer-events-none select-none"
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div class="-mt-1 sm:-mt-2 flex items-center justify-center gap-3 sm:gap-4 -rotate-2">
+          <span class="w-10 sm:w-16 h-0.5 bg-white/80 rounded-full" aria-hidden="true"></span>
+          <span class="font-accent text-2xl sm:text-4xl md:text-5xl font-semibold text-white tracking-wider uppercase leading-none">
+            BAR
+          </span>
+          <span class="w-10 sm:w-16 h-0.5 bg-white/80 rounded-full" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div class="mt-5 sm:mt-6 flex items-center justify-center gap-3 sm:gap-4 w-full max-w-md">
+        <span class="flex-1 max-w-12 sm:max-w-20 h-px bg-secondary/75" aria-hidden="true"></span>
+        <span class="font-body text-[11px] sm:text-xs font-semibold tracking-[0.26em] text-white/85 uppercase whitespace-nowrap">
+          {SITE_CONFIG.footer.locationSign}
+        </span>
+        <span class="flex-1 max-w-12 sm:max-w-20 h-px bg-secondary/75" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <!-- Band 3: Bottom Legal Strip -->
+    <div class="border-t border-white/15 pt-6 sm:pt-7 flex flex-col sm:flex-row items-center justify-between gap-3 font-body text-xs text-white/65">
+      <p class="text-center sm:text-left select-text">
+        © {currentYear} La Locura Bar · Todos los derechos reservados.
+      </p>
+
+      <a
+        href="#inicio"
+        class="inline-flex items-center gap-1.5 min-h-[44px] sm:min-h-[36px] px-3 py-1.5 sm:mr-16 text-white/75 hover:text-secondary transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+      >
+        <span>Volver arriba</span>
+        <Icon name="arrow-up" size="xs" class="shrink-0" />
+      </a>
+    </div>
   </div>
 </footer>
-
-<script>
-  const currentYear = new Date().getFullYear();
-
-  const yearElement = document.querySelector('[data-year]');
-  if (yearElement) {
-    yearElement.textContent = `© ${currentYear} LA LOCURA BAR`;
-  }
-</script>

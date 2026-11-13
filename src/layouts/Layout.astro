@@ -2,6 +2,8 @@
 import SEOHead from '../components/seo/SEOHead.astro';
 import Analytics from '../components/ui/Analytics.astro';
 import { config } from '../data/config';
+import antonWoff2 from '@fontsource/anton/files/anton-latin-400-normal.woff2?url';
+import manrope400Woff2 from '@fontsource/manrope/files/manrope-latin-400-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -15,26 +17,17 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || config.gtmId;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es-CO">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
 
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/bebas-neue.woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/space-grotesk.woff2"
-      crossorigin
-    />
+    <!-- Critical Hero media & above-the-fold font preloads -->
+    <link rel="preload" as="font" type="font/woff2" href={antonWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={manrope400Woff2} crossorigin />
+    <link rel="preload" as="image" type="image/webp" href="/images/v2/hero-mobile.webp" media="(max-width: 768px)" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" href="/images/v2/hero-desktop.webp" media="(min-width: 769px)" fetchpriority="high" />
 
     <SEOHead title={title} description={description} ogImage={ogImage} jsonLd={jsonLd} />
 
@@ -52,11 +45,13 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || config.gtmId;
           })(window,document,'script','dataLayer',gtmId);
         };
 
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(function() { setTimeout(window._loadGTM, 2500); });
-        } else {
-          setTimeout(window._loadGTM, 3000);
-        }
+        window.addEventListener('load', function() {
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(function() { setTimeout(window._loadGTM, 5000); });
+          } else {
+            setTimeout(window._loadGTM, 5500);
+          }
+        }, { once: true });
 
         ['pointerdown', 'touchstart', 'scroll', 'keydown', 'click'].forEach(function(evt) {
           window.addEventListener(evt, window._loadGTM, { once: true, passive: true });
@@ -65,7 +60,7 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || config.gtmId;
       <!-- End Google Tag Manager -->
     )}
   </head>
-  <body class="bg-bg text-fg font-body grain">
+  <body class="bg-background text-text font-body selection:bg-primary selection:text-white">
     {gtmId && (
       <!-- Google Tag Manager (noscript) -->
       <noscript>
@@ -78,7 +73,6 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || config.gtmId;
       </noscript>
       <!-- End Google Tag Manager (noscript) -->
     )}
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <slot />
     <Analytics />
 

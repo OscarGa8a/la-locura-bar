@@ -1,0 +1,387 @@
+---
+import { SITE_CONFIG, MENU_PRODUCTS } from '../../data/siteConfig';
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+import { formatCOP } from '../../utils/whatsapp';
+
+const categories = SITE_CONFIG.carta.categories;
+---
+
+<section
+  id="carta"
+  class="relative bg-[#F4ECE1] text-ink py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-12 border-b border-[#D8CDC0]/70 overflow-hidden select-none"
+  aria-label="Carta de Bebidas"
+>
+  <!-- Background Chalk Watermark "48" (Bottom-Left) -->
+  <div class="absolute -bottom-10 -left-10 sm:bottom-0 sm:left-0 z-0 pointer-events-none select-none opacity-25 lg:opacity-35">
+    <img
+      src="/images/v2/esencia_chalk48.webp"
+      alt=""
+      width="420"
+      height="211"
+      class="w-60 sm:w-72 md:w-80 lg:w-96 xl:w-[26rem] h-auto object-contain"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Background Spray Graffiti Splatter (Bottom-Right corner below list, framing CTA) -->
+  <div class="absolute -bottom-28 -right-10 sm:-bottom-32 sm:-right-8 z-0 pointer-events-none select-none opacity-65">
+    <img
+      src="/images/v2/esencia_spray_desktop.webp"
+      alt=""
+      width="186"
+      height="424"
+      class="w-36 sm:w-44 lg:w-52 h-auto object-contain"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Top-Right Magenta Graffiti Crown -->
+  <div class="absolute top-3 sm:top-6 right-4 sm:right-6 lg:right-14 z-0 pointer-events-none select-none">
+    <img
+      src="/images/v2/esencia_crown.webp"
+      alt=""
+      width="127"
+      height="138"
+      class="w-10 sm:w-16 md:w-20 lg:w-28 h-auto object-contain opacity-90 transform rotate-6"
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    <!-- Section Header (Editorial layout matching desktop mockup) -->
+    <div class="flex flex-col md:flex-row md:items-end justify-start mb-8 sm:mb-10 lg:mb-12 gap-5 md:gap-8 lg:gap-12">
+      <div>
+        <!-- Eyebrow (Accessible magenta on cream) -->
+        <span class="block font-body text-xs sm:text-sm font-bold tracking-[0.22em] text-accent uppercase mb-2 sm:mb-3">
+          {SITE_CONFIG.carta.eyebrow}
+        </span>
+
+        <!-- Headline with Pink Brush Underline -->
+        <h2 class="font-display tracking-tight leading-[0.88] uppercase select-none text-4xl sm:text-5xl md:text-6xl lg:text-[5.25rem] xl:text-[5.75rem] text-ink">
+          ¿QUÉ SE VA A{' '}
+          <span class="text-primary inline-block relative whitespace-nowrap">
+            TOMAR?
+            <img
+              src="/images/v2/esencia_underline.webp"
+              alt=""
+              width="480"
+              height="53"
+              class="absolute -bottom-1 sm:-bottom-2 left-0 w-full h-auto object-contain pointer-events-none select-none"
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+        </h2>
+
+        <!-- Mobile supporting text -->
+        <p class="md:hidden font-body text-sm text-ink-muted mt-3 leading-relaxed">
+          {SITE_CONFIG.carta.description}
+        </p>
+      </div>
+
+      <!-- Desktop Narrative Text with Vertical Divider -->
+      <div class="hidden md:flex items-center border-l border-[#C8BEB2] pl-6 max-w-xs mb-1.5">
+        <p class="font-body text-sm lg:text-base text-ink-muted leading-snug">
+          Conoce nuestras bebidas<br />y arma tu plan sin sorpresas.
+        </p>
+      </div>
+    </div>
+
+    <!-- Category Tabs (Button primitive + Icon primitive, accessible ARIA tablist) -->
+    <div
+      class="flex overflow-x-auto pb-2 scrollbar-none gap-2.5 sm:gap-3.5 -mx-4 px-4 sm:mx-0 sm:px-0 mb-8 sm:mb-10"
+      role="tablist"
+      aria-label="Categorías de bebidas"
+    >
+      {categories.map((cat, idx) => {
+        const isActive = idx === 0;
+        return (
+          <Button
+            type="button"
+            variant="tab"
+            size="md"
+            role="tab"
+            id={`tab-btn-${cat.id}`}
+            data-category-tab={cat.id}
+            aria-selected={isActive ? 'true' : 'false'}
+            aria-controls={`tab-panel-${cat.id}`}
+            tabindex={isActive ? 0 : -1}
+            class="px-3.5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-base md:text-lg gap-2 sm:gap-2.5 whitespace-nowrap shrink-0 min-h-[44px]"
+          >
+            <Icon
+              name={cat.icon || 'beer'}
+              size="sm"
+              class={isActive ? 'text-secondary shrink-0' : 'text-ink/75 shrink-0'}
+            />
+            <span>{cat.label}</span>
+          </Button>
+        );
+      })}
+    </div>
+
+    <!-- Tab Panels -->
+    {categories.map((cat, idx) => {
+      const items = MENU_PRODUCTS.filter((p) => p.category === cat.id);
+      const featuredItems = items.filter((p) => p.featured && p.image);
+      const otherItems = items.filter((p) => !(p.featured && p.image));
+      const isActive = idx === 0;
+      const hasBoth = featuredItems.length > 0 && otherItems.length > 0;
+
+      return (
+        <div
+          id={`tab-panel-${cat.id}`}
+          role="tabpanel"
+          aria-labelledby={`tab-btn-${cat.id}`}
+          class={`${isActive ? 'block' : 'hidden'} tab-content-panel`}
+        >
+          {/* Featured Photographic Cards (1-col horizontal split on mobile, 2-col on tablet/desktop) */}
+          {featuredItems.length > 0 && (
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-12">
+              {featuredItems.slice(0, 2).map((item) => {
+                const nameWords = item.name.split(' ');
+                const hasTwoWords = nameWords.length === 2 && item.name.length > 10;
+
+                return (
+                  <article class="relative rounded-xl sm:rounded-2xl overflow-hidden bg-[#0B080A] border border-black/15 shadow-lg group flex items-stretch min-h-[176px] sm:min-h-[250px] md:min-h-[290px] lg:min-h-[330px]">
+                    {/* Left Content Overlay (Clear dark zone, zero overlap with bottle) */}
+                    <div class="relative z-20 p-4 sm:p-6 lg:p-8 flex flex-col justify-between w-[56%] sm:w-[54%]">
+                      <div>
+                        {/* Mini Graffiti Crown */}
+                        <img
+                          src="/images/v2/esencia_crown.webp"
+                          alt=""
+                          width="127"
+                          height="138"
+                          class="w-5 sm:w-7 md:w-8 h-auto object-contain mb-1 sm:mb-1.5 opacity-90 drop-shadow-sm"
+                          aria-hidden="true"
+                          loading="lazy"
+                          decoding="async"
+                        />
+
+                        {/* Tag */}
+                        <span class="block font-body text-[10px] sm:text-xs font-bold tracking-[0.2em] text-secondary uppercase">
+                          {item.tag || 'DESTACADA'}
+                        </span>
+
+                        {/* Product Name */}
+                        <h3 class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] uppercase tracking-tight text-white leading-[0.92] mt-1 mb-1 drop-shadow-sm">
+                          {hasTwoWords ? (
+                            <>
+                              <span class="block">{nameWords[0]}</span>
+                              <span class="block">{nameWords[1]}</span>
+                            </>
+                          ) : (
+                            item.name
+                          )}
+                        </h3>
+
+                        {/* Presentation */}
+                        <p class="font-body text-xs sm:text-sm text-white/80">
+                          {item.presentation}
+                        </p>
+                      </div>
+
+                      {/* Price */}
+                      <div class="mt-3 sm:mt-4">
+                        <span class="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] text-secondary tracking-tight leading-none drop-shadow-sm">
+                          {formatCOP(item.price)}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Right Product Photo (1:1 studio frame blended smoothly into card dark surface) */}
+                    <div class="absolute inset-y-0 right-0 w-[52%] sm:w-[56%] overflow-hidden pointer-events-none">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        width="480"
+                        height="480"
+                        class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-r from-[#0B080A] via-[#0B080A]/35 to-transparent" />
+                      <div class="absolute inset-0 bg-gradient-to-t from-[#0B080A]/55 via-transparent to-[#0B080A]/25" />
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Product List (OTRAS OPCIONES when featured + extra exist, or category heading when editorial list only) */}
+          {otherItems.length > 0 ? (
+            <div>
+              {hasBoth ? (
+                <>
+                  {/* Desktop Header */}
+                  <div class="hidden sm:block mb-5 sm:mb-6">
+                    <h3 class="font-display text-2xl sm:text-3xl md:text-4xl text-ink uppercase tracking-tight">
+                      OTRAS OPCIONES
+                    </h3>
+                  </div>
+
+                  {/* Mobile Header with Underline */}
+                  <div class="sm:hidden mb-4 border-b border-[#D8CDC0]/70 pb-2">
+                    <div class="relative inline-block">
+                      <h3 class="font-display text-xl text-ink uppercase tracking-tight">
+                        {cat.label}
+                      </h3>
+                      <img
+                        src="/images/v2/esencia_underline.webp"
+                        alt=""
+                        width="480"
+                        height="53"
+                        class="absolute -bottom-1.5 left-0 w-24 h-auto object-contain pointer-events-none"
+                        aria-hidden="true"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div class="mb-5 sm:mb-6 border-b border-[#D8CDC0]/70 pb-2.5">
+                  <div class="relative inline-block">
+                    <h3 class="font-display text-2xl sm:text-3xl text-ink uppercase tracking-tight">
+                      {cat.label}
+                    </h3>
+                    <img
+                      src="/images/v2/esencia_underline.webp"
+                      alt=""
+                      width="480"
+                      height="53"
+                      class="absolute -bottom-1.5 left-0 w-28 h-auto object-contain pointer-events-none"
+                      aria-hidden="true"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <p class="font-body text-xs sm:text-sm text-ink-muted mt-2">
+                    {cat.description}
+                  </p>
+                </div>
+              )}
+
+              {/* Product Grid (Clean editorial rows with Icon primitive) */}
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 xl:gap-x-12">
+                {otherItems.map((item) => (
+                  <div class="flex items-center justify-between py-3 sm:py-3 border-b border-[#D8CDC0]/80 gap-3">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <span class="w-7 h-7 rounded-md bg-ink/[0.04] border border-[#D8CDC0]/80 flex items-center justify-center shrink-0">
+                        <Icon
+                          name={cat.id === 'otras' ? 'martini' : 'bottle'}
+                          size="sm"
+                          class="text-ink/80"
+                        />
+                      </span>
+                      <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 min-w-0">
+                        <span class="font-body font-bold text-sm sm:text-base text-ink">
+                          {item.name}
+                        </span>
+                        <span class="font-body text-xs sm:text-sm text-ink-muted whitespace-nowrap">
+                          {item.presentation}
+                        </span>
+                      </div>
+                    </div>
+                    <span class="font-body font-extrabold text-sm sm:text-base text-ink tabular-nums whitespace-nowrap shrink-0">
+                      {formatCOP(item.price)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            featuredItems.length === 0 && (
+              <p class="font-body text-sm sm:text-base text-ink-muted py-6">
+                Por ahora no hay bebidas para mostrar en esta categoría.
+              </p>
+            )
+          )}
+        </div>
+      );
+    })}
+
+    <!-- Bottom Action to Calculator (Button primitive + Icon primitive) -->
+    <div class="mt-8 sm:mt-12 flex justify-end">
+      <Button
+        href="#calculadora"
+        variant="primary"
+        size="lg"
+        class="w-full sm:w-auto rounded-xl px-8 py-3.5 sm:py-4"
+      >
+        <Icon name="calculator" size="md" class="text-dark shrink-0" />
+        <span>CALCULA TU CUENTA</span>
+        <Icon name="arrow-right" size="sm" class="text-dark shrink-0" />
+      </Button>
+    </div>
+  </div>
+</section>
+
+<script>
+  function setupCartaTabs() {
+    const tabList = document.querySelector<HTMLElement>('#carta [role="tablist"]');
+    const tabButtons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>('#carta [data-category-tab]')
+    );
+    const tabPanels = Array.from(
+      document.querySelectorAll<HTMLElement>('#carta .tab-content-panel')
+    );
+
+    if (!tabList || tabButtons.length === 0) return;
+    if (tabList.dataset.tabsBound === 'true') return;
+    tabList.dataset.tabsBound = 'true';
+
+    function activateTab(targetBtn: HTMLButtonElement) {
+      const targetId = targetBtn.getAttribute('data-category-tab');
+      if (!targetId) return;
+
+      tabButtons.forEach((b) => {
+        const isCurrent = b === targetBtn;
+        b.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+        b.setAttribute('tabindex', isCurrent ? '0' : '-1');
+        const icon = b.querySelector('svg');
+        if (icon) {
+          icon.classList.toggle('text-secondary', isCurrent);
+          icon.classList.toggle('text-ink/75', !isCurrent);
+        }
+      });
+
+      tabPanels.forEach((panel) => {
+        const match = panel.id === `tab-panel-${targetId}`;
+        panel.classList.toggle('hidden', !match);
+        panel.classList.toggle('block', match);
+      });
+    }
+
+    tabButtons.forEach((btn, index) => {
+      btn.addEventListener('click', () => activateTab(btn));
+
+      btn.addEventListener('keydown', (e) => {
+        let nextIndex = -1;
+        if (e.key === 'ArrowRight') nextIndex = (index + 1) % tabButtons.length;
+        else if (e.key === 'ArrowLeft') nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+        else if (e.key === 'Home') nextIndex = 0;
+        else if (e.key === 'End') nextIndex = tabButtons.length - 1;
+
+        if (nextIndex !== -1) {
+          e.preventDefault();
+          const nextBtn = tabButtons[nextIndex];
+          activateTab(nextBtn);
+          nextBtn.focus();
+        }
+      });
+    });
+  }
+
+  setupCartaTabs();
+  document.addEventListener('astro:page-load', setupCartaTabs);
+</script>
