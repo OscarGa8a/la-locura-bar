@@ -24,10 +24,10 @@ const navItems = [
       aria-label="La Locura Bar — ir al inicio"
     >
       <img
-        src="/images/logo-transparent.png"
+        src="/images/logo-transparent.webp"
         alt="La Locura Bar"
-        width="140"
-        height="64"
+        width="220"
+        height="170"
         class="h-12 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
         loading="eager"
       />
@@ -67,7 +67,7 @@ const navItems = [
       <button
         type="button"
         id="btn-open-menu"
-        class="p-2 text-text hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm lg:hidden cursor-pointer"
+        class="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-text hover:text-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm lg:hidden cursor-pointer"
         aria-label="Abrir menú"
         aria-expanded="false"
         aria-controls="mobile-menu-drawer"
@@ -89,15 +89,18 @@ const navItems = [
   <div class="flex items-center justify-between pb-5 border-b border-line/40">
     <div class="flex items-center gap-3">
       <img
-        src="/images/logo-transparent.png"
+        src="/images/logo-transparent.webp"
         alt="La Locura Bar"
+        width="220"
+        height="170"
         class="h-10 w-auto object-contain"
+        loading="lazy"
       />
     </div>
     <button
       type="button"
       id="btn-close-menu"
-      class="p-2 text-muted hover:text-text rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary cursor-pointer"
+      class="min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-muted hover:text-text rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary cursor-pointer"
       aria-label="Cerrar menú"
     >
       <Icon name="close" size="lg" />

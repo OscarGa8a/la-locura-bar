@@ -12,11 +12,14 @@ import Icon from '../ui/Icon.astro';
   <!-- Background Image: Rich photographic warmth matching mockups -->
   <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
     <picture>
-      <source media="(max-width: 768px)" srcset="/images/v2/hero-mobile.png" />
+      <source media="(max-width: 768px)" srcset="/images/v2/hero-mobile.webp" width="640" height="1137" />
       <img
-        src="/images/v2/hero-desktop.png"
+        src="/images/v2/hero-desktop.webp"
         alt="Interior de La Locura Bar en Villavicencio durante la noche"
+        width="1280"
+        height="720"
         class="w-full h-full object-cover object-center md:object-right"
+        fetchpriority="high"
         loading="eager"
         decoding="async"
       />

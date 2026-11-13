@@ -48,7 +48,7 @@ export const SITE_CONFIG = {
   whatsappNumber: '+57 318 042 9823',
   whatsappUrl: buildWhatsAppGeneralUrl(),
   logo: '/images/logo.png',
-  logoTransparent: '/images/logo-transparent.png',
+  logoTransparent: '/images/logo-transparent.webp',
 
   seo: {
     htmlLang: 'es-CO',
@@ -97,8 +97,8 @@ export const SITE_CONFIG = {
       label: 'Ver la carta',
       href: '#carta',
     },
-    imageDesktop: '/images/v2/hero-desktop.png',
-    imageMobile: '/images/v2/hero-mobile.png',
+    imageDesktop: '/images/v2/hero-desktop.webp',
+    imageMobile: '/images/v2/hero-mobile.webp',
     imageAlt: 'Interior de La Locura Bar en Villavicencio durante la noche.',
   },
 
@@ -121,7 +121,7 @@ export const SITE_CONFIG = {
         titleLine1: 'LA REVANCHA',
         titleLine2: 'SE JUEGA AQUÍ.',
         subtitle: 'Bolirrana con amigos, tiro, punto y revancha.',
-        image: '/images/v2/bolirrana.png',
+        image: '/images/v2/bolirrana.webp',
         alt: 'Mesa de bolirrana de La Locura Bar.',
       },
       {
@@ -131,7 +131,7 @@ export const SITE_CONFIG = {
         titleLine1: 'TÚ PIDES',
         titleLine2: 'LA CANCIÓN.',
         subtitle: 'El ambiente lo pones tú.',
-        image: '/images/v2/musica.png',
+        image: '/images/v2/musica.webp',
         alt: 'Zona de mesas de La Locura Bar con rocola digital y música.',
       },
       {
@@ -141,7 +141,7 @@ export const SITE_CONFIG = {
         titleLine1: 'EL DEPORTE',
         titleLine2: 'SE VIVE EN GRANDE.',
         subtitle: 'Los partidos que no te puedes perder.',
-        image: '/images/v2/pantalla.png',
+        image: '/images/v2/pantalla.webp',
         alt: 'Pantalla de gran formato para partidos y eventos en La Locura Bar.',
       },
     ] as ExperienceItem[],
@@ -189,7 +189,7 @@ export const SITE_CONFIG = {
     ctaSubmit: 'Solicitar por WhatsApp',
     notice: 'La reserva queda sujeta a confirmación.',
     helperNotice: 'Te confirmaremos la disponibilidad por WhatsApp.',
-    image: '/images/v2/reservas.png',
+    image: '/images/v2/reservas.webp',
     imageAlt: 'Ambiente nocturno para reservar mesa en La Locura Bar.',
   },
 
@@ -255,6 +255,8 @@ export const SITE_CONFIG = {
     eyebrow: 'EL PARCHE SIGUE EN REDES',
     title: 'LA NOCHE ES DEL BARRIO.',
     description: 'Síguenos y entérate de lo que se arma en La Locura.',
+    socialHeading: 'SÍGUENOS',
+    exploreHeading: 'EXPLORA',
     socialNetworks,
     exploreLinks: [
       { label: 'Experiencias', href: '#experiencias' },
@@ -279,8 +281,8 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     category: 'personal',
     featured: true,
     tag: 'MÁS PEDIDA',
-    image: '/images/products/aguila-330_h6nyem.png',
-    bottleImage: '/images/v2/bottles/aguila.png',
+    image: '/images/products/aguila-330_h6nyem.webp',
+    bottleImage: '/images/v2/bottles/aguila.webp',
     desc: 'Refrescante y crujiente · la clásica para cualquier parche',
   },
   {
@@ -291,8 +293,8 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     category: 'personal',
     featured: true,
     tag: 'DESTACADA',
-    image: '/images/products/coronita-210_vtbcjx.png',
-    bottleImage: '/images/v2/bottles/corona.png',
+    image: '/images/products/coronita-210_vtbcjx.webp',
+    bottleImage: '/images/v2/bottles/corona.webp',
     desc: 'Ligera y refrescante · perfecta con limón y para el parche',
   },
   {
@@ -301,7 +303,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 3300,
     category: 'personal',
-    image: '/images/products/poker-330_wefep9.png',
+    image: '/images/products/poker-330_wefep9.webp',
     desc: 'Equilibrada y ligera · perfecta para compartir con amigos',
   },
   {
@@ -310,8 +312,8 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 4000,
     category: 'personal',
-    image: '/images/products/club-330_oyhhnc.png',
-    bottleImage: '/images/v2/bottles/club-dorada.png',
+    image: '/images/products/club-330_oyhhnc.webp',
+    bottleImage: '/images/v2/bottles/club-dorada.webp',
     desc: 'Sabor auténtico colombiano · tradicional y bien fría',
   },
   {
@@ -321,7 +323,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     price: 3300,
     category: 'personal',
     tag: 'MÁS PEDIDA',
-    image: '/images/products/costenita-330_ttl1nv.png',
+    image: '/images/products/costenita-330_ttl1nv.webp',
     desc: 'Sabor costeño y alegre · muy bebible para la rumba',
   },
   {
@@ -330,8 +332,8 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 3300,
     category: 'personal',
-    image: '/images/products/aguila-light-330_ptvza2.png',
-    bottleImage: '/images/v2/bottles/aguila-light.png',
+    image: '/images/products/aguila-light-330_ptvza2.webp',
+    bottleImage: '/images/v2/bottles/aguila-light.webp',
     desc: 'Ligera y suave · menos calorías, misma buena vibra',
   },
   {
@@ -340,7 +342,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 3000,
     category: 'personal',
-    image: '/images/products/costena-330_n6lwx4.png',
+    image: '/images/products/costena-330_n6lwx4.webp',
     desc: 'Cerveza costeña tradicional · sencilla, fresca y sin vueltas',
   },
   {
@@ -349,7 +351,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '330 ml.',
     price: 4000,
     category: 'personal',
-    image: '/images/products/redds-330_h5onl7.png',
+    image: '/images/products/redds-330_h5onl7.webp',
     desc: 'Cuerpo y carácter · para quien busca sabor con presencia',
   },
 
@@ -362,8 +364,8 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     category: 'compartir',
     featured: true,
     tag: 'MÁS PEDIDA',
-    image: '/images/products/aguila-1000_ibbohw.png',
-    bottleImage: '/images/v2/bottles/aguila.png',
+    image: '/images/products/aguila-1000_ibbohw.webp',
+    bottleImage: '/images/v2/bottles/aguila.webp',
     desc: 'Litro para compartir · fría y lista para el parche',
   },
   {
@@ -374,8 +376,8 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     category: 'compartir',
     featured: true,
     tag: 'DESTACADA',
-    image: '/images/products/club-750_eftaky.png',
-    bottleImage: '/images/v2/bottles/club-dorada.png',
+    image: '/images/products/club-750_eftaky.webp',
+    bottleImage: '/images/v2/bottles/club-dorada.webp',
     desc: 'Clásica para compartir · sabor colombiano para todos',
   },
   {
@@ -384,7 +386,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '1000 ml.',
     price: 7000,
     category: 'compartir',
-    image: '/images/products/poker-1000_t5m8r0.png',
+    image: '/images/products/poker-1000_t5m8r0.webp',
     desc: 'Para el grupo · refrescante y generosa',
   },
   {
@@ -393,7 +395,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '750 ml.',
     price: 5000,
     category: 'compartir',
-    image: '/images/products/costena-750_wx3epl.png',
+    image: '/images/products/costena-750_wx3epl.webp',
     desc: 'Grande para el parche · ideal para brindar entre amigos',
   },
 
@@ -406,7 +408,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     category: 'licores',
     featured: true,
     tag: 'TRADICIÓN LLANERA',
-    image: '/images/products/llanero-media_jnmmbc.png',
+    image: '/images/products/llanero-media_jnmmbc.webp',
     desc: 'Incluye botella de agua y limón · notas dulces y tradición llanera',
   },
   {
@@ -417,7 +419,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     category: 'licores',
     featured: true,
     tag: 'DESTACADA',
-    image: '/images/products/amarillo-media_kba2ac.png',
+    image: '/images/products/amarillo-media_kba2ac.webp',
     desc: 'Incluye botella de agua y limón · cuerpo y sabor tradicional',
   },
   {
@@ -426,7 +428,7 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: '1/2 botella · 375 ml.',
     price: 45000,
     category: 'licores',
-    image: '/images/products/antioqueno-media_yiptro.png',
+    image: '/images/products/antioqueno-media_yiptro.webp',
     desc: 'Incluye botella de agua y limón · fuerte, directo y con carácter',
   },
 
@@ -437,9 +439,6 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: 'Con o sin gas',
     price: 3000,
     category: 'otras',
-    featured: true,
-    tag: 'HIDRATACIÓN',
-    image: '/images/v2/menu-cervezas.png',
     desc: 'Botella fría de agua con o sin gas',
   },
   {
@@ -448,9 +447,6 @@ export const MENU_PRODUCTS: MenuItemV2[] = [
     presentation: 'Bebida hidratante',
     price: 5000,
     category: 'otras',
-    featured: true,
-    tag: 'HIDRATACIÓN',
-    image: '/images/v2/menu-licores.png',
     desc: 'Bebida isotónica hidratante varios sabores',
   },
 ];

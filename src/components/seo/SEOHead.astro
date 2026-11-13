@@ -37,6 +37,7 @@ const toAbsoluteUrl = (value?: string) => {
 
 const canonicalHref = toAbsoluteUrl(canonicalURL ?? Astro.url.pathname);
 const absoluteOgImage = toAbsoluteUrl(ogImage);
+const absoluteLogo = toAbsoluteUrl('/images/logo.png');
 const sitemapUrl = siteUrl ? new URL('/sitemap-index.xml', siteUrl).href : undefined;
 const homeUrl = siteUrl ? new URL('/', siteUrl).href : undefined;
 const menuUrl = siteUrl ? new URL('/#menu', siteUrl).href : undefined;
@@ -56,7 +57,8 @@ const organizationSchema = {
   name: config.siteName,
   legalName: config.legalName,
   ...(homeUrl ? { url: homeUrl } : {}),
-  ...(absoluteOgImage ? { logo: absoluteOgImage, image: absoluteOgImage } : {}),
+  ...(absoluteLogo ? { logo: absoluteLogo } : {}),
+  ...(absoluteOgImage ? { image: absoluteOgImage } : {}),
   sameAs,
   contactPoint: {
     '@type': 'ContactPoint',
@@ -171,10 +173,10 @@ const localBusinessSchema = {
   description: config.seoDescription,
   ...(businessId ? { '@id': businessId } : {}),
   ...(homeUrl ? { url: homeUrl } : {}),
-  ...(absoluteOgImage ? { image: absoluteOgImage, logo: absoluteOgImage } : {}),
+  ...(absoluteOgImage ? { image: absoluteOgImage } : {}),
+  ...(absoluteLogo ? { logo: absoluteLogo } : {}),
   ...(organizationId ? { parentOrganization: { '@id': organizationId } } : {}),
   telephone: config.whatsappNumber,
-  priceRange: config.priceRange,
   currenciesAccepted: config.currenciesAccepted,
   acceptsReservations: true,
   publicAccess: true,
@@ -223,8 +225,6 @@ const localBusinessSchema = {
     latitude: config.location.lat,
     longitude: config.location.lng,
   },
-  openingHours: config.openingHours,
-  openingHoursSpecification: config.openingHoursSpecification,
   sameAs,
   potentialAction: [
     {
@@ -274,7 +274,6 @@ const structuredData = [
 <meta name="geo.position" content={`${config.location.lat};${config.location.lng}`} />
 <meta name="ICBM" content={`${config.location.lat}, ${config.location.lng}`} />
 
-<link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
 {canonicalHref && <link rel="canonical" href={canonicalHref} />}
 {sitemapUrl && <link rel="sitemap" href={sitemapUrl} />}
 
